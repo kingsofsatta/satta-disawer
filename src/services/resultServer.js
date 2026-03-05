@@ -118,16 +118,16 @@ export async function getYearlyResultsFromDB(gameKey, year) {
         await connectDB();
         const startDate = `${year}-01-01`;
         const endDate = `${year}-12-31`;
-        
+
         console.log(`DB: Fetching yearly results for ${gameKey} in ${year}`);
-        
+
         const results = await Result.find({
             game: gameKey,
             date: { $gte: startDate, $lte: endDate }
         }).sort({ date: 1 }).lean();
-        
+
         console.log(`DB: Found ${results.length} results for ${gameKey} in ${year}`);
-        
+
         return JSON.parse(JSON.stringify(results));
     } catch (error) {
         console.error("Error fetching yearly results from DB:", error);
@@ -148,7 +148,7 @@ GAMES.forEach(game => {
 
 export function parseSlugData(slug) {
     const gameDisplayNames = {};
-    
+
     GAMES.forEach(game => {
         years.forEach(year => {
             gameDisplayNames[`${game.key.replace('_', '-')}-yearly-chart-${year}`] = {
@@ -157,7 +157,7 @@ export function parseSlugData(slug) {
             };
         });
     });
-    
+
     return gameDisplayNames[slug] || null;
 }
 
@@ -166,21 +166,21 @@ export function transformYearlyData(results) {
         JAN: {}, FEB: {}, MAR: {}, APR: {}, MAY: {}, JUN: {},
         JUL: {}, AUG: {}, SEP: {}, OCT: {}, NOV: {}, DEC: {}
     };
-    
+
     const monthNames = [
         'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
         'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
     ];
-    
+
     results.forEach(result => {
         const date = new Date(result.date);
         const month = monthNames[date.getMonth()];
         const day = date.getDate();
-        
+
         if (months[month]) {
             months[month][day] = result.resultNumber;
         }
     });
-    
+
     return months;
 }
