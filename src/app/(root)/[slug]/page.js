@@ -2,11 +2,11 @@ import { notFound } from "next/navigation";
 import Heading from "@/components/common/Heading";
 import YearlyTable from "@/components/YearlyTable";
 import {
-  getYearlyResults,
+  getYearlyResultsFromDB,
   transformYearlyData,
   gameSlugMapping,
   parseSlugData,
-} from "@/services/result";
+} from "@/services/resultServer";
 
 const DynamicTable = async ({ params }) => {
   const { slug } = params;
@@ -21,8 +21,8 @@ const DynamicTable = async ({ params }) => {
 
   const { name: gameName, year } = slugData;
 
-  // Fetch yearly data from Sanity
-  const results = await getYearlyResults(gameKey, year);
+  // Fetch yearly data directly from database
+  const results = await getYearlyResultsFromDB(gameKey, year);
   const yearlyData = transformYearlyData(results);
 
   return (
@@ -36,3 +36,6 @@ const DynamicTable = async ({ params }) => {
 };
 
 export default DynamicTable;
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;

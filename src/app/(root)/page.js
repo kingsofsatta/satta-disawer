@@ -1,12 +1,12 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import SattaDashboard from "@/components/SattaDashboard";
 import {
-  getTodayResult,
-  getYesterdayResults,
-  getLastResult,
-  getMonthlyResults,
-  getDisawarData,
-} from "@/services/result";
+  getTodayResultFromDB,
+  getYesterdayResultsFromDB,
+  getLastResultFromDB,
+  getMonthlyResultsFromDB,
+  getDisawarDataFromDB,
+} from "@/services/resultServer";
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
 
 export const metadata = {
@@ -15,22 +15,22 @@ export const metadata = {
 };
 
 export default async function Home() {
-  // Fetch all data
+  // Fetch all data directly from database
   const [todayResults, yesterdayResults, lastResult, disawarData, settings] =
     await Promise.all([
-      getTodayResult(),
-      getYesterdayResults(),
-      getLastResult(),
-      getDisawarData(),
+      getTodayResultFromDB(),
+      getYesterdayResultsFromDB(),
+      getLastResultFromDB(),
+      getDisawarDataFromDB(),
       getSettingsFromDB(),
     ]);
 
-  console.log("Settings from DB:", JSON.stringify(settings?.khaiwalSection1, null, 2));
-  console.log("Settings from DB Section 2:", JSON.stringify(settings?.khaiwalSection2, null, 2));
+  console.log("Settings from DB:", settings?.khaiwalSection1 ? "Section1 present" : "Section1 missing");
+  console.log("Settings from DB:", settings?.khaiwalSection2 ? "Section2 present" : "Section2 missing");
 
   // Get current month's results
   const currentDate = new Date();
-  const monthlyResults = await getMonthlyResults(
+  const monthlyResults = await getMonthlyResultsFromDB(
     currentDate.getMonth() + 1,
     currentDate.getFullYear()
   );

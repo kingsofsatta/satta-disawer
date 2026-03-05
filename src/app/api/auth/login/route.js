@@ -13,7 +13,7 @@ export async function POST(request) {
     // Check credentials
     const validUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME || "admin";
     const validPassword =
-      process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "password123";
+      process.env.NEXT_PUBLIC_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || "password";
 
     if (username !== validUsername || password !== validPassword) {
       // Send failed login notification

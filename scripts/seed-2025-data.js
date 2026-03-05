@@ -3,7 +3,7 @@
 
 require('dotenv').config({ path: '.env.local' });
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/goodlucksatta";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://admin:admin@cluster0.szokn.mongodb.net/goodluck?appName=Cluster0";
 
 const mongoose = require('mongoose');
 
