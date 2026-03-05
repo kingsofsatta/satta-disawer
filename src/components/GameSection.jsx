@@ -140,32 +140,51 @@ const GamePage = ({ data, setting, disawarData }) => {
       </div>
 
       {/* DISAWAR Section */}
-      <div className="glass-card mx-2 md:mx-4 mt-4 rounded-2xl py-5 text-center shadow-sm">
-        <Link href={`/disawer-yearly-chart-${currentYear}`} className="text-2xl sm:text-3xl font-black text-violet-400 hover:text-amber-500 transition-colors">
-          🎯 DISAWAR 🎯
-        </Link>
-        <div className="flex items-center gap-4 justify-center max-w-[350px] mx-auto mt-3">
-          <span className="text-xl font-bold text-violet-400 bg-violet-900/50 px-4 py-2 rounded-lg">
-            {disawarData?.yesterday || "--"}
-          </span>
-          <Image
-            className="mx-2"
-            src="https://cdn.prod.website-files.com/67a6672d42bf0f0674721094/67a68eca12044dd0fb8bdf06_arrow.gif"
-            alt="Arrow"
-            width={24}
-            height={24}
-          />
-          <span className="text-xl font-bold text-amber-500 bg-amber-900/50 px-4 py-2 rounded-lg">
-            {disawarData?.today || (
-              <Image
-                className="inline"
-                alt="wait icon"
-                width={28}
-                height={28}
-                src="https://i.ibb.co/HffXjQCh/wait.gif"
-              />
-            )}
-          </span>
+      <div className="mx-2 md:mx-4 mt-4 rounded-2xl overflow-hidden shadow-xl">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-violet-900 via-slate-900 to-violet-900 py-3 px-4 border-b border-violet-500/30">
+          <Link
+            href={`/disawer-yearly-chart-${currentYear}`}
+            className="flex items-center justify-center gap-3 group"
+          >
+            <span className="text-2xl group-hover:scale-110 transition-transform">🎯</span>
+            <span className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-violet-400 via-pink-400 to-violet-400 bg-clip-text text-transparent group-hover:from-amber-400 group-hover:via-yellow-400 group-hover:to-amber-400 transition-all">
+              DISAWAR
+            </span>
+            <span className="text-2xl group-hover:scale-110 transition-transform">🎯</span>
+          </Link>
+        </div>
+
+        {/* Results Row */}
+        <div className="bg-gradient-to-b from-slate-900 to-slate-950 py-4 px-4">
+          <div className="flex items-center justify-center gap-3 sm:gap-5">
+            {/* Yesterday Result */}
+            <div className="flex flex-col items-center">
+              <span className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Yesterday</span>
+              <span className="text-xl sm:text-2xl font-black text-white bg-violet-600/30 border border-violet-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-violet-500/20">
+                {disawarData?.yesterday || "--"}
+              </span>
+            </div>
+
+            {/* Arrow */}
+            <span className="text-3xl text-amber-400">➜</span>
+
+            {/* Today Result */}
+            <div className="flex flex-col items-center">
+              <span className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Today</span>
+              <span className="text-xl sm:text-2xl font-black text-white bg-amber-600/30 border border-amber-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-amber-500/20">
+                {disawarData?.today || (
+                  <Image
+                    className="inline"
+                    alt="wait icon"
+                    width={28}
+                    height={28}
+                    src="https://i.ibb.co/HffXjQCh/wait.gif"
+                  />
+                )}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 

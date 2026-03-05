@@ -385,8 +385,13 @@ const gameConfigs = [
 
 async function seedData() {
     try {
+        console.log('Connecting to:', MONGODB_URI);
         await mongoose.connect(MONGODB_URI);
         console.log('Connected to MongoDB');
+
+        // Verify connection by counting existing results
+        const existingCount = await Result.countDocuments({});
+        console.log('Existing results in DB:', existingCount);
 
         let totalInserted = 0;
 
@@ -428,6 +433,16 @@ async function seedData() {
         }
 
         console.log(`\nTotal: Inserted ${totalInserted} results for 2025`);
+
+        // Verify insertion
+        const finalCount = await Result.countDocuments({});
+        console.log('Total results in DB after seeding:', finalCount);
+
+        const results2025 = await Result.countDocuments({
+            date: { $gte: "2025-01-01", $lte: "2025-12-31" }
+        });
+        console.log('2025 results count:', results2025);
+
         console.log('Seeding completed successfully!');
         process.exit(0);
     } catch (error) {
