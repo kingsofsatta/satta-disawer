@@ -31,7 +31,8 @@ const SattaResultTable = ({ todayResults = [], yesterdayResults = [] }) => {
             alt="wait"
             width={40}
             height={40}
-            src="https://i.ibb.co/HffXjQCh/wait.gif"
+            src="/loading.gif"
+            className="rounded-full"
             priority={false}
           />
         </div>

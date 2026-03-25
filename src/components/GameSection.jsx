@@ -25,6 +25,7 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
 
   const contactName = section?.contactName || "KHAIWAL";
   const whatsappNumber = section?.whatsappNumber || "";
+  const telegramNumber = section?.telegramNumber || "123456789";
   const rate = section?.rate || "";
 
   const gradientClass = colorScheme === "violet"
@@ -58,23 +59,42 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
 
       <div className="text-center my-5 py-4 bg-white/10 rounded-xl">
         <p className="text-amber-300 font-bold mb-2 text-lg hindi-text">जोड़ी रेट</p>
-        <p className="text-violet-100 text-sm font-medium hindi-text">जोड़ी रेट 10 ------- {rate}</p>
-        <p className="text-violet-100 text-sm font-medium hindi-text">हरूफ रेट 100 ----- {rate}</p>
+        <p className="text-violet-100 text-sm md:text-lg font-bold hindi-text">जोड़ी रेट 10 ------- {rate}</p>
+        <p className="text-violet-100 text-sm md:text-lg font-bold hindi-text">हरूफ रेट 100 ----- {rate}</p>
       </div>
 
-      <p className="text-center text-violet-100 text-sm mb-5 hindi-text">
+      <p className="text-center text-violet-100 text-lg lg:text-xl mb-5 hindi-text">
         Game play करने के लिये नीचे लिंक पर क्लिक करे
       </p>
 
-      <div className="text-center">
+      <div className="flex flex-col gap-3 text-center">
         <Link
           target="_blank"
           href={`https://wa.me/+91${whatsappNumber}`}
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 btn-glow"
+          className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 btn-glow"
         >
-          <span>📱</span>
+          <span>  <Image
+            width={24}
+            height={24}
+            src="https://i.ibb.co/x8fsyXVj/Whats-App-svg.webp"
+            alt="whatsapp"
+          /></span>
           <span className="hindi-text">WhatsApp पर संपर्क करें</span>
         </Link>
+
+        <p className="text-center text-violet-100 text-base mb-1 mt-2 hindi-text">
+          Join our Telegram channel to get results quickly and receive superfast results
+        </p>
+        {telegramNumber && (
+          <Link
+            target="_blank"
+            href={`https://t.me/${telegramNumber}`}
+            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 btn-glow"
+          >
+            <span><Image src='/telegram-icon.webp' height={24} width={24} /></span>
+            <span className="hindi-text">Telegram पर संपर्क करें</span>
+          </Link>
+        )}
       </div>
     </div>
   );
@@ -128,11 +148,11 @@ const GamePage = ({ data, setting, disawarData }) => {
                 {data.waitingGame.replace("_", " ")}
               </p>
               <Image
-                className="mx-auto"
+                className="mx-auto rounded-full"
                 alt="wait icon"
                 width={45}
                 height={45}
-                src="https://i.ibb.co/HffXjQCh/wait.gif"
+                src="/loading.gif"
               />
             </>
           )}
@@ -175,11 +195,11 @@ const GamePage = ({ data, setting, disawarData }) => {
               <span className="text-xl sm:text-2xl font-black text-white bg-amber-600/30 border border-amber-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-amber-500/20">
                 {disawarData?.today || (
                   <Image
-                    className="inline"
+                    className="inline rounded-full"
                     alt="wait icon"
                     width={28}
                     height={28}
-                    src="https://i.ibb.co/HffXjQCh/wait.gif"
+                    src="/loading.gif"
                   />
                 )}
               </span>
@@ -188,6 +208,14 @@ const GamePage = ({ data, setting, disawarData }) => {
         </div>
       </div>
 
+      <div className="bg-slate-800 py-4 px-4 mt-5">
+        <p className="text-sm md:text-base text-center text-slate-300 leading-relaxed">
+          You are welcome to goodlucksatta-mongodb.vercel.app, the most popular site on Satta Matka. Loyalty program, instant games, all-free Kalyan, Milan, Rajdhani, Ratan, and Main Bazar games. We are a global DP Boss and the top-ranking. Competition: Matka results See fast Matka results in the Matka chart. It is the leading Matka site where DpBoss guessed. Take the last ank and individual open predictions each day.
+        </p>
+        <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center mt-3">
+          The current Dpboss Kalyan Satta Matka Results.
+        </p>
+      </div>
       {/* === BOTTOM KHAIWAL SECTIONS === */}
       <section className="py-8 px-2 md:px-4">
         <div className={`max-w-6xl mx-auto ${showSecondSection ? 'grid grid-cols-1 lg:grid-cols-2 gap-6' : 'max-w-md'}`}>

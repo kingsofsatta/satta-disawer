@@ -4,6 +4,8 @@ import { Typewriter } from "react-simple-typewriter";
 import GameSection from "./GameSection";
 import SattaResultTable from "./SattaResultTable";
 import SimpleFAQ from "./SimpleFAQ";
+import Link from "next/link";
+import Image from "next/image";
 
 const SattaDashboard = ({
   todayResults = [],
@@ -31,6 +33,7 @@ const SattaDashboard = ({
 
   // Get current day of the month
   const currentDay = currentDate.getDate();
+  const telegramNumber = "123456789";
 
   // Create monthly chart data using centralized config
   const createMonthlyChart = () => {
@@ -83,14 +86,6 @@ const SattaDashboard = ({
           <div className="bg-gradient-to-r from-violet-700 via-violet-600 to-violet-700 py-2">
             <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center">
               Live Dpboss Kalyan Satta Matka Result.
-            </p>
-          </div>
-          <div className="bg-slate-800 py-4 px-4">
-            <p className="text-sm md:text-base text-center text-slate-300 leading-relaxed">
-              You are welcome to dpbosss.net.in, the most popular site on Satta Matka. Loyalty program, instant games, all-free Kalyan, Milan, Rajdhani, Ratan, and Main Bazar games. We are a global DP Boss and the top-ranking. Competition: Matka results See fast Matka results in the Matka chart. It is the leading Matka site where DpBoss guessed. Take the last ank and individual open predictions each day.
-            </p>
-            <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center mt-3">
-              The current Dpboss Kalyan Satta Matka Results.
             </p>
           </div>
         </div>
@@ -163,6 +158,21 @@ const SattaDashboard = ({
 
         {/* FAQ Section */}
         <SimpleFAQ />
+        <div className="flex flex-col justify-center items-center mt-5 gap-2">
+          <p className="text-center text-violet-100 text-base mb-1 mt-2 hindi-text">
+            Join our Telegram channel to get results quickly and receive superfast results:   
+          </p>
+          {telegramNumber && (
+            <Link
+              target="_blank"
+              href={`https://t.me/${telegramNumber}`}
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 btn-glow"
+            >
+              <span><Image src='/telegram-icon.webp' height={24} width={24} /></span>
+              <span className="hindi-text">Telegram पर संपर्क करें</span>
+            </Link>
+          )}
+        </div>
 
         {/* Footer Spacing */}
         <div className="py-8 flex justify-center">

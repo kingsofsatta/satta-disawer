@@ -4,33 +4,45 @@ const SimpleFAQ = () => {
     const faqItems = [
         {
             id: 1,
-            q: "What is Satta King?",
-            a: "Satta King is a type of lottery or betting game. Players predict numbers and place bets on different satta markets.",
+            q_en: "What is Satta King?",
+            q_hi: "सट्टा किंग क्या है?",
+            a_en: "Satta King is a type of lottery or betting game. Players predict numbers and place bets on different satta markets.",
+            a_hi: "सट्टा किंग एक प्रकार की लॉटरी या सट्टेबाजी का खेल है। खिलाड़ी संख्याओं का अनुमान लगाते हैं और विभिन्न सट्टा बाजारों पर दांव लगाते हैं।",
         },
         {
             id: 2,
-            q: "How can I check today's result?",
-            a: "You can check results on our home page or results section. Results update regularly as markets announce them.",
+            q_en: "How can I check today's result?",
+            q_hi: "आज के परिणाम की जांच कैसे करें?",
+            a_en: "You can check results on our home page or results section. Results update regularly as markets announce them.",
+            a_hi: "आप हमारे होम पेज या परिणाम अनुभाग पर परिणाम जांच सकते हैं। बाजारों द्वारा घोषणा के अनुसार परिणाम नियमित रूप से अपडेट होते हैं।",
         },
         {
             id: 3,
-            q: "What markets are available?",
-            a: "We provide results for Shiv Dham, Pushkar Bazar, Delhi Metro, Delhi Bazar, Shri Sayam, Shri Ganesh, Kolmbia, Faridabad, Makka-Madina, Ghaziabad, Kalka Night, Gali, and Desawer.",
+            q_en: "What markets are available?",
+            q_hi: "कौन से बाजार उपलब्ध हैं?",
+            a_en: "We provide results for Shiv Dham, Pushkar Bazar, Delhi Metro, Delhi Bazar, Shri Sayam, Shri Ganesh, Kolmbia, Faridabad, Makka-Madina, Ghaziabad, Kalka Night, Gali, and Desawer.",
+            a_hi: "हम शिव धाम, पुष्कर बाजार, दिल्ली मेट्रो, दिल्ली बाजार, श्री सायम, श्री गणेश, कोलंबिया, फरीदाबाद, मक्का-मदीना, गाजियाबाद, कलका नाइट, गली और देसावर के लिए परिणाम प्रदान करते हैं।",
         },
         {
             id: 4,
-            q: "What are record charts?",
-            a: "Record charts display historical results from previous days, weeks, or months, helping you analyze past numbers and trends.",
+            q_en: "What are record charts?",
+            q_hi: "रिकॉर्ड चार्ट क्या हैं?",
+            a_en: "Record charts display historical results from previous days, weeks, or months, helping you analyze past numbers and trends.",
+            a_hi: "रिकॉर्ड चार्ट पिछले दिनों, हफ्तों, या महीनों से ऐतिहासिक परिणाम प्रदर्शित करते हैं, जो आपको पिछली संख्याओं और प्रवृत्तियों का विश्लेषण करने में मदद करते हैं।",
         },
         {
             id: 5,
-            q: "Can numbers be predicted?",
-            a: "Some people analyze past patterns, but results are random. No prediction method is guaranteed to be correct.",
+            q_en: "Can numbers be predicted?",
+            q_hi: "क्या संख्याओं की भविष्यवाणी की जा सकती है?",
+            a_en: "Some people analyze past patterns, but results are random. No prediction method is guaranteed to be correct.",
+            a_hi: "कुछ लोग पिछले पैटर्न का विश्लेषण करते हैं, लेकिन परिणाम यादृच्छिक हैं। कोई भी भविष्यवाणी पद्धति सही होने की गारंटी नहीं दे सकती।",
         },
         {
             id: 6,
-            q: "What payment methods are accepted?",
-            a: "We accept PAYTM, Bank Transfer, Phone Pay, Google Pay, and other digital payment options.",
+            q_en: "What payment methods are accepted?",
+            q_hi: "कौन से भुगतान तरीके स्वीकार किए जाते हैं?",
+            a_en: "We accept PAYTM, Bank Transfer, Phone Pay, Google Pay, and other digital payment options.",
+            a_hi: "हम पेटीएम, बैंक ट्रांसफर, फोन पे, गूगल पे और अन्य डिजिटल भुगतान विकल्पों को स्वीकार करते हैं।",
         },
     ];
 
@@ -48,19 +60,15 @@ const SimpleFAQ = () => {
                         <div key={item.id} className="bg-slate-800/50 rounded-lg p-4 border border-slate-700 hover:border-violet-500/50 transition-colors">
                             <h3 className="text-sm font-bold text-amber-400 mb-2 flex items-start gap-2">
                                 <span className="text-lg flex-shrink-0">{item.id}.</span>
-                                <span>{item.q}</span>
+                                <span>{item.q_en}</span>
                             </h3>
-                            <p className="text-xs md:text-sm text-slate-300 leading-relaxed">{item.a}</p>
+                            <h3 className="text-sm font-bold text-amber-400 mb-3 flex items-start gap-2 ml-7">
+                                <span>{item.q_hi}</span>
+                            </h3>
+                            <p className="text-xs md:text-sm text-slate-300 leading-relaxed mb-3">{item.a_en}</p>
+                            <p className="text-xs md:text-sm text-slate-300 leading-relaxed">{item.a_hi}</p>
                         </div>
                     ))}
-                </div>
-
-                <div className="mt-6 pt-6 border-t border-slate-700">
-                    <div className="bg-red-500/10 rounded-lg p-4 border border-red-500/30">
-                        <p className="text-xs md:text-sm text-red-300">
-                            <strong>⚠️ Disclaimer:</strong> Satta activities may be illegal in some regions. This site is for information purposes only. Users are responsible for complying with local laws.
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
