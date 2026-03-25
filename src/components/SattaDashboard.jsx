@@ -3,6 +3,7 @@ import { GAMES } from "@/utils/gameConfig";
 import { Typewriter } from "react-simple-typewriter";
 import GameSection from "./GameSection";
 import SattaResultTable from "./SattaResultTable";
+import SimpleFAQ from "./SimpleFAQ";
 
 const SattaDashboard = ({
   todayResults = [],
@@ -156,6 +157,14 @@ const SattaDashboard = ({
         </div>
 
         {/* Bottom Decorative */}
+        <div className="py-8 flex justify-center">
+          <div className="h-1 w-48 bg-gradient-to-r from-transparent via-violet-400 to-transparent rounded-full"></div>
+        </div>
+
+        {/* FAQ Section */}
+        <SimpleFAQ />
+
+        {/* Footer Spacing */}
         <div className="py-8 flex justify-center">
           <div className="h-1 w-48 bg-gradient-to-r from-transparent via-violet-400 to-transparent rounded-full"></div>
         </div>

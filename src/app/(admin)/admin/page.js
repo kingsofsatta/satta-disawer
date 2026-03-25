@@ -22,6 +22,7 @@ import {
   X,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 function getISTDateForForm() {
@@ -312,6 +313,13 @@ const AdminDashboard = () => {
               </div>
             </div>
             <div className="flex items-center sm:space-x-4">
+              <Link
+                href="/admin/payment-proofs"
+                className="flex items-center max-sm:text-sm text-black/80 hover:text-black px-4 py-2 rounded-lg hover:bg-black/10 transition-colors"
+              >
+                <span className="mr-2">💳</span>
+                <span className="max-sm:hidden">Payment Proofs</span>
+              </Link>
               <button
                 onClick={() => setShowConfig(true)}
                 className="flex items-center max-sm:text-sm text-black/80 hover:text-black px-4 py-2 rounded-lg hover:bg-black/10 transition-colors"
