@@ -75,7 +75,7 @@ const Navbar = () => {
                   <span className="text-sm sm:text-xl">🎯</span>
                 </div>
                 <div className="hidden sm:block">
-                  <h1 className="text-sm sm:text-lg font-black text-white leading-none">GOOD LUCK</h1>
+                  <h1 className="text-sm sm:text-lg font-black text-white leading-none">SATTA DISAWER</h1>
                   <p className="text-xs text-amber-400 font-semibold tracking-wider">SATTA</p>
                 </div>
               </Link>

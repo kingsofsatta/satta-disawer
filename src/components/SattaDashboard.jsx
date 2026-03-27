@@ -15,7 +15,7 @@ const SattaDashboard = ({
   monthlyResults = [],
   disawarData,
   currentSite = "site 3",
-  siteName = "Good Luck Satta",
+  siteName = "Satta Disawer Satta",
 }) => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
@@ -160,7 +160,7 @@ const SattaDashboard = ({
         <SimpleFAQ />
         <div className="flex flex-col justify-center items-center mt-5 gap-2">
           <p className="text-center text-violet-100 text-base mb-1 mt-2 hindi-text">
-            Join our Telegram channel to get results quickly and receive superfast results:   
+            Join our Telegram channel to get results quickly and receive superfast results:
           </p>
           {telegramNumber && (
             <Link

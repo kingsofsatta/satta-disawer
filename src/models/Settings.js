@@ -28,7 +28,7 @@ const settingsSchema = new mongoose.Schema(
         whatsappNumber: String,
         siteName: {
             type: String,
-            default: "Good Luck Satta",
+            default: "Satta Disawer Satta",
         },
 
         // Site 1 individual fields (backward compatibility)

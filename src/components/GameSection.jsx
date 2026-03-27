@@ -210,7 +210,7 @@ const GamePage = ({ data, setting, disawarData }) => {
 
       <div className="bg-slate-800 py-4 px-4 mt-5">
         <p className="text-sm md:text-base text-center text-slate-300 leading-relaxed">
-          You are welcome to goodlucksatta-mongodb.vercel.app, the most popular site on Satta Matka. Loyalty program, instant games, all-free Kalyan, Milan, Rajdhani, Ratan, and Main Bazar games. We are a global DP Boss and the top-ranking. Competition: Matka results See fast Matka results in the Matka chart. It is the leading Matka site where DpBoss guessed. Take the last ank and individual open predictions each day.
+          You are welcome to https://www.sattadisawer.com/, the most popular site on Satta Matka. Loyalty program, instant games, all-free Kalyan, Milan, Rajdhani, Ratan, and Main Bazar games. We are a global DP Boss and the top-ranking. Competition: Matka results See fast Matka results in the Matka chart. It is the leading Matka site where DpBoss guessed. Take the last ank and individual open predictions each day.
         </p>
         <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center mt-3">
           The current Dpboss Kalyan Satta Matka Results.

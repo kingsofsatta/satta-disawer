@@ -55,7 +55,7 @@ export function buildSiteConfig(settings) {
 
     // Site configuration with khaiwal sections
     return {
-        siteName: "Good Luck Satta",
+        siteName: "Satta Disawer Satta",
         contactName: settings?.site2_contactName || settings?.contactName || "",
         whatsappNumber: settings?.site2_whatsappNumber || settings?.whatsappNumber || "",
         paymentNumber: settings?.site2_paymentNumber || "",

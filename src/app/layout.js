@@ -1,12 +1,12 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Good Luck Satta",
-  description: "Good Luck Satta",
+  title: "Satta Disawer",
+  description: "Satta Disawer - Satta Matka Results, Charts, and More",
   icons: {
     icon: "/favicon.ico",
   },
-  viewport: { width: "device-width", initialScale: 1 },
+  viewport: { width: "device-width", initialScale: 1 }
 };
 
 export default async function RootLayout({ children }) {

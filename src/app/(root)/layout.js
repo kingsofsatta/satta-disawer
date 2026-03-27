@@ -6,8 +6,8 @@ import Link from "next/link";
 import "../globals.css";
 
 export const metadata = {
-  title: "Good Luck Satta",
-  description: "Satta Play - Satta Matka Results, Charts, and More",
+  title: "Satta Disawer",
+  description: "Satta Disawer - Satta Matka Results, Charts, and More",
 };
 
 export default async function RootLayout({ children }) {
@@ -45,7 +45,7 @@ export default async function RootLayout({ children }) {
 
         <div className="bg-gradient-to-r from-violet-700 to-violet-600 py-4">
           <p className="text-base sm:text-lg text-center font-bold text-white">
-            @{currentYear} Good Luck Satta :: All Rights Reserved
+            @{currentYear} Satta Disawer Satta :: All Rights Reserved
           </p>
         </div>
 

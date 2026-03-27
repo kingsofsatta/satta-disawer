@@ -23,7 +23,7 @@ const Contact = ({ setting }) => {
         {/* Site Name */}
         <div className="bg-amber-500 rounded-lg w-full text-center py-6 mb-6">
           <h2 className="text-3xl lg:text-4xl text-white font-bold">
-            Good Luck Satta
+            Satta Disawer Satta
           </h2>
         </div>
 

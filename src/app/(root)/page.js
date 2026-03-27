@@ -10,7 +10,7 @@ import {
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
 
 export const metadata = {
-  title: "Good Luck Satta",
+  title: "Satta Disawer Satta",
   description: "Satta Play - Satta Matka Results, Charts, and More",
 };
 

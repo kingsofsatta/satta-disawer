@@ -1,6 +1,6 @@
-# Good Luck Satta - MongoDB Version
+# Satta Disawer Satta - MongoDB Version
 
-This is a MongoDB-based version of the Good Luck Satta platform, replacing the Sanity CMS backend with **MongoDB**, a free document database.
+This is a MongoDB-based version of the Satta Disawer Satta platform, replacing the Sanity CMS backend with **MongoDB**, a free document database.
 
 ## Key Changes from Sanity Version
 
@@ -199,4 +199,4 @@ mongod --version
 
 ## License
 
-Same as original Good Luck Satta project
+Same as original Satta Disawer Satta project

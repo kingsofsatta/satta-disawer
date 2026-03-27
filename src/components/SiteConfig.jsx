@@ -136,7 +136,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
       // Sync legacy fields with khaiwal sections for backward compatibility
       const configToSave = {
         ...siteConfig,
-        site2_name: "Good Luck Satta",
+        site2_name: "Satta Disawer Satta",
         site1_contactName: khaiwalSection1.contactName,
         site1_whatsappNumber: khaiwalSection1.whatsappNumber,
         site1_paymentNumber: khaiwalSection1.paymentNumber,
