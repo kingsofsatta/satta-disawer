@@ -180,7 +180,7 @@ const GamePage = ({ data, setting, disawarData }) => {
           <div className="flex items-center justify-center gap-3 sm:gap-5">
             {/* Yesterday Result */}
             <div className="flex flex-col items-center">
-              <span className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Yesterday</span>
+              <span className="text-sm text-white uppercase tracking-wider mb-1">Yesterday</span>
               <span className="text-xl sm:text-2xl font-black text-white bg-violet-600/30 border border-violet-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-violet-500/20">
                 {disawarData?.yesterday || "--"}
               </span>
@@ -191,7 +191,7 @@ const GamePage = ({ data, setting, disawarData }) => {
 
             {/* Today Result */}
             <div className="flex flex-col items-center">
-              <span className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">Today</span>
+              <span className="text-sm text-white uppercase tracking-wider mb-1">Today</span>
               <span className="text-xl sm:text-2xl font-black text-white bg-amber-600/30 border border-amber-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-amber-500/20">
                 {disawarData?.today || (
                   <Image

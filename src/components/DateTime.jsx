@@ -26,12 +26,12 @@ const DateTime = () => {
     };
 
     updateTime();
-    const interval = setInterval(updateTime, 1000); // हर सेकंड update
+    const interval = setInterval(updateTime, 1000); 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <p className="text-lg font-semibold text-slate-700">{dateTime}</p>
+    <p className="text-lg font-semibold text-slate-400">{dateTime}</p>
   );
 };
 
