@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const Navbar = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -71,8 +72,8 @@ const Navbar = () => {
             <div className="flex items-center justify-between h-14 sm:h-16">
               {/* Logo */}
               <Link href="/" className="flex items-center gap-1.5 sm:gap-2 group flex-shrink-0">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
-                  <span className="text-sm sm:text-xl">🎯</span>
+                <div className="w-10 h-10 sm:w-12 sm:h-12">
+                  <Image src="/logo.png" alt="Satta Disawer Logo" width={50} height={50} />
                 </div>
                 <div className="hidden sm:block">
                   <h1 className="text-sm sm:text-lg font-black text-white leading-none">SATTA DISAWER</h1>
@@ -97,10 +98,6 @@ const Navbar = () => {
                     )}
                     <span className="relative z-10 text-sm lg:text-base">{link.icon}</span>
                     <span className="relative z-10 hidden xl:inline">{link.title}</span>
-                    {/* Active indicator dot */}
-                    {isActive(link.href) && (
-                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full"></span>
-                    )}
                   </Link>
                 ))}
               </div>

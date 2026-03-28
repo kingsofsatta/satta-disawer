@@ -7,7 +7,7 @@ import "../globals.css";
 
 export const metadata = {
   title: "Satta Disawer",
-  description: "Satta Disawer - Satta Matka Results, Charts, and More",
+  description: "Satta Disawer - Satta Disawer Results, Charts, and More",
 };
 
 export default async function RootLayout({ children }) {
@@ -26,7 +26,7 @@ export default async function RootLayout({ children }) {
       <Link
         className="fixed bottom-6 right-6 hover:scale-110 transition-all duration-300 z-50 group"
         target="_blank"
-        href={`https://wa.me/+91${setting?.site2_whatsappNumber}`}
+        href={`https://wa.me/+91${setting?.khaiwalSection1?.whatsappNumber || setting?.site2_whatsappNumber}`}
       >
         <div className="absolute inset-0 bg-green-500 rounded-full blur-xl opacity-50 group-hover:opacity-80 transition-opacity"></div>
         <Image
@@ -51,6 +51,43 @@ export default async function RootLayout({ children }) {
 
         <div className="bg-slate-900 py-6 relative">
           <div className="max-w-4xl mx-auto px-4">
+            {/* Contact Section */}
+            <div className="mb-6 pb-6 border-b border-violet-600/50">
+              <p className="text-center text-amber-400 font-bold text-base mb-4">📞 Get In Touch</p>
+              <div className="flex flex-wrap gap-4 justify-center items-center">
+                {setting?.khaiwalSection1?.whatsappNumber && (
+                  <Link
+                    href={`https://wa.me/+91${setting?.khaiwalSection1?.whatsappNumber}`}
+                    target="_blank"
+                    className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-500 rounded-lg text-white transition-colors"
+                  >
+                    <Image
+                      src="https://i.ibb.co/x8fsyXVj/Whats-App-svg.webp"
+                      width={20}
+                      height={20}
+                      alt="whatsapp"
+                    />
+                    <span className="text-sm font-semibold">WhatsApp</span>
+                  </Link>
+                )}
+                {setting?.khaiwalSection1?.telegramNumber && (
+                  <Link
+                    href={`https://t.me/${setting?.khaiwalSection1?.telegramNumber}`}
+                    target="_blank"
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white transition-colors"
+                  >
+                    <Image
+                      src="/telegram-icon.webp"
+                      width={20}
+                      height={20}
+                      alt="telegram"
+                    />
+                    <span className="text-sm font-semibold">Telegram</span>
+                  </Link>
+                )}
+              </div>
+            </div>
+
             {/* English Disclaimer */}
             <p className="text-center text-amber-500 font-bold text-base mb-3">ⓘ Disclaimer:</p>
             <p className="text-center text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">

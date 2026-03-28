@@ -4,10 +4,10 @@ const SimpleFAQ = () => {
     const faqItems = [
         {
             id: 1,
-            q_en: "What is Satta King?",
-            q_hi: "सट्टा किंग क्या है?",
-            a_en: "Satta King is a type of lottery or betting game. Players predict numbers and place bets on different satta markets.",
-            a_hi: "सट्टा किंग एक प्रकार की लॉटरी या सट्टेबाजी का खेल है। खिलाड़ी संख्याओं का अनुमान लगाते हैं और विभिन्न सट्टा बाजारों पर दांव लगाते हैं।",
+            q_en: "What is Satta Disawer?",
+            q_hi: "सट्टा दिसावर क्या है?",
+            a_en: "Satta Disawer is a type of lottery or betting game. Players predict numbers and place bets on different satta markets.",
+            a_hi: "सट्टा दिसावर एक प्रकार की लॉटरी या सट्टेबाजी का खेल है। खिलाड़ी संख्याओं का अनुमान लगाते हैं और विभिन्न सट्टा बाजारों पर दांव लगाते हैं।",
         },
         {
             id: 2,
@@ -20,8 +20,8 @@ const SimpleFAQ = () => {
             id: 3,
             q_en: "What markets are available?",
             q_hi: "कौन से बाजार उपलब्ध हैं?",
-            a_en: "We provide results for Shiv Dham, Pushkar Bazar, Delhi Metro, Delhi Bazar, Shri Sayam, Shri Ganesh, Kolmbia, Faridabad, Makka-Madina, Ghaziabad, Kalka Night, Gali, and Desawer.",
-            a_hi: "हम शिव धाम, पुष्कर बाजार, दिल्ली मेट्रो, दिल्ली बाजार, श्री सायम, श्री गणेश, कोलंबिया, फरीदाबाद, मक्का-मदीना, गाजियाबाद, कलका नाइट, गली और देसावर के लिए परिणाम प्रदान करते हैं।",
+            a_en: "We provide results for Shirdi Dham, Kaliyar, Delhi Bazar, Shri Ganesh, Faridabad, Shaktipeeth, Ghaziabad, Mathura, Gali, and Disawer.",
+            a_hi: "हम शिव धाम, कालियार, दिल्ली बाजार, श्री गणेश, फरीदाबाद, शक्तिपीठ, गाजियाबाद, मथुरा, गली और देसावर के लिए परिणाम प्रदान करते हैं।",
         },
         {
             id: 4,

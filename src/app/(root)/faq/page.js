@@ -9,13 +9,13 @@ const FAQPage = () => {
     const faqItems = [
         {
             id: 1,
-            question: "What is Satta King?",
+            question: "What is Satta Disawer?",
             answer:
-                "Satta King is a type of lottery or betting game that is played in India. Players predict numbers and place bets on different satta markets. The winning number is announced at a specific time each day.",
+                "Satta Disawer is a type of lottery or betting game that is played in India. Players predict numbers and place bets on different satta markets. The winning number is announced at a specific time each day.",
         },
         {
             id: 2,
-            question: "How can I check today's Satta King result?",
+            question: "How can I check today's Satta Disawer result?",
             answer:
                 "You can check today's results on our website by visiting the home page or results section. Results are updated regularly as they are announced by different markets. You can also check specific market results from the chart section.",
         },
@@ -27,7 +27,7 @@ const FAQPage = () => {
         },
         {
             id: 4,
-            question: "What are Satta King record charts?",
+            question: "What are Satta Disawer record charts?",
             answer:
                 "Satta record charts display historical results from previous days, weeks, months, or even years. These charts help players analyze past numbers and trends. You can view detailed charts for each market to understand the history of numbers drawn.",
         },
@@ -39,13 +39,13 @@ const FAQPage = () => {
         },
         {
             id: 6,
-            question: "Which Satta King number is most likely to win?",
+            question: "Which Satta Disawer number is most likely to win?",
             answer:
                 "There is no specific number that is more likely to win because results are completely random. Any number between 00 and 99 has an equal chance of being declared as the winning number in any draw.",
         },
         {
             id: 7,
-            question: "How do I place a bet in Satta King?",
+            question: "How do I place a bet in Satta Disawer?",
             answer:
                 "To place a bet, you need to contact our authorized agents or representatives. They will help you place your bet on your chosen market and number. Payment can be made through various methods including PAYTM, Bank Transfer, Phone Pay, and Google Pay.",
         },
@@ -63,9 +63,9 @@ const FAQPage = () => {
         },
         {
             id: 10,
-            question: "Is Satta King legal?",
+            question: "Is Satta Disawer legal?",
             answer:
-                "Satta King and related betting activities may be illegal in some regions of India. This website is purely informational and for entertainment purposes only. Users are responsible for complying with local laws and regulations in their area. Always check your local laws before participating.",
+                "Satta Disawer and related betting activities may be illegal in some regions of India. This website is purely informational and for entertainment purposes only. Users are responsible for complying with local laws and regulations in their area. Always check your local laws before participating.",
         },
     ];
 
@@ -82,7 +82,7 @@ const FAQPage = () => {
                         ❓ Frequently Asked Questions
                     </h1>
                     <p className="text-gray-400 text-lg">
-                        Find answers to common questions about Satta King and our services
+                        Find answers to common questions about Satta Disawer and our services
                     </p>
                 </div>
             </div>
@@ -156,7 +156,7 @@ const FAQPage = () => {
                 <div className="mt-8 bg-red-500/10 rounded-xl border border-red-500/30 p-6">
                     <h3 className="text-lg font-bold text-red-400 mb-2">⚠️ Disclaimer</h3>
                     <p className="text-gray-300 text-sm">
-                        Satta King and related activities may be illegal in some regions. This website is for informational and entertainment purposes only and does not promote or support gambling. Users are responsible for how they use the information provided and must comply with local laws and regulations.
+                        Satta Disawer and related activities may be illegal in some regions. This website is for informational and entertainment purposes only and does not promote or support gambling. Users are responsible for how they use the information provided and must comply with local laws and regulations.
                     </p>
                 </div>
             </div>

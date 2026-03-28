@@ -46,6 +46,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [fetchLoading, setFetchLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Site Configuration State
   const [showConfig, setShowConfig] = useState(false);
@@ -133,6 +134,18 @@ const AdminDashboard = () => {
     setFilteredResults(filtered);
     setCurrentPage(1); // Reset to first page when filters change
   }, [results, searchDate, searchGame, searchResultNumber, showCurrentMonthOnly]);
+
+  // Close mobile menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mobileMenuOpen && !event.target.closest('header')) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [mobileMenuOpen]);
 
   // Calculate pagination
   const indexOfLastResult = currentPage * resultsPerPage;
@@ -296,43 +309,95 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-black/10 backdrop-blur-lg border-b border-black/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <div className="bg-gradient2 w-10 h-10 rounded-lg flex items-center justify-center mr-2">
-                <div className="text-black font-bold">A</div>
+      <header className="bg-black/10 backdrop-blur-lg border-b border-black/20 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            {/* Logo and Title */}
+            <div className="flex items-center min-w-0 flex-1">
+              <div className="bg-gradient2 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center mr-2 flex-shrink-0">
+                <div className="text-black font-bold text-sm sm:text-base">A</div>
               </div>
-              <div>
-                <h1 className="roboto text-black text-base sm:text-xl">
+              <div className="min-w-0">
+                <h1 className="roboto text-black text-sm sm:text-base lg:text-xl truncate">
                   Admin Panel
                 </h1>
-                <p className="text-black/60 max-sm:text-xs text-sm">
+                <p className="text-black/60 text-xs sm:text-sm truncate">
                   Welcome back, {user.username}
                 </p>
               </div>
             </div>
-            <div className="flex items-center sm:space-x-4">
+
+            {/* Desktop Navigation */}
+            <div className="hidden sm:flex items-center space-x-2 lg:space-x-4">
               <Link
                 href="/admin/payment-proofs"
-                className="flex items-center max-sm:text-sm text-black/80 hover:text-black px-4 py-2 rounded-lg hover:bg-black/10 transition-colors"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
               >
-                <span className="mr-2">💳</span>
-                <span className="max-sm:hidden">Payment Proofs</span>
+                <span className="mr-1 lg:mr-2">💳</span>
+                <span>Payment Proofs</span>
               </Link>
               <button
                 onClick={() => setShowConfig(true)}
-                className="flex items-center max-sm:text-sm text-black/80 hover:text-black px-4 py-2 rounded-lg hover:bg-black/10 transition-colors"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
               >
-                <Settings size={18} className="mr-2" />
+                <Settings size={16} className="mr-1 lg:mr-2" />
                 Site Config
               </button>
               <button
                 onClick={logout}
-                className="flex items-center text-black/80 hover:text-black max-sm:px-1 px-4 py-2 rounded-lg hover:bg-black/10 transition-colors"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
               >
-                <LogOut size={18} className="mr-2" />
-                <span className="max-sm:hidden">Logout</span>
+                <LogOut size={16} className="mr-1 lg:mr-2" />
+                Logout
+              </button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="sm:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-lg hover:bg-black/10 transition-colors"
+                aria-label="Toggle menu"
+              >
+                <div className="w-5 h-5 flex flex-col items-center justify-center">
+                  <span className={`w-4 h-0.5 bg-black transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-1" : ""}`}></span>
+                  <span className={`w-4 h-0.5 bg-black transition-all duration-300 mt-1 ${mobileMenuOpen ? "opacity-0" : ""}`}></span>
+                  <span className={`w-4 h-0.5 bg-black transition-all duration-300 mt-1 ${mobileMenuOpen ? "-rotate-45 -translate-y-1" : ""}`}></span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={`sm:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"}`}>
+            <div className="py-2 space-y-1 border-t border-black/10">
+              <Link
+                href="/admin/payment-proofs"
+                className="flex items-center text-black/80 hover:text-black px-3 py-3 rounded-lg hover:bg-black/10 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="mr-3 text-lg">💳</span>
+                <span>Payment Proofs</span>
+              </Link>
+              <button
+                onClick={() => {
+                  setShowConfig(true);
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center w-full text-left text-black/80 hover:text-black px-3 py-3 rounded-lg hover:bg-black/10 transition-colors"
+              >
+                <Settings size={18} className="mr-3" />
+                Site Config
+              </button>
+              <button
+                onClick={() => {
+                  logout();
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center w-full text-left text-black/80 hover:text-black px-3 py-3 rounded-lg hover:bg-black/10 transition-colors"
+              >
+                <LogOut size={18} className="mr-3" />
+                Logout
               </button>
             </div>
           </div>
@@ -574,18 +639,21 @@ const AdminDashboard = () => {
                   className="px-3 py-2 bg-[#CECECE] w-full max-sm:max-w-[170px] border border-black/20 rounded-lg text-black placeholder-black/50 focus:outline-none focus:ring-2 focus:ring-orange-600"
                   placeholder="Search by date"
                 />
-                <select
-                  value={searchGame}
-                  onChange={(e) => setSearchGame(e.target.value)}
-                  className="px-3 py-2 bg-black/10 w-full border border-black/20 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-orange-600"
-                >
-                  <option value="" className="text-black bg-white">All Games</option>
-                  {GAME_OPTIONS.map((game) => (
-                    <option key={game.value} value={game.value} className="text-black bg-white">
-                      {game.title}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"><svg class="w-5 h-5 text-black/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                  <select
+                    value={searchGame}
+                    onChange={(e) => setSearchGame(e.target.value)}
+                    className="ps-3 pr-8 py-2 bg-black/10 w-full border border-black/20 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-orange-600 appearance-none"
+                  >
+                    <option value="" className="text-black bg-white">All Games</option>
+                    {GAME_OPTIONS.map((game) => (
+                      <option key={game.value} value={game.value} className="text-black bg-white">
+                        {game.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
               <div className="relative">
                 <input

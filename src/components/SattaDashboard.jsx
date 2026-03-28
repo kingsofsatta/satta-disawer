@@ -85,7 +85,7 @@ const SattaDashboard = ({
           {/* Live Results Banner */}
           <div className="bg-gradient-to-r from-violet-700 via-violet-600 to-violet-700 py-2">
             <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center">
-              Live Dpboss Kalyan Satta Matka Result.
+              Live Satta Disawer Result.
             </p>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { GAMES } from "@/utils/gameConfig";
 
 // API Base URL
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || 'https://https://www.sattadisawer.com//'
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || 'https://www.sattadisawer.com/'
 
 // ==================== SETTINGS ====================
 export async function getSettings() {

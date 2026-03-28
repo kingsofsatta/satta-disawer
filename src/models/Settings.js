@@ -11,6 +11,7 @@ const khaiwalSectionSchema = new mongoose.Schema({
     enabled: { type: Boolean, default: true },
     contactName: { type: String, default: "" },
     whatsappNumber: { type: String, default: "" },
+    telegramNumber: { type: String, default: "" },
     paymentNumber: { type: String, default: "" },
     rate: { type: String, default: "" },
     gameSchedule: { type: [gameScheduleSchema], default: [] }

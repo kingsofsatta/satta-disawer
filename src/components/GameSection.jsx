@@ -210,10 +210,11 @@ const GamePage = ({ data, setting, disawarData }) => {
 
       <div className="bg-slate-800 py-4 px-4 mt-5">
         <p className="text-sm md:text-base text-center text-slate-300 leading-relaxed">
-          You are welcome to https://www.sattadisawer.com/, the most popular site on Satta Matka. Loyalty program, instant games, all-free Kalyan, Milan, Rajdhani, Ratan, and Main Bazar games. We are a global DP Boss and the top-ranking. Competition: Matka results See fast Matka results in the Matka chart. It is the leading Matka site where DpBoss guessed. Take the last ank and individual open predictions each day.
+          Welcome to SattaDisawer.com, your trusted source for the latest Satta Disawar results, charts, and daily updates. We provide fast and accurate results for popular games like Kalyan, Milan, Rajdhani, Ratan, and Main Bazar. Stay updated with real-time open and close numbers, along with easy access to historical charts and records. <br />Our platform is designed to offer a smooth and user-friendly experience, helping you quickly find the information you need. We also share daily guessing numbers based on trends and analysis. <br />
+          Visit SattaDisawer.com regularly for quick updates, reliable data, and all Satta-related information in one place.
         </p>
         <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center mt-3">
-          The current Dpboss Kalyan Satta Matka Results.
+          The current Satta Disawer Results.
         </p>
       </div>
       {/* === BOTTOM KHAIWAL SECTIONS === */}
@@ -232,7 +233,7 @@ const GamePage = ({ data, setting, disawarData }) => {
       {/* Marquee Banner */}
       <div className="mx-2 md:mx-4 mt-4 bg-slate-800 rounded-lg py-3 px-4 overflow-hidden">
         <p className="text-xs md:text-sm text-center text-violet-300 font-semibold leading-relaxed uppercase">
-          SATTA MATKA SATTA FAST RESULT KALYAN TOP MATKA RESULT KALYAN FAST RESULT MILAN RATAN RAJDHANI MAIN BAZAR MATKA FAST TIPS RESULT MATKA CHART JODI CHART PANEL CHART FIX GAME SATTAMATKA ! MATKA MOBI SATTA 143 DPBOSS.NET TOP NO1 RESULT FULL RATE MATKA ONLINE GAME PLAY BY APP DPBOSS
+          SHIRDI DHAM KALIYAR DELHI BAZAR SHRI GANESH FARIDABAD SHAKTI PEETH GHAZIABAD MATHURA GALI DISAWER SATTA FAST RESULT TIPS DISAWER CHART JODI CHART PANEL CHART FIX GAME SATTA RESULT FULL RATE ONLINE GAME PLAY BY APP
         </p>
       </div>
     </div>

@@ -39,6 +39,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
     enabled: true,
     contactName: "",
     whatsappNumber: "",
+    telegramNumber: "",
     paymentNumber: "",
     rate: "",
     gameSchedule: [...defaultGameSchedule]
@@ -48,6 +49,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
     enabled: false,
     contactName: "",
     whatsappNumber: "",
+    telegramNumber: "",
     paymentNumber: "",
     rate: "",
     gameSchedule: [...defaultGameSchedule]
@@ -84,6 +86,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
             enabled: config.khaiwalSection1.enabled !== false,
             contactName: config.khaiwalSection1.contactName || config.site1_contactName || "",
             whatsappNumber: config.khaiwalSection1.whatsappNumber || config.site1_whatsappNumber || "",
+            telegramNumber: config.khaiwalSection1.telegramNumber || "",
             paymentNumber: config.khaiwalSection1.paymentNumber || config.site1_paymentNumber || "",
             rate: config.khaiwalSection1.rate || config.site1_rate || "",
             gameSchedule: config.khaiwalSection1.gameSchedule?.length > 0
@@ -96,6 +99,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
             enabled: true,
             contactName: config.site1_contactName || config.contactName || "",
             whatsappNumber: config.site1_whatsappNumber || config.whatsappNumber || "",
+            telegramNumber: "",
             paymentNumber: config.site1_paymentNumber || "",
             rate: config.site1_rate || "",
             gameSchedule: [...defaultGameSchedule]
@@ -107,6 +111,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
             enabled: config.khaiwalSection2.enabled || false,
             contactName: config.khaiwalSection2.contactName || config.site2_contactName || "",
             whatsappNumber: config.khaiwalSection2.whatsappNumber || config.site2_whatsappNumber || "",
+            telegramNumber: config.khaiwalSection2.telegramNumber || "",
             paymentNumber: config.khaiwalSection2.paymentNumber || config.site2_paymentNumber || "",
             rate: config.khaiwalSection2.rate || config.site2_rate || "",
             gameSchedule: config.khaiwalSection2.gameSchedule?.length > 0
@@ -119,6 +124,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
             enabled: false,
             contactName: config.site2_contactName || "",
             whatsappNumber: config.site2_whatsappNumber || "",
+            telegramNumber: "",
             paymentNumber: config.site2_paymentNumber || "",
             rate: config.site2_rate || "",
             gameSchedule: [...defaultGameSchedule]
@@ -250,6 +256,17 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
               onChange={(e) => setSection({ ...section, whatsappNumber: e.target.value })}
               className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
               placeholder="919999999999"
+              disabled={configLoading || (sectionNum === 2 && !section.enabled)}
+            />
+          </div>
+          <div>
+            <label className="block text-white/80 text-sm font-medium mb-2">Telegram Username</label>
+            <input
+              type="text"
+              value={section.telegramNumber || ""}
+              onChange={(e) => setSection({ ...section, telegramNumber: e.target.value })}
+              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+              placeholder="telegram_username (without @)"
               disabled={configLoading || (sectionNum === 2 && !section.enabled)}
             />
           </div>
