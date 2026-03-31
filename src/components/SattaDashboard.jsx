@@ -94,6 +94,7 @@ const SattaDashboard = ({
           data={lastResult}
           setting={setting}
           disawarData={disawarData}
+          todayResults={todayResults}
         />
         <SattaResultTable
           todayResults={todayResults}

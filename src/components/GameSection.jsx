@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import DateTime from "./DateTime";
+import { GAMES } from "@/utils/gameConfig";
 
 // Default schedule fallback
 const defaultSchedule = [
@@ -100,8 +101,17 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
   );
 };
 
-const GamePage = ({ data, setting, disawarData }) => {
+const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
   const currentYear = new Date().getFullYear();
+
+  // Compute played games today
+  const playedGames = new Set(todayResults.map(r => r.game));
+
+  // Find the next game that hasn't been played today
+  const nextWaitingGame = GAMES.find(game => !playedGames.has(game.key));
+
+  // If no next game (all played), show the first game as waiting for tomorrow
+  const waitingGame = nextWaitingGame ? nextWaitingGame.key : GAMES[0].key;
 
   // Get khaiwal sections from settings
   const khaiwalSection1 = setting?.khaiwalSection1 || {
@@ -145,7 +155,7 @@ const GamePage = ({ data, setting, disawarData }) => {
               <div className="h-px w-32 bg-gradient-to-r from-transparent via-violet-400 to-transparent my-2"></div>
 
               <p className="text-amber-500 text-2xl sm:text-[28px] font-bold">
-                {data.waitingGame.replace("_", " ")}
+                {waitingGame.replace("_", " ").toUpperCase()}
               </p>
               <Image
                 className="mx-auto rounded-full"

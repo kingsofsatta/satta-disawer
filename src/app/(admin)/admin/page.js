@@ -1,5 +1,4 @@
 "use client";
-import SiteConfig from "@/components/SiteConfig";
 import {
   createResult,
   deleteResult,
@@ -47,9 +46,6 @@ const AdminDashboard = () => {
   const [user, setUser] = useState(null);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Site Configuration State
-  const [showConfig, setShowConfig] = useState(false);
 
   // Search and filter states
   const [searchDate, setSearchDate] = useState("");
@@ -293,11 +289,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // Callback when site config is saved
-  const onConfigSaved = () => {
-    console.log("Site configuration has been saved!");
-  };
-
   if (!user) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -336,13 +327,27 @@ const AdminDashboard = () => {
                 <span className="mr-1 lg:mr-2">💳</span>
                 <span>Payment Proofs</span>
               </Link>
-              <button
-                onClick={() => setShowConfig(true)}
+              <Link
+                href="/admin/site-config"
                 className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
               >
                 <Settings size={16} className="mr-1 lg:mr-2" />
-                Site Config
-              </button>
+                Satta Disawer Config
+              </Link>
+              <Link
+                href="/admin/goodluck-config"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
+              >
+                <Settings size={16} className="mr-1 lg:mr-2" />
+                Good Luck Config
+              </Link>
+              <Link
+                href="/admin/t1-config"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
+              >
+                <Settings size={16} className="mr-1 lg:mr-2" />
+                T1 Config
+              </Link>
               <button
                 onClick={logout}
                 className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
@@ -379,16 +384,30 @@ const AdminDashboard = () => {
                 <span className="mr-3 text-lg">💳</span>
                 <span>Payment Proofs</span>
               </Link>
-              <button
-                onClick={() => {
-                  setShowConfig(true);
-                  setMobileMenuOpen(false);
-                }}
-                className="flex items-center w-full text-left text-black/80 hover:text-black px-3 py-3 rounded-lg hover:bg-black/10 transition-colors"
+              <Link
+                href="/admin/site-config"
+                className="flex items-center text-black/80 hover:text-black px-3 py-3 rounded-lg hover:bg-black/10 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <Settings size={18} className="mr-3" />
-                Site Config
-              </button>
+                Satta Disawer Config
+              </Link>
+              <Link
+                href="/admin/goodluck-config"
+                className="flex items-center text-black/80 hover:text-black px-3 py-3 rounded-lg hover:bg-black/10 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Settings size={18} className="mr-3" />
+                Good Luck Config
+              </Link>
+              <Link
+                href="/admin/t1-config"
+                className="flex items-center text-black/80 hover:text-black px-3 py-3 rounded-lg hover:bg-black/10 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Settings size={18} className="mr-3" />
+                T1 Config
+              </Link>
               <button
                 onClick={() => {
                   logout();
@@ -403,13 +422,6 @@ const AdminDashboard = () => {
           </div>
         </div>
       </header>
-
-      {/* Site Configuration Component */}
-      <SiteConfig
-        showConfig={showConfig}
-        setShowConfig={setShowConfig}
-        onConfigSaved={onConfigSaved}
-      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

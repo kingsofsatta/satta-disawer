@@ -55,12 +55,14 @@ export async function getYesterdayResultsFromDB() {
 export async function getLastResultFromDB() {
     try {
         await connectDB();
-        const result = await Result.findOne({})
+        const today = getISTDate();
+        const result = await Result.find({ date: today })
             .sort({ updatedAt: -1 })
+            .limit(1)
             .lean();
 
-        if (!result) return null;
-        return JSON.parse(JSON.stringify(result));
+        if (!result || result.length === 0) return null;
+        return JSON.parse(JSON.stringify(result[0]));
     } catch (error) {
         console.error("Error fetching last result from DB:", error);
         return null;
