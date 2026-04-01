@@ -116,7 +116,7 @@ export async function POST(request) {
         const normalizedData = {
             ...data,
             game: data.game.toLowerCase().trim(),
-            waitingGame: data.waitingGame.toLowerCase().trim(),
+            waitingGame: data.waitingGame ? data.waitingGame.toLowerCase().trim() : "",
         };
 
         const result = await Result.create(normalizedData);
@@ -153,11 +153,7 @@ function validateResultData(data) {
         errors.push("Result number is required");
     }
 
-    if (!data.waitingGame) {
-        errors.push("Waiting game is required");
-    }
-
-    if (data.game === data.waitingGame) {
+    if (data.waitingGame && data.game === data.waitingGame) {
         errors.push("Waiting game must be different from the selected game");
     }
 

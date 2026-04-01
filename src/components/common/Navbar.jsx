@@ -19,12 +19,12 @@ const Navbar = () => {
       setScrollProgress(progress);
 
       if (scrollTop > 100) {
-        if (scrollTop > lastScroll.current) {
-          setShowNavbar(false);
-          setMobileMenuOpen(false);
-        } else {
-          setShowNavbar(true);
-        }
+        // if (scrollTop > lastScroll.current) {
+        //   // setShowNavbar(false);
+        //   // setMobileMenuOpen(false);
+        // } else {
+        // }
+        setShowNavbar(true);
       } else {
         setShowNavbar(true);
       }

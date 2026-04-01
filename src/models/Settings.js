@@ -17,6 +17,10 @@ const khaiwalSectionSchema = new mongoose.Schema({
     gameSchedule: { type: [gameScheduleSchema], default: [] }
 }, { _id: false });
 
+const adminFormControlsSchema = new mongoose.Schema({
+    showWaitingGame: { type: Boolean, default: true }
+}, { _id: false });
+
 const settingsSchema = new mongoose.Schema(
     {
         // Legacy fields for backward compatibility
@@ -82,6 +86,12 @@ const settingsSchema = new mongoose.Schema(
                     { name: "GALI", time: "11:30 PM" },
                     { name: "DISAWAR", time: "04:50 AM" }
                 ]
+            })
+        },
+        adminFormControls: {
+            type: adminFormControlsSchema,
+            default: () => ({
+                showWaitingGame: true,
             })
         }
     },

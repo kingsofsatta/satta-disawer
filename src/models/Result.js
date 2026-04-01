@@ -19,7 +19,7 @@ const resultSchema = new mongoose.Schema(
         },
         waitingGame: {
             type: String,
-            required: true,
+            default: "",
             lowercase: true,
             trim: true,
         },

@@ -258,9 +258,9 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
       </section>
 
       {/* Payment Option Section */}
-      <div className="mx-2 md:mx-4 mt-4 bg-slate-800 rounded-lg py-3 px-4">
-        <p className="text-center text-amber-400 font-bold text-lg">💸 Payment Option 💸</p>
-        <p className="text-center text-white">PAYTM//BANK TRANSFER//PHONE PAY//GOOGLE PAY =&lt; ⏺️{setting?.paymentNumber || '7894561230'}⏺️</p>
+      <div className="mx-2 md:mx-4 mt-4 bg-slate-800 rounded-lg py-3 px-4 border-2 border-white drop">
+        <p className="text-center text-amber-400 font-bold text-xl">💸 Payment Option 💸</p>
+        <p className="text-center text-white sm:text-lg">PAYTM//BANK TRANSFER//PHONE PAY//GOOGLE PAY =&lt; ⏺️{setting?.paymentNumber || '7894561230'}⏺️</p>
         <p className="text-center text-white">==========================</p>
         <p className="text-center text-white">==========================</p>
       </div>

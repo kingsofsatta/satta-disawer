@@ -23,6 +23,9 @@ const SiteConfigPage = () => {
     const [configLoading, setConfigLoading] = useState(false);
     const [expandedSection, setExpandedSection] = useState(null);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [adminFormControls, setAdminFormControls] = useState({
+        showWaitingGame: true,
+    });
 
     const [siteConfig, setSiteConfig] = useState({
         // Legacy fields for backward compatibility
@@ -81,6 +84,10 @@ const SiteConfigPage = () => {
                     contactName: config.contactName || "",
                     whatsappNumber: config.whatsappNumber || "",
                     paymentNumber: config.paymentNumber || "",
+                });
+
+                setAdminFormControls({
+                    showWaitingGame: config.adminFormControls?.showWaitingGame !== false,
                 });
 
                 // Load khaiwal sections
@@ -154,6 +161,7 @@ const SiteConfigPage = () => {
                 site2_whatsappNumber: khaiwalSection2.whatsappNumber,
                 site2_paymentNumber: khaiwalSection2.paymentNumber,
                 site2_rate: khaiwalSection2.rate,
+                adminFormControls,
                 khaiwalSection1,
                 khaiwalSection2
             };
@@ -374,6 +382,25 @@ const SiteConfigPage = () => {
                                 />
                             </div>
                         </div>
+                    </div>
+
+                    <div className="mb-6 p-6 bg-white/10 rounded-lg border border-white/20">
+                        <h4 className="text-white text-xl mb-4">Add Result Form Controls</h4>
+                        <label className="flex items-start justify-between gap-4 p-4 bg-white/5 rounded-lg border border-white/10 cursor-pointer">
+                            <div>
+                                <p className="text-white font-medium">Show Waiting Game input</p>
+                                <p className="text-white/60 text-sm mt-1">
+                                    Turn this off when you do not want the Waiting Game field in Add New Result.
+                                </p>
+                            </div>
+                            <input
+                                type="checkbox"
+                                checked={adminFormControls.showWaitingGame}
+                                onChange={(e) => setAdminFormControls({ ...adminFormControls, showWaitingGame: e.target.checked })}
+                                className="mt-1 w-5 h-5 rounded accent-green-500"
+                                disabled={configLoading}
+                            />
+                        </label>
                     </div>
 
                     {/* Primary Satta Disawer Configuration */}

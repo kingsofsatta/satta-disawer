@@ -3,6 +3,7 @@ import {
   createResult,
   deleteResult,
   getAllResultsWithMeta,
+  getSettings,
   updateResult,
   validateResultData,
 } from "@/services/result";
@@ -46,6 +47,9 @@ const AdminDashboard = () => {
   const [user, setUser] = useState(null);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [adminFormControls, setAdminFormControls] = useState({
+    showWaitingGame: true,
+  });
 
   // Search and filter states
   const [searchDate, setSearchDate] = useState("");
@@ -79,7 +83,14 @@ const AdminDashboard = () => {
     }
 
     loadResults();
+    loadAdminFormControls();
   }, [router]);
+
+  useEffect(() => {
+    if (!adminFormControls.showWaitingGame) {
+      setFormData((current) => ({ ...current, waitingGame: "" }));
+    }
+  }, [adminFormControls.showWaitingGame]);
 
   // Helper function to get current month's date range
   const getCurrentMonthRange = () => {
@@ -164,10 +175,28 @@ const AdminDashboard = () => {
     }
   };
 
+  const loadAdminFormControls = async () => {
+    try {
+      const settings = await getSettings();
+      setAdminFormControls({
+        showWaitingGame: settings?.adminFormControls?.showWaitingGame !== false,
+      });
+    } catch (error) {
+      console.error("Failed to load admin form controls:", error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const validation = validateResultData(formData);
+    const payload = {
+      ...formData,
+      waitingGame: adminFormControls.showWaitingGame ? formData.waitingGame : "",
+    };
+
+    const validation = validateResultData(payload, {
+      requireWaitingGame: adminFormControls.showWaitingGame,
+    });
     if (!validation.isValid) {
       alert(validation.errors.join("\n"));
       return;
@@ -177,22 +206,22 @@ const AdminDashboard = () => {
 
     try {
       if (editingId) {
-        await updateResult(editingId, formData);
+        await updateResult(editingId, payload);
       } else {
         // Check if a result already exists for this game and date
         const existingResult = results.find(
-          (item) => item.game === formData.game && item.date === formData.date
+          (item) => item.game === payload.game && item.date === payload.date
         );
 
         if (existingResult) {
-          if (confirm(`A result already exists for ${getGameTitle(formData.game)} on ${formData.date}. Do you want to update it?`)) {
-            await updateResult(existingResult._id, formData);
+          if (confirm(`A result already exists for ${getGameTitle(payload.game)} on ${payload.date}. Do you want to update it?`)) {
+            await updateResult(existingResult._id, payload);
           } else {
             setLoading(false);
             return;
           }
         } else {
-          await createResult(formData);
+          await createResult(payload);
         }
       }
 
@@ -319,38 +348,38 @@ const AdminDashboard = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
+            <div className="hidden md:flex items-center lg:space-x-4">
               <Link
                 href="/admin/payment-proofs"
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
+                className="flex items-center text-black/80 hover:text-black px-2 lg:px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-xs lg:text-base whitespace-nowrap"
               >
                 <span className="mr-1 lg:mr-2">💳</span>
                 <span>Payment Proofs</span>
               </Link>
               <Link
                 href="/admin/site-config"
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
+                className="flex items-center text-black/80 hover:text-black px-2 lg:px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-xs lg:text-base whitespace-nowrap"
               >
                 <Settings size={16} className="mr-1 lg:mr-2" />
                 Satta Disawer Config
               </Link>
               <Link
                 href="/admin/goodluck-config"
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
+                className="flex items-center text-black/80 hover:text-black px-2 lg:px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-xs lg:text-base whitespace-nowrap"
               >
                 <Settings size={16} className="mr-1 lg:mr-2" />
                 Good Luck Config
               </Link>
               <Link
                 href="/admin/t1-config"
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
+                className="flex items-center text-black/80 hover:text-black px-2 lg:px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-xs lg:text-base whitespace-nowrap"
               >
                 <Settings size={16} className="mr-1 lg:mr-2" />
                 T1 Config
               </Link>
               <button
                 onClick={logout}
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
+                className="flex items-center text-black/80 hover:text-black px-2 lg:px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-xs lg:text-base whitespace-nowrap"
               >
                 <LogOut size={16} className="mr-1 lg:mr-2" />
                 Logout
@@ -374,7 +403,7 @@ const AdminDashboard = () => {
           </div>
 
           {/* Mobile Menu */}
-          <div className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"}`}>
+          <div className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"}`}>
             <div className="py-2 space-y-1 border-t border-black/10">
               <Link
                 href="/admin/payment-proofs"
@@ -504,50 +533,52 @@ const AdminDashboard = () => {
                 />
               </div>
 
-              <div>
-                <label className="block text-black/80 text-sm font-medium mb-2">
-                  Waiting Game *
-                </label>
-                <div className="relative">
-                  <select
-                    value={formData.waitingGame}
-                    onChange={(e) =>
-                      setFormData({ ...formData, waitingGame: e.target.value })
-                    }
-                    className="w-full px-4 py-3 pr-10 bg-black/5 border border-black/20 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-orange-600 transition-all duration-200 appearance-none cursor-pointer"
-                    required
-                    disabled={loading || !formData.game}
-                  >
-                    <option value="" className="text-black bg-white">
-                      Select Waiting Game
-                    </option>
-                    {waitingGameOptions.map((game) => (
-                      <option
-                        key={game.value}
-                        value={game.value}
-                        className="text-black bg-white"
-                      >
-                        {game.title}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                    <svg
-                      className="w-5 h-5 text-black/60"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+              {adminFormControls.showWaitingGame && (
+                <div>
+                  <label className="block text-black/80 text-sm font-medium mb-2">
+                    Waiting Game *
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={formData.waitingGame}
+                      onChange={(e) =>
+                        setFormData({ ...formData, waitingGame: e.target.value })
+                      }
+                      className="w-full px-4 py-3 pr-10 bg-black/5 border border-black/20 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-orange-600 transition-all duration-200 appearance-none cursor-pointer"
+                      required
+                      disabled={loading || !formData.game}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                      <option value="" className="text-black bg-white">
+                        Select Waiting Game
+                      </option>
+                      {waitingGameOptions.map((game) => (
+                        <option
+                          key={game.value}
+                          value={game.value}
+                          className="text-black bg-white"
+                        >
+                          {game.title}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <svg
+                        className="w-5 h-5 text-black/60"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <div className="w-full">
                 <label className="block text-black/80 text-sm font-medium mb-2">
@@ -572,7 +603,6 @@ const AdminDashboard = () => {
                     loading ||
                     !formData.game ||
                     !formData.resultNumber ||
-                    !formData.waitingGame ||
                     !formData.date
                   }
                   className="flex-1 bg-gradient2 text-black py-3 px-4 rounded-lg roboto hover:opacity-90 transform hover:scale-105 transition-all duration-200 disabled:opacity-80 disabled:transform-none disabled:cursor-not-allowed"
@@ -844,6 +874,37 @@ const AdminDashboard = () => {
                 )}
               </>
             )}
+          </div>
+        </div>
+
+        {/* Quick Links for Testing */}
+        <div className="mt-8 bg-black/10 backdrop-blur-lg border border-black/20 rounded-2xl p-6">
+          <h3 className="text-black font-medium mb-4">Quick Links (Testing)</h3>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="https://www.sattadisawer.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            >
+              Satta Disawer
+            </a>
+            <a
+              href="https://www.goodluckkk.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+            >
+              Good Luck
+            </a>
+            <a
+              href="https://www.t1play.site"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
+            >
+              T1 Play
+            </a>
           </div>
         </div>
       </div>
