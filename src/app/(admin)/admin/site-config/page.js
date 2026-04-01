@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { getSettings, updateSettings } from "@/services/result";
-import { Plus, Trash2, ChevronDown, ChevronUp, ArrowLeft, Settings as SettingsIcon } from "lucide-react";
+import { Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
+
+import AdminNavbar from "@/components/common/AdminNavbar";
 
 const defaultGameSchedule = [
     { name: "SHIRDI DHAM", time: "12:55 PM" },
@@ -20,6 +22,7 @@ const defaultGameSchedule = [
 const SiteConfigPage = () => {
     const [configLoading, setConfigLoading] = useState(false);
     const [expandedSection, setExpandedSection] = useState(null);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const [siteConfig, setSiteConfig] = useState({
         // Legacy fields for backward compatibility
@@ -77,6 +80,7 @@ const SiteConfigPage = () => {
                     site2_rate: config.site2_rate || "",
                     contactName: config.contactName || "",
                     whatsappNumber: config.whatsappNumber || "",
+                    paymentNumber: config.paymentNumber || "",
                 });
 
                 // Load khaiwal sections
@@ -206,7 +210,7 @@ const SiteConfigPage = () => {
                 <div className="flex items-center justify-between mb-4">
                     <h4 className="text-white text-xl flex items-center">
                         <div className={`w-4 h-4 ${colorClass} rounded-full mr-3`}></div>
-                        {sectionNum === 1 ? "Good Luck Site" : "T1 Site"} Configuration
+                        {sectionNum === 1 ? "Primary Satta Disawer" : "Optional Satta Disawer"} Configuration
                     </h4>
                     <div className="flex items-center gap-3">
                         {sectionNum === 2 && (
@@ -339,44 +343,43 @@ const SiteConfigPage = () => {
 
     return (
         <div className="min-h-screen bg-black">
-            {/* Header */}
-            <header className="bg-black/10 backdrop-blur-lg border-b border-black/20 sticky top-0 z-50">
-                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-14 sm:h-16">
-                        {/* Logo and Title */}
-                        <div className="flex items-center min-w-0 flex-1">
-                            <Link href="/admin" className="flex items-center text-black/80 hover:text-black mr-3">
-                                <ArrowLeft size={20} />
-                            </Link>
-                            <div className="bg-gradient2 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center mr-2 flex-shrink-0">
-                                <SettingsIcon size={16} className="text-black" />
-                            </div>
-                            <div className="min-w-0">
-                                <h1 className="roboto text-black text-sm sm:text-base lg:text-xl truncate">
-                                    Site Configuration
-                                </h1>
-                                <p className="text-black/60 text-xs sm:text-sm truncate">
-                                    Manage Good Luck and T1 site settings
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <AdminNavbar
+                title="Site Configuration"
+                subtitle="Satta Disawer site settings"
+                backHref="/admin"
+            />
 
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="bg-white/15 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
                     <div className="mb-6">
                         <h2 className="text-white text-2xl mb-2">Site Configuration</h2>
                         <p className="text-white/70 text-sm">
-                            Configure both Good Luck and T1 site settings including names, contact numbers, and rates.
+                            Configure both Primary and Optional Satta Disawer site settings.
                         </p>
                     </div>
 
-                    {/* Good Luck Site Configuration */}
+                    {/* Global Settings */}
+                    <div className="mb-6 p-6 bg-white/10 rounded-lg border border-white/20">
+                        <h4 className="text-white text-xl mb-4">Global Settings</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-white/80 text-sm font-medium mb-2">Payment Number</label>
+                                <input
+                                    type="text"
+                                    value={siteConfig.paymentNumber || ""}
+                                    onChange={(e) => setSiteConfig({ ...siteConfig, paymentNumber: e.target.value })}
+                                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                                    placeholder="UPI/Phone number for payments"
+                                    disabled={configLoading}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Primary Satta Disawer Configuration */}
                     {renderKhaiwalSection(1, khaiwalSection1, setKhaiwalSection1, "bg-blue-400")}
 
-                    {/* T1 Site Configuration */}
+                    {/* Optional Satta Disawer Configuration */}
                     {renderKhaiwalSection(2, khaiwalSection2, setKhaiwalSection2, "bg-green-400")}
 
                     {/* Action Buttons */}

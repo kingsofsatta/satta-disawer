@@ -11,9 +11,9 @@ export async function POST(request) {
     const clientDetails = getClientDetails(request);
 
     // Check credentials
-    const validUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME || "admin";
+    const validUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME || "8570088978";
     const validPassword =
-      process.env.NEXT_PUBLIC_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || "password";
+      process.env.NEXT_PUBLIC_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || "GlTsSd@EagleEyes8570@";
 
     if (username !== validUsername || password !== validPassword) {
       // Send failed login notification

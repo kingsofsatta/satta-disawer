@@ -55,8 +55,7 @@ export async function getYesterdayResultsFromDB() {
 export async function getLastResultFromDB() {
     try {
         await connectDB();
-        const today = getISTDate();
-        const result = await Result.find({ date: today })
+        const result = await Result.find({})
             .sort({ updatedAt: -1 })
             .limit(1)
             .lean();

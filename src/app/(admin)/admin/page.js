@@ -319,38 +319,38 @@ const AdminDashboard = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden sm:flex items-center space-x-2 lg:space-x-4">
+            <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
               <Link
                 href="/admin/payment-proofs"
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
               >
                 <span className="mr-1 lg:mr-2">💳</span>
                 <span>Payment Proofs</span>
               </Link>
               <Link
                 href="/admin/site-config"
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
               >
                 <Settings size={16} className="mr-1 lg:mr-2" />
                 Satta Disawer Config
               </Link>
               <Link
                 href="/admin/goodluck-config"
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
               >
                 <Settings size={16} className="mr-1 lg:mr-2" />
                 Good Luck Config
               </Link>
               <Link
                 href="/admin/t1-config"
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
               >
                 <Settings size={16} className="mr-1 lg:mr-2" />
                 T1 Config
               </Link>
               <button
                 onClick={logout}
-                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base"
+                className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
               >
                 <LogOut size={16} className="mr-1 lg:mr-2" />
                 Logout
@@ -358,14 +358,14 @@ const AdminDashboard = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="sm:hidden">
+            <div className="md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 rounded-lg hover:bg-black/10 transition-colors"
                 aria-label="Toggle menu"
               >
                 <div className="w-5 h-5 flex flex-col items-center justify-center">
-                  <span className={`w-4 h-0.5 bg-black transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-1" : ""}`}></span>
+                  <span className={`w-4 h-0.5 bg-black transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
                   <span className={`w-4 h-0.5 bg-black transition-all duration-300 mt-1 ${mobileMenuOpen ? "opacity-0" : ""}`}></span>
                   <span className={`w-4 h-0.5 bg-black transition-all duration-300 mt-1 ${mobileMenuOpen ? "-rotate-45 -translate-y-1" : ""}`}></span>
                 </div>
@@ -374,7 +374,7 @@ const AdminDashboard = () => {
           </div>
 
           {/* Mobile Menu */}
-          <div className={`sm:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"}`}>
+          <div className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"}`}>
             <div className="py-2 space-y-1 border-t border-black/10">
               <Link
                 href="/admin/payment-proofs"

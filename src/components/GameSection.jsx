@@ -24,7 +24,7 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
     ? section.gameSchedule
     : defaultSchedule;
 
-  const contactName = section?.contactName || "KHAIWAL";
+  const contactName = `${section?.contactName} BHAI KHAIWAL` || "KHAIWAL";
   const whatsappNumber = section?.whatsappNumber || "";
   const telegramNumber = section?.telegramNumber || "123456789";
   const rate = section?.rate || "";
@@ -39,7 +39,7 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
         -- सीधे सट्टा कंपनी का No. 1 खाईवाल --
       </p>
       <p className="uppercase text-center mb-5 text-xl lg:text-2xl text-white font-black">
-        {contactName}
+        ♕♕ {contactName} ♕♕
       </p>
 
       <div className="space-y-1 mb-6 bg-white/10 rounded-xl p-4">
@@ -104,14 +104,31 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
 const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
   const currentYear = new Date().getFullYear();
 
-  // Compute played games today
-  const playedGames = new Set(todayResults.map(r => r.game));
+  // Function to get current IST time in minutes since midnight
+  const getCurrentISTMinutes = () => {
+    const now = new Date();
+    // Add IST offset (5.5 hours)
+    now.setTime(now.getTime() + (5.5 * 60 * 60 * 1000));
+    const hours = now.getUTCHours();
+    const minutes = now.getUTCMinutes();
+    return hours * 60 + minutes;
+  };
 
-  // Find the next game that hasn't been played today
-  const nextWaitingGame = GAMES.find(game => !playedGames.has(game.key));
+  // Function to parse game time string to minutes since midnight
+  const parseTimeToMinutes = (timeStr) => {
+    const [time, ampm] = timeStr.split(' ');
+    let [hours, mins] = time.split(':').map(Number);
+    if (ampm === 'PM' && hours !== 12) hours += 12;
+    if (ampm === 'AM' && hours === 12) hours = 0;
+    return hours * 60 + mins;
+  };
 
-  // If no next game (all played), show the first game as waiting for tomorrow
-  const waitingGame = nextWaitingGame ? nextWaitingGame.key : GAMES[0].key;
+  // Get current time in IST minutes
+  const currentMinutes = getCurrentISTMinutes();
+
+  // Find the next game based on current time
+  const nextGame = GAMES.find(game => parseTimeToMinutes(game.time) > currentMinutes) || GAMES[0];
+  const waitingGame = nextGame.key;
 
   // Get khaiwal sections from settings
   const khaiwalSection1 = setting?.khaiwalSection1 || {
@@ -132,7 +149,7 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
 
   // Check if second section is enabled
   const showSecondSection = khaiwalSection2?.enabled && khaiwalSection2?.contactName;
-
+  console.log(data, "data.game")
   return (
     <div className="bg-transparent">
       {/* === TOP DYNAMIC SECTION === */}
@@ -239,6 +256,14 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
           )}
         </div>
       </section>
+
+      {/* Payment Option Section */}
+      <div className="mx-2 md:mx-4 mt-4 bg-slate-800 rounded-lg py-3 px-4">
+        <p className="text-center text-amber-400 font-bold text-lg">💸 Payment Option 💸</p>
+        <p className="text-center text-white">PAYTM//BANK TRANSFER//PHONE PAY//GOOGLE PAY =&lt; ⏺️{setting?.paymentNumber || '7894561230'}⏺️</p>
+        <p className="text-center text-white">==========================</p>
+        <p className="text-center text-white">==========================</p>
+      </div>
 
       {/* Marquee Banner */}
       <div className="mx-2 md:mx-4 mt-4 bg-slate-800 rounded-lg py-3 px-4 overflow-hidden">

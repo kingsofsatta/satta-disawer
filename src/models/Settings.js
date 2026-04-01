@@ -27,6 +27,7 @@ const settingsSchema = new mongoose.Schema(
         site2_rate: String,
         contactName: String,
         whatsappNumber: String,
+        paymentNumber: { type: String, default: "" },
         siteName: {
             type: String,
             default: "Satta Disawer Satta",
