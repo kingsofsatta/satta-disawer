@@ -126,9 +126,11 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
   // Get current time in IST minutes
   const currentMinutes = getCurrentISTMinutes();
 
-  // Find the next game based on current time
+  // Find the next game based on current time (fallback only)
   const nextGame = GAMES.find(game => parseTimeToMinutes(game.time) > currentMinutes) || GAMES[0];
-  const waitingGame = nextGame.key;
+
+  // Use waitingGame from data if available, otherwise calculate from time
+  const waitingGame = data?.waitingGame || nextGame.key;
 
   // Get khaiwal sections from settings
   const khaiwalSection1 = setting?.khaiwalSection1 || {

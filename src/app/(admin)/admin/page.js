@@ -890,7 +890,7 @@ const AdminDashboard = () => {
               Satta Disawer
             </a>
             <a
-              href="https://www.goodluckkk.com"
+              href="https://www.goodlucksatta.in/"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
@@ -898,7 +898,7 @@ const AdminDashboard = () => {
               Good Luck
             </a>
             <a
-              href="https://www.t1play.site"
+              href="https://www.t1-satta.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
