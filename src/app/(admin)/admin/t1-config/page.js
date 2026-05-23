@@ -2,13 +2,15 @@
 import React, { useState } from "react";
 
 import T1Config from "@/components/T1Config";
-import AdminNavbar from "@/components/common/AdminNavbar";
 
 const T1ConfigPage = () => {
   return (
-    <div className="min-h-screen bg-black">
-      <AdminNavbar title="T1 Configuration" subtitle="Manage T1 site settings" backHref="/admin" />
-      <T1Config />
+    <div className="min-h-screen bg-slate-950 text-slate-100">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="rounded-3xl bg-slate-900/85 p-6 shadow-xl border border-white/10">
+          <T1Config />
+        </div>
+      </div>
     </div>
   );
 };

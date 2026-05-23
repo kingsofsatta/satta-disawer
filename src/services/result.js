@@ -1,7 +1,13 @@
 import { GAMES } from "@/utils/gameConfig";
 
 // API Base URL
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || 'https://www.sattadisawer.com/'
+const API_BASE = (() => {
+  if (typeof window !== "undefined") {
+    return process.env.NEXT_PUBLIC_API_URL || window.location.origin;
+  }
+
+  return process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || "";
+})();
 
 // ==================== SETTINGS ====================
 export async function getSettings() {
@@ -212,6 +218,24 @@ export async function deleteResult(id) {
   } catch (error) {
     console.error('Error deleting result:', error);
     throw error;
+  }
+}
+
+export async function getVisitorCount() {
+  try {
+    const trackerUrl = process.env.NEXT_PUBLIC_TRACKING_API_URL;
+    if (!trackerUrl) return null;
+
+    const response = await fetch(trackerUrl, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) return null;
+    const data = await response.json();
+    return typeof data.count === 'number' ? data.count : null;
+  } catch (error) {
+    console.error('Error fetching visitor count:', error);
+    return null;
   }
 }
 

@@ -11,7 +11,7 @@ export async function POST(request) {
     const clientDetails = getClientDetails(request);
 
     // Check credentials
-    const validUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME || "8570088978";
+    const validUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME ||process.env.ADMIN_USERNAME || "8570088978";
     const validPassword =
       process.env.NEXT_PUBLIC_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || "GlTsSd@EagleEyes8570@";
 

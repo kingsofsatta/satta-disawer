@@ -4,7 +4,7 @@ import { getSettings, updateSettings } from "@/services/result";
 import { Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 
-import AdminNavbar from "@/components/common/AdminNavbar";
+// Using shared admin layout; AdminNavbar removed for consistency
 
 const defaultGameSchedule = [
     { name: "SHIRDI DHAM", time: "12:55 PM" },
@@ -350,15 +350,9 @@ const SiteConfigPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black">
-            <AdminNavbar
-                title="Site Configuration"
-                subtitle="Satta Disawer site settings"
-                backHref="/admin"
-            />
-
+        <div className="min-h-screen bg-slate-950 text-slate-100">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="bg-white/15 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                <div className="bg-slate-900/85 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
                     <div className="mb-6">
                         <h2 className="text-white text-2xl mb-2">Site Configuration</h2>
                         <p className="text-white/70 text-sm">
