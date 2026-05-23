@@ -1,6 +1,14 @@
 import mongoose from "mongoose";
+const dns = require('node:dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 
-const mongoUri = process.env.MONGODB_URI || "mongodb+srv://admin:admin@cluster0.szokn.mongodb.net/goodluck?appName=Cluster0";
+// Read URI and sanitize common formatting mistakes (quotes, trailing semicolons, extra spaces)
+let mongoUri = process.env.MONGODB_URI || "mongodb+srv://admin:admin@cluster0.szokn.mongodb.net/goodluck?appName=Cluster0";
+if (typeof mongoUri === 'string') {
+    mongoUri = mongoUri.trim();
+    // Strip enclosing quotes if present and remove a trailing semicolon
+    mongoUri = mongoUri.replace(/^\s*["']+|["';\s]+$/g, '');
+}
 
 let cached = global.mongoose;
 

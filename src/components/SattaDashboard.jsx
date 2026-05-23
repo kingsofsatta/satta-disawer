@@ -169,7 +169,7 @@ const SattaDashboard = ({
               href={`https://t.me/${telegramNumber}`}
               className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 btn-glow"
             >
-              <span><Image src='/telegram-icon.webp' height={24} width={24} /></span>
+              <span><Image src='/telegram-icon.webp' height={24} width={24} alt="Telegram" /></span>
               <span className="hindi-text">Telegram पर संपर्क करें</span>
             </Link>
           )}

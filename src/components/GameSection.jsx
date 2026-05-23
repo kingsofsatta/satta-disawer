@@ -92,7 +92,7 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
             href={`https://t.me/${telegramNumber}`}
             className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 btn-glow"
           >
-            <span><Image src='/telegram-icon.webp' height={24} width={24} /></span>
+            <span><Image src='/telegram-icon.webp' height={24} width={24} alt="Telegram" /></span>
             <span className="hindi-text">Telegram पर संपर्क करें</span>
           </Link>
         )}
@@ -132,6 +132,17 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
   // Use waitingGame from data if available, otherwise calculate from time
   const waitingGame = data?.waitingGame || nextGame.key;
 
+  // Determine if current IST date is the last day of the month
+  const isMonthEnd = (() => {
+    const now = new Date();
+    now.setTime(now.getTime() + (5.5 * 60 * 60 * 1000));
+    const day = now.getUTCDate();
+    const month = now.getUTCMonth();
+    const year = now.getUTCFullYear();
+    const daysInMonth = new Date(year, month + 1, 0).getUTCDate();
+    return day === daysInMonth;
+  })();
+
   // Get khaiwal sections from settings
   const khaiwalSection1 = setting?.khaiwalSection1 || {
     enabled: true,
@@ -162,7 +173,7 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
         <hr className="border-slate-700 w-11/12 mx-auto my-5" />
 
         <div className="flex uppercase mx-auto text-center w-full font-semibold flex-col gap-4 items-center justify-center">
-          {data && (
+          {!isMonthEnd && data && (
             <>
               <p className="text-amber-500 text-2xl sm:text-3xl font-bold">
                 {data.game.replace("_", " ")}
