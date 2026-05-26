@@ -25,9 +25,6 @@ export default async function Home() {
       getSettingsFromDB(),
     ]);
 
-  console.log("Settings from DB:", settings?.khaiwalSection1 ? "Section1 present" : "Section1 missing");
-  console.log("Settings from DB:", settings?.khaiwalSection2 ? "Section2 present" : "Section2 missing");
-
   // Get current month's results
   const currentDate = new Date();
   const monthlyResults = await getMonthlyResultsFromDB(
