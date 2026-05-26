@@ -3,7 +3,7 @@ import path from 'path'
 
 export async function GET() {
   try {
-    const baseUrl = process.env.SITE_URL || 'https://example.com'
+    const baseUrl = process.env.SITE_URL || 'https://www.sattadisawer.com/'
     const pagesDir = path.join(process.cwd(), 'src', 'app')
     const urls = []
 

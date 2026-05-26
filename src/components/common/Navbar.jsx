@@ -12,27 +12,36 @@ const Navbar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      setScrollProgress(progress);
+    let docHeight = 0;
+    let rafId = null;
 
-      if (scrollTop > 100) {
-        // if (scrollTop > lastScroll.current) {
-        //   // setShowNavbar(false);
-        //   // setMobileMenuOpen(false);
-        // } else {
-        // }
-        setShowNavbar(true);
-      } else {
-        setShowNavbar(true);
-      }
-      lastScroll.current = scrollTop;
+    const handleScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const scrollTop = window.scrollY;
+        // Cache document height on first scroll or window resize
+        if (!docHeight) {
+          docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        }
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        setScrollProgress(Math.min(progress, 100));
+        setShowNavbar(true); // always show navbar
+        lastScroll.current = scrollTop;
+      });
+    };
+
+    // Reset cache on resize
+    const handleResize = () => {
+      docHeight = 0;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // Close mobile menu on route change
