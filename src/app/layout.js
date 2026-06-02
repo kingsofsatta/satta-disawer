@@ -63,6 +63,7 @@ export default async function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://securepubads.g.doubleclick.net" />
         <link rel="preconnect" href="https://i.ibb.co" />
+        <meta name="google-site-verification" content="cWjJpNxBiG9deZ8gPBtHKf_287SB0gI7lcuDAVb-zfE" />
         {/* DNS prefetch for external origins */}
         <link rel="dns-prefetch" href="//pagead2.googlesyndication.com" />
       </head>
