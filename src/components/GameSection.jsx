@@ -19,7 +19,7 @@ const defaultSchedule = [
 ];
 
 // Khaiwal Card Component
-const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
+const KhaiwalCard = ({ section, colorScheme = "amber" }) => {
   const schedule = section?.gameSchedule?.length > 0
     ? section.gameSchedule
     : defaultSchedule;
@@ -29,42 +29,38 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
   const telegramNumber = section?.telegramNumber || "123456789";
   const rate = section?.rate || "";
 
-  const gradientClass = colorScheme === "violet"
-    ? "from-violet-600 to-violet-500"
-    : "from-amber-600 to-amber-500";
-
   return (
-    <div className="glass-dark rounded-2xl p-6 border-animate shadow-2xl h-full">
-      <p className="text-lg lg:text-xl text-center text-amber-100 mb-3 font-bold hindi-text">
+    <div className="glass-card rounded-2xl p-6 border-animate shadow-2xl h-full">
+      <p className="text-lg lg:text-xl text-center text-amber-800 mb-3 font-bold hindi-text">
         -- सीधे सट्टा कंपनी का No. 1 खाईवाल --
       </p>
-      <p className="uppercase text-center mb-5 text-xl lg:text-2xl text-white font-black">
+      <p className="uppercase text-center mb-5 text-xl lg:text-2xl text-slate-900 font-black">
         ♕♕ {contactName} ♕♕
       </p>
 
-      <div className="space-y-1 mb-6 bg-white/10 rounded-xl p-4">
+      <div className="space-y-1 mb-6 bg-amber-50 rounded-xl p-4">
         {schedule.map((game, index) => (
           <div
             key={index}
-            className="flex justify-between text-sm items-center py-2 border-b border-white/10 last:border-0 hover:bg-white/5 px-2 rounded transition-colors"
+            className="flex justify-between text-sm items-center py-2 border-b border-amber-200 last:border-0 hover:bg-amber-100 px-2 rounded transition-colors"
           >
-            <span className="text-violet-100 font-semibold">
+            <span className="text-slate-900 font-semibold">
               {game.name}
             </span>
-            <span className="text-amber-300 font-bold">
+            <span className="text-amber-700 font-bold">
               {game.time}
             </span>
           </div>
         ))}
       </div>
 
-      <div className="text-center my-5 py-4 bg-white/10 rounded-xl">
-        <p className="text-amber-300 font-bold mb-2 text-lg hindi-text">जोड़ी रेट</p>
-        <p className="text-violet-100 text-sm md:text-lg font-bold hindi-text">जोड़ी रेट 10 ------- {rate}</p>
-        <p className="text-violet-100 text-sm md:text-lg font-bold hindi-text">हरूफ रेट 100 ----- {rate}</p>
+      <div className="text-center my-5 py-4 bg-amber-100 rounded-xl">
+        <p className="text-amber-700 font-bold mb-2 text-lg hindi-text">जोड़ी रेट</p>
+        <p className="text-slate-900 text-sm md:text-lg font-bold hindi-text">जोड़ी रेट 10 ------- {rate}</p>
+        <p className="text-slate-900 text-sm md:text-lg font-bold hindi-text">हरूफ रेट 100 ----- {rate}</p>
       </div>
 
-      <p className="text-center text-violet-100 text-lg lg:text-xl mb-5 hindi-text">
+      <p className="text-center text-slate-900 text-lg lg:text-xl mb-5 hindi-text">
         Game play करने के लिये नीचे लिंक पर क्लिक करे
       </p>
 
@@ -83,7 +79,7 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
           <span className="hindi-text">WhatsApp पर संपर्क करें</span>
         </Link>
 
-        <p className="text-center text-violet-100 text-base mb-1 mt-2 hindi-text">
+        <p className="text-center text-black text-base mb-1 mt-2 hindi-text">
           Join our Telegram channel to get results quickly and receive superfast results
         </p>
         {telegramNumber && (
@@ -201,13 +197,13 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
       {/* DISAWAR Section */}
       <div className="mx-2 md:mx-4 mt-4 rounded-2xl overflow-hidden shadow-xl">
         {/* Header */}
-        <div className="bg-gradient-to-r from-violet-900 via-slate-900 to-violet-900 py-3 px-4 border-b border-violet-500/30">
+        <div className="bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-300 py-3 px-4 border-b border-amber-200/70">
           <Link
             href={`/disawer-yearly-chart-${currentYear}`}
             className="flex items-center justify-center gap-3 group"
           >
             <span className="text-2xl group-hover:scale-110 transition-transform">🎯</span>
-            <span className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-violet-400 via-pink-400 to-violet-400 bg-clip-text text-transparent group-hover:from-amber-400 group-hover:via-yellow-400 group-hover:to-amber-400 transition-all">
+            <span className="text-2xl sm:text-3xl font-black text-amber-700 group-hover:text-amber-900 transition-all">
               DISAWAR
             </span>
             <span className="text-2xl group-hover:scale-110 transition-transform">🎯</span>
@@ -215,12 +211,12 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
         </div>
 
         {/* Results Row */}
-        <div className="bg-gradient-to-b from-slate-900 to-slate-950 py-4 px-4">
+        <div className=" py-4 px-4">
           <div className="flex items-center justify-center gap-3 sm:gap-5">
             {/* Yesterday Result */}
             <div className="flex flex-col items-center">
-              <span className="text-sm text-white uppercase tracking-wider mb-1">Yesterday</span>
-              <span className="text-xl sm:text-2xl font-black text-white bg-violet-600/30 border border-violet-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-violet-500/20">
+              <span className="text-sm text-black uppercase tracking-wider mb-1">Yesterday</span>
+              <span className="text-xl sm:text-2xl font-black text-slate-900 bg-amber-200/80 border border-amber-200 px-5 py-2.5 rounded-xl shadow-lg shadow-amber-200/40">
                 {disawarData?.yesterday || "--"}
               </span>
             </div>
@@ -230,8 +226,8 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
 
             {/* Today Result */}
             <div className="flex flex-col items-center">
-              <span className="text-sm text-white uppercase tracking-wider mb-1">Today</span>
-              <span className="text-xl sm:text-2xl font-black text-white bg-amber-600/30 border border-amber-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-amber-500/20">
+              <span className="text-sm text-black uppercase tracking-wider mb-1">Today</span>
+              <span className="text-xl sm:text-2xl font-black text-black bg-amber-600/30 border border-amber-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-amber-500/20">
                 {disawarData?.today || (
                   <Image
                     className="inline rounded-full"
@@ -247,8 +243,8 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
         </div>
       </div>
 
-      <div className="bg-slate-800 py-4 px-4 mt-5">
-        <p className="text-sm md:text-base text-center text-slate-300 leading-relaxed">
+      <div className="bg-amber-50 py-4 px-4 mt-5 rounded-3xl border border-amber-200 shadow-sm">
+        <p className="text-sm md:text-base text-center text-slate-800 leading-relaxed">
           Welcome to SattaDisawer.com, your trusted source for the latest Satta Disawar results, charts, and daily updates. We provide fast and accurate results for popular games like Kalyan, Milan, Rajdhani, Ratan, and Main Bazar. Stay updated with real-time open and close numbers, along with easy access to historical charts and records. <br />Our platform is designed to offer a smooth and user-friendly experience, helping you quickly find the information you need. We also share daily guessing numbers based on trends and analysis. <br />
           Visit SattaDisawer.com regularly for quick updates, reliable data, and all Satta-related information in one place.
         </p>
@@ -270,16 +266,16 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
       </section>
 
       {/* Payment Option Section */}
-      <div className="mx-2 md:mx-4 mt-4 bg-slate-800 rounded-lg py-3 px-4 border-2 border-white drop">
-        <p className="text-center text-amber-400 font-bold text-xl">💸 Payment Option 💸</p>
-        <p className="text-center text-white sm:text-lg">PAYTM//BANK TRANSFER//PHONE PAY//GOOGLE PAY =&lt; ⏺️{setting?.paymentNumber || '7894561230'}⏺️</p>
-        <p className="text-center text-white">==========================</p>
-        <p className="text-center text-white">==========================</p>
+      <div className="mx-2 md:mx-4 mt-4 bg-amber-100 rounded-lg py-3 px-4 border-2 border-amber-200 shadow-sm">
+        <p className="text-center text-amber-600 font-bold text-xl">💸 Payment Option 💸</p>
+        <p className="text-center text-black sm:text-lg">PAYTM//BANK TRANSFER//PHONE PAY//GOOGLE PAY =&lt; ⏺️{setting?.paymentNumber || '7894561230'}⏺️</p>
+        <p className="text-center text-black">==========================</p>
+        <p className="text-center text-black">==========================</p>
       </div>
 
       {/* Marquee Banner */}
-      <div className="mx-2 md:mx-4 mt-4 bg-slate-800 rounded-lg py-3 px-4 overflow-hidden">
-        <p className="text-xs md:text-sm text-center text-violet-300 font-semibold leading-relaxed uppercase">
+      <div className="mx-2 md:mx-4 mt-4 bg-amber-100 rounded-lg py-3 px-4 overflow-hidden">
+        <p className="text-xs md:text-sm text-center text-slate-700 font-semibold leading-relaxed uppercase">
           SHIRDI DHAM KALIYAR DELHI BAZAR SHRI GANESH FARIDABAD SHAKTI PEETH GHAZIABAD MATHURA GALI DISAWER SATTA FAST RESULT TIPS DISAWER CHART JODI CHART PANEL CHART FIX GAME SATTA RESULT FULL RATE ONLINE GAME PLAY BY APP
         </p>
       </div>

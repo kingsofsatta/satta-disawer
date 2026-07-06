@@ -64,9 +64,9 @@ const Navbar = () => {
   return (
     <>
       {/* Scroll Progress - Gradient Effect */}
-      <div className="fixed top-0 left-0 w-full h-1 z-50 bg-slate-900/50">
+      <div className="fixed top-0 left-0 w-full h-1 z-50 bg-white/70">
         <div
-          className="h-1 bg-gradient-to-r from-amber-400 via-violet-500 to-amber-400 transition-all duration-150 shadow-lg shadow-amber-500/50"
+          className="h-1 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-400 transition-all duration-150 shadow-lg shadow-amber-300"
           style={{ width: `${scrollProgress}%` }}
         ></div>
       </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
         className={`w-full z-40 transition-all duration-500 sticky top-0 ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
       >
         {/* Main Nav Bar */}
-        <div className="bg-gradient-to-r from-slate-900 via-violet-950 to-slate-900 border-b border-violet-500/30 shadow-xl shadow-violet-900/20">
+        <div className="bg-gradient-to-r from-amber-400 via-amber-200 to-amber-400">
           <div className="max-w-6xl mx-auto px-2 sm:px-4">
             <div className="flex items-center justify-between h-14 sm:h-16">
               {/* Logo */}
@@ -85,8 +85,8 @@ const Navbar = () => {
                   <Image src="/logo.png" alt="Satta Disawer Logo" width={50} height={50} />
                 </div>
                 <div className="hidden sm:block">
-                  <h1 className="text-sm sm:text-lg font-black text-white leading-none">SATTA DISAWER</h1>
-                  <p className="text-xs text-amber-400 font-semibold tracking-wider">SATTA</p>
+                  <h1 className="text-sm sm:text-lg font-black text-black leading-none">SATTA DISAWER</h1>
+                  <p className="text-xs text-amber-700 font-semibold tracking-wider">SATTA</p>
                 </div>
               </Link>
 
@@ -98,7 +98,7 @@ const Navbar = () => {
                     key={link.id}
                     className={`relative px-3 lg:px-6 py-2 lg:py-2.5 rounded-lg lg:rounded-xl font-bold text-xs lg:text-sm uppercase tracking-wide transition-all duration-300 flex items-center gap-1 lg:gap-2 overflow-hidden group ${isActive(link.href)
                       ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 shadow-lg shadow-amber-500/40"
-                      : "text-white hover:text-amber-400"
+                      : "text-slate-900 hover:text-amber-700"
                       }`}
                   >
                     {/* Hover background effect */}
@@ -132,7 +132,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`md:hidden bg-slate-900/95 backdrop-blur-lg border-b border-violet-500/30 overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-[420px]" : "max-h-0"}`}>
+        <div className={`md:hidden bg-white/95 backdrop-blur-lg border-b border-amber-200/30 overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-[420px]" : "max-h-0"}`}>
           <div className="px-3 py-3 space-y-1.5">
             {sattaLinks.map((link) => (
               <Link
@@ -152,7 +152,7 @@ const Navbar = () => {
             ))}
 
             {/* Mobile Live Badge */}
-            <div className="flex items-center justify-center gap-2 py-2 mt-2 border-t border-violet-500/30">
+            <div className="flex items-center justify-center gap-2 py-2 mt-2 border-t border-amber-200/30">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
               <span className="text-green-400 text-xs font-bold">Live</span>
             </div>

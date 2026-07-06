@@ -25,9 +25,9 @@ const PaymentProofsPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900">
+        <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-amber-100 to-amber-50">
             {/* Header */}
-            <div className="bg-gradient-to-r from-slate-900 via-violet-950 to-slate-900 border-b border-violet-500/30 shadow-xl shadow-violet-900/20">
+            <div className="bg-gradient-to-r from-amber-200 via-amber-100 to-yellow-200 border-b border-amber-300/70 shadow-xl shadow-amber-200/25">
                 <div className="max-w-6xl mx-auto px-4 py-12">
                     <h1 className="text-4xl md:text-5xl font-black text-white mb-2">
                         💳 Payment Proof
@@ -53,7 +53,7 @@ const PaymentProofsPage = () => {
                 ) : (
                     <div>
                         <div className="mb-8">
-                            <p className="text-gray-300 text-center max-w-2xl mx-auto">
+                            <p className="text-slate-700 text-center max-w-2xl mx-auto">
                                 All payment proofs below are from real transactions with our players.
                                 Click on any image to view it in full size.
                             </p>
@@ -82,12 +82,12 @@ const PaymentProofsPage = () => {
                                     </div>
                                     <div className="p-4">
                                         {proof.title && (
-                                            <h3 className="font-bold text-white mb-2">
+                                            <h3 className="font-bold text-slate-900 mb-2">
                                                 {proof.title}
                                             </h3>
                                         )}
                                         {proof.description && (
-                                            <p className="text-sm text-gray-400 line-clamp-3 mb-3">
+                                            <p className="text-sm text-slate-600 line-clamp-3 mb-3">
                                                 {proof.description}
                                             </p>
                                         )}
@@ -106,8 +106,8 @@ const PaymentProofsPage = () => {
             {selectedProof && (
                 <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
                     <div className="bg-slate-900 rounded-xl overflow-hidden max-w-2xl w-full border border-violet-500/30 shadow-2xl shadow-violet-900/50">
-                        <div className="flex items-center justify-between p-4 border-b border-violet-500/30">
-                            <h3 className="text-lg font-bold text-white">
+                        <div className="flex items-center justify-between p-4 border-b border-amber-200">
+                            <h3 className="text-lg font-bold text-slate-900">
                                 {selectedProof.title || "Payment Proof"}
                             </h3>
                             <button
@@ -123,8 +123,8 @@ const PaymentProofsPage = () => {
                             className="w-full max-h-96 object-contain"
                         />
                         {selectedProof.description && (
-                            <div className="p-4 border-t border-violet-500/30 bg-slate-800/50">
-                                <p className="text-gray-300 leading-relaxed">
+                            <div className="p-4 border-t border-amber-200 bg-amber-50">
+                                <p className="text-slate-700 leading-relaxed">
                                     {selectedProof.description}
                                 </p>
                             </div>

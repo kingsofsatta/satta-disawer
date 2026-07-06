@@ -48,25 +48,25 @@ const SimpleFAQ = () => {
 
     return (
         <div className="mt-12 px-2 md:px-4">
-            <div className="bg-gradient-to-r from-violet-700 to-violet-600 rounded-t-2xl py-5 text-center">
+            <div className="bg-gradient-to-r from-amber-700 to-amber-600 rounded-t-2xl py-5 text-center">
                 <h2 className="text-xl sm:text-2xl lg:text-3xl text-white font-bold">
                     ❓ Frequently Asked Questions
                 </h2>
             </div>
 
-            <div className="bg-slate-900 rounded-b-2xl shadow-sm border border-slate-700 p-4 md:p-8">
+            <div className="bg-amber-100 rounded-b-2xl shadow-sm border border-amber-200 p-4 md:p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {faqItems.map((item) => (
-                        <div key={item.id} className="bg-slate-800/50 rounded-lg p-4 border border-slate-700 hover:border-violet-500/50 transition-colors">
-                            <h3 className="text-sm font-bold text-amber-400 mb-2 flex items-start gap-2">
+                        <div key={item.id} className="bg-amber-200/50 rounded-lg p-4 border border-amber-300 hover:border-amber-500/50 transition-colors">
+                            <h3 className="text-sm font-bold text-black mb-2 flex items-start gap-2">
                                 <span className="text-lg flex-shrink-0">{item.id}.</span>
                                 <span>{item.q_en}</span>
                             </h3>
-                            <h3 className="text-sm font-bold text-amber-400 mb-3 flex items-start gap-2 ml-7">
+                            <h3 className="text-sm font-bold text-black mb-3 flex items-start gap-2 ml-7">
                                 <span>{item.q_hi}</span>
                             </h3>
-                            <p className="text-xs md:text-sm text-slate-300 leading-relaxed mb-3">{item.a_en}</p>
-                            <p className="text-xs md:text-sm text-slate-300 leading-relaxed">{item.a_hi}</p>
+                            <p className="text-xs md:text-sm text-slate-900 leading-relaxed mb-3">{item.a_en}</p>
+                            <p className="text-xs md:text-sm text-slate-900 leading-relaxed">{item.a_hi}</p>
                         </div>
                     ))}
                 </div>

@@ -74,14 +74,14 @@ const FAQPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900 pt-20">
+        <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-amber-100 to-amber-50 pt-20">
             {/* Header */}
-            <div className="bg-gradient-to-r from-slate-900 via-violet-950 to-slate-900 border-b border-violet-500/30 shadow-xl shadow-violet-900/20">
+            <div className="bg-gradient-to-r from-amber-200 via-amber-100 to-yellow-200 border-b border-amber-300/70 shadow-xl shadow-amber-200/30">
                 <div className="max-w-6xl mx-auto px-4 py-12">
-                    <h1 className="text-4xl md:text-5xl font-black text-white mb-2">
+                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-2">
                         ❓ Frequently Asked Questions
                     </h1>
-                    <p className="text-gray-400 text-lg">
+                    <p className="text-slate-600 text-lg">
                         Find answers to common questions about Satta Disawer and our services
                     </p>
                 </div>
@@ -95,11 +95,11 @@ const FAQPage = () => {
                         return (
                             <div
                                 key={item.id}
-                                className="bg-gradient-to-r from-slate-800 to-slate-800/50 rounded-xl border border-violet-500/30 overflow-hidden hover:border-violet-500/60 transition-all"
+                                className="bg-white rounded-xl border border-amber-200 overflow-hidden hover:border-amber-300 transition-all shadow-sm"
                             >
                                 <button
                                     onClick={() => toggleFAQ(item.id)}
-                                    className="w-full flex items-center justify-between px-6 py-4 hover:bg-violet-500/10 transition-colors"
+                                    className="w-full flex items-center justify-between px-6 py-4 hover:bg-amber-100 transition-colors"
                                 >
                                     <h3 className="text-lg font-bold text-white text-left flex items-center gap-3">
                                         <span className="text-amber-400 font-black">
@@ -109,14 +109,14 @@ const FAQPage = () => {
                                     </h3>
                                     <ChevronDown
                                         size={24}
-                                        className={`text-amber-400 flex-shrink-0 transition-transform ${isOpen ? "rotate-180" : ""
+                                        className={`text-amber-500 flex-shrink-0 transition-transform ${isOpen ? "rotate-180" : ""
                                             }`}
                                     />
                                 </button>
 
                                 {isOpen && (
-                                    <div className="px-6 py-4 border-t border-violet-500/30 bg-slate-800/50">
-                                        <p className="text-gray-300 leading-relaxed">
+                                    <div className="px-6 py-4 border-t border-amber-200 bg-amber-50">
+                                        <p className="text-slate-700 leading-relaxed">
                                             {item.answer}
                                         </p>
                                     </div>
@@ -127,8 +127,8 @@ const FAQPage = () => {
                 </div>
 
                 {/* Additional Info */}
-                <div className="mt-12 bg-gradient-to-br from-amber-500/10 to-violet-500/10 rounded-xl border border-violet-500/30 p-8">
-                    <h2 className="text-2xl font-bold text-white mb-4">
+                <div className="mt-12 bg-gradient-to-br from-amber-200/50 to-yellow-100 rounded-xl border border-amber-200 p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4">
                         Need More Help?
                     </h2>
                     <p className="text-gray-300 mb-4">
@@ -145,7 +145,7 @@ const FAQPage = () => {
                             href="https://wa.me/918950312367"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-3 rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/40 transition-all"
+                            className="bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 px-8 py-3 rounded-lg font-bold hover:shadow-lg hover:shadow-amber-500/40 transition-all"
                         >
                             WhatsApp Support
                         </a>
@@ -153,9 +153,9 @@ const FAQPage = () => {
                 </div>
 
                 {/* Disclaimer */}
-                <div className="mt-8 bg-red-500/10 rounded-xl border border-red-500/30 p-6">
-                    <h3 className="text-lg font-bold text-red-400 mb-2">⚠️ Disclaimer</h3>
-                    <p className="text-gray-300 text-sm">
+                <div className="mt-8 bg-amber-100 rounded-xl border border-amber-200 p-6">
+                    <h3 className="text-lg font-bold text-amber-700 mb-2">⚠️ Disclaimer</h3>
+                    <p className="text-slate-700 text-sm">
                         Satta Disawer and related activities may be illegal in some regions. This website is for informational and entertainment purposes only and does not promote or support gambling. Users are responsible for how they use the information provided and must comply with local laws and regulations.
                     </p>
                 </div>

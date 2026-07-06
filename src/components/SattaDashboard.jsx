@@ -67,8 +67,8 @@ const SattaDashboard = ({
       <div className="mx-auto">
         {/* Current Featured Game */}
         <div className="text-center">
-          <div className="bg-gradient-to-r from-violet-700 to-violet-600 py-4">
-            <p className="text-xl md:text-2xl font-bold text-white hindi-text">
+          <div className="bg-gradient-to-r from-amber-300 to-yellow-300 py-4 shadow-lg shadow-amber-200/40">
+            <p className="text-xl md:text-2xl font-bold text-slate-900 hindi-text">
               <Typewriter
                 words={["ईमानदारी ही हमारी पहचान है।"]}
                 cursor
@@ -101,8 +101,8 @@ const SattaDashboard = ({
             </p>
           </div>
           {/* Live Results Banner */}
-          <div className="bg-gradient-to-r from-violet-700 via-violet-600 to-violet-700 py-2">
-            <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center">
+          <div className="bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 py-2">
+            <p className="text-lg md:text-xl font-bold italic text-amber-700 text-center">
               Check satta disawar result online
             </p>
           </div>
@@ -122,8 +122,8 @@ const SattaDashboard = ({
 
         {/* Chart Grid */}
         <div className="mt-8 px-2 md:px-4">
-          <div className="bg-gradient-to-r from-violet-700 to-violet-600 rounded-t-2xl py-5 text-center">
-            <h2 className="text-xl sm:text-2xl lg:text-3xl text-white font-bold flex items-center justify-center gap-3">
+          <div className="bg-gradient-to-r from-amber-300 to-yellow-300 rounded-t-2xl py-5 text-center shadow-lg shadow-amber-200/40">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl text-slate-900 font-bold flex items-center justify-center gap-3">
               <span>📅</span>
               <span>
                 {currentMonth} MONTH CHART {currentYear}
@@ -132,17 +132,17 @@ const SattaDashboard = ({
             </h2>
           </div>
 
-          <div className="overflow-x-auto bg-slate-900 rounded-b-2xl shadow-sm border border-slate-700">
+          <div className="overflow-x-auto bg-white rounded-b-2xl shadow-sm border border-amber-200">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-slate-800">
-                  <th className="border border-slate-700 px-3 py-3 text-violet-400 text-sm font-bold sticky left-0 bg-slate-800 z-10">
+                <tr className="bg-amber-200">
+                  <th className="border border-amber-300 px-3 py-3 text-slate-900 text-sm font-bold sticky left-0 bg-amber-200 z-10">
                     S.No
                   </th>
                   {GAMES.map((game, index) => (
                     <th
                       key={index}
-                      className="border border-slate-700 px-3 py-3 text-slate-300 text-xs font-semibold whitespace-nowrap"
+                      className="border border-amber-300 px-3 py-3 text-slate-900 text-xs font-semibold whitespace-nowrap"
                     >
                       {game.name}
                     </th>
@@ -153,15 +153,15 @@ const SattaDashboard = ({
                 {monthlyChartData.map((row, rowIndex) => (
                   <tr
                     key={rowIndex}
-                    className="hover:bg-slate-700/50 transition-colors duration-200 bg-slate-800/50"
+                    className="hover:bg-amber-100 transition-colors duration-200 bg-amber-50"
                   >
-                    <td className="border border-slate-700 px-3 py-2.5 text-center text-amber-500 text-sm font-bold sticky left-0 bg-slate-800 z-10">
+                    <td className="border border-amber-200 px-3 py-2.5 text-center text-amber-700 text-sm font-bold sticky left-0 bg-amber-50 z-10">
                       {rowIndex + 1}
                     </td>
                     {GAMES.map((_, gameIndex) => (
                       <td
                         key={gameIndex}
-                        className="border border-slate-700 px-3 py-2.5 hover:bg-violet-900/30 transition-colors text-center text-violet-400 text-sm font-medium"
+                        className="border border-amber-200 px-3 py-2.5 hover:bg-amber-100 transition-colors text-center text-slate-700 text-sm font-medium"
                       >
                         {row[`game${gameIndex}`]}
                       </td>
@@ -175,13 +175,13 @@ const SattaDashboard = ({
 
         {/* Bottom Decorative */}
         <div className="py-8 flex justify-center">
-          <div className="h-1 w-48 bg-gradient-to-r from-transparent via-violet-400 to-transparent rounded-full"></div>
+          <div className="h-1 w-48 bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full"></div>
         </div>
 
         {/* FAQ Section */}
         <SimpleFAQ />
         <div className="flex flex-col justify-center items-center mt-5 gap-2">
-          <p className="text-center text-violet-100 text-base mb-1 mt-2 hindi-text">
+          <p className="text-center text-slate-800 text-base mb-1 mt-2 hindi-text">
             Join our Telegram channel to get results quickly and receive
             superfast results:
           </p>
@@ -206,7 +206,7 @@ const SattaDashboard = ({
 
         {/* Footer Spacing */}
         <div className="py-8 flex justify-center">
-          <div className="h-1 w-48 bg-gradient-to-r from-transparent via-violet-400 to-transparent rounded-full"></div>
+          <div className="h-1 w-48 bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full"></div>
         </div>
       </div>
     </div>
