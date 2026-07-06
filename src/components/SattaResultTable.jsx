@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { GAMES, GAME_MAPPING } from "@/utils/gameConfig";
 
-const SattaResultTable = ({ todayResults = [], yesterdayResults = [] }) => {
+const SattaResultTable = ({ todayResults = [], yesterdayResults = [], externalGames = [] }) => {
   // Create games array from centralized config
   const sattaGames = GAMES.map((game, index) => {
     const todayResult = todayResults.find(
@@ -94,6 +94,31 @@ const SattaResultTable = ({ todayResults = [], yesterdayResults = [] }) => {
             ))}
           </tbody>
         </table>
+        {externalGames.length > 0 && (
+          <div className="mt-4 rounded-2xl bg-slate-900 p-4 border border-slate-700">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+              <div>
+                <h3 className="text-lg font-bold text-white">External Games from Satta-King-Fast</h3>
+                <p className="text-sm text-slate-400">These games are fetched from the external source and stored for up to two days.</p>
+              </div>
+              <span className="inline-flex items-center rounded-full bg-amber-500/10 px-3 py-1 text-amber-300 text-sm font-semibold">
+                {externalGames.length} games
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {externalGames.map((game, index) => (
+                <div key={`${game.name}-${game.time}-${index}`} className="rounded-2xl bg-slate-800 p-4 border border-slate-700">
+                  <p className="text-white font-semibold">{game.name}</p>
+                  <p className="text-amber-300 text-sm mt-1">{game.time}</p>
+                  <div className="mt-1 text-slate-300 text-sm space-y-0.5">
+                    <p>Yesterday: <span className="text-white font-bold">{game.yesterdayResult ?? "--"}</span></p>
+                    <p>Today: <span className="text-white font-bold">{game.todayResult ?? "--"}</span></p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </article>
   );

@@ -8,6 +8,7 @@ import {
   getDisawarDataFromDB,
 } from "@/services/resultServer";
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
+import { getExternalGames, fetchExternalGames } from "@/services/externalGameService";
 
 export const metadata = {
   title: "Satta Disawer Satta",
@@ -24,6 +25,18 @@ export default async function Home() {
       getDisawarDataFromDB(),
       getSettingsFromDB(),
     ]);
+
+  let externalGames = await getExternalGames();
+  const needsRefresh =
+    externalGames.length === 0 ||
+    externalGames.some(
+      (game) => game.todayResult == null || game.yesterdayResult == null,
+    );
+
+  if (needsRefresh) {
+    await fetchExternalGames();
+    externalGames = await getExternalGames();
+  }
 
   // Get current month's results
   const currentDate = new Date();
@@ -43,6 +56,7 @@ export default async function Home() {
       setting={siteConfig}
       monthlyResults={monthlyResults}
       disawarData={disawarData}
+      externalGames={externalGames}
     />
   );
 }

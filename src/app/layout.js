@@ -1,15 +1,9 @@
 import "./globals.css";
-import { Poppins, Noto_Sans_Devanagari } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 
 const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['400','500','600','700','800','900'],
-  display: 'swap'
-})
-
-const noto = Noto_Sans_Devanagari({
-  subsets: ['devanagari','latin'],
-  weight: ['400','500','600','700'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   display: 'swap'
 })
 
@@ -56,18 +50,19 @@ export default async function RootLayout({ children }) {
   }
 
   return (
-    <html lang="en" className={`${poppins.className} ${noto.className}`}>
+    <html lang="en" className={poppins.className}>
       <head>
         {/* Preconnect to critical origins to reduce connection latency */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://securepubads.g.doubleclick.net" />
         <link rel="preconnect" href="https://i.ibb.co" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" />
         <meta name="google-site-verification" content="cWjJpNxBiG9deZ8gPBtHKf_287SB0gI7lcuDAVb-zfE" />
         {/* DNS prefetch for external origins */}
         <link rel="dns-prefetch" href="//pagead2.googlesyndication.com" />
       </head>
-      <body className={`antialiased`}> 
+      <body className={`antialiased`}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {children}
       </body>

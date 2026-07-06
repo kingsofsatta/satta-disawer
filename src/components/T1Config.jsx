@@ -2,19 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { getSettings, updateSettings } from "@/services/result";
 import { Plus, Trash2, ChevronDown, ChevronUp, ChevronLeft } from "lucide-react";
+import { defaultGameSchedule } from "@/utils/defaultGameSchedule";
 
-const defaultGameSchedule = [
-    { name: "SHIRDI DHAM", time: "12:55 PM" },
-    { name: "KALIYAR", time: "01:55 PM" },
-    { name: "DELHI BAZAR", time: "03:00 PM" },
-    { name: "SHRI GANESH", time: "04:30 PM" },
-    { name: "FARIDABAD", time: "05:45 PM" },
-    { name: "SHAKTI PEETH", time: "07:25 PM" },
-    { name: "GAZIYABAD", time: "09:00 PM" },
-    { name: "MATHURA", time: "10:00 PM" },
-    { name: "GALI", time: "11:30 PM" },
-    { name: "DISAWAR", time: "04:50 AM" }
-];
 
 const T1Config = () => {
     const [configLoading, setConfigLoading] = useState(false);
