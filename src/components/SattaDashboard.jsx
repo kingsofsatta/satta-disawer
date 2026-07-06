@@ -84,8 +84,8 @@ const SattaDashboard = ({
               <Link href="https://www.sattadisawer.com">SattaDisawer.Com</Link>
             </h1>
           </div>
-          <div className="bg-slate-800 py-4 px-4 mt-5">
-            <p className="text-sm md:text-base text-center text-slate-300 leading-relaxed">
+          <div className="bg-yellow-400 py-4 px-4 mt-5">
+            <p className="text-sm md:text-base text-center text-black leading-relaxed">
               Welcome to our platform where users can check satta disawar
               result, satta king chart, today satta result, and all satta games
               result in one place. We provide chart pages, result updates, jodi
@@ -96,7 +96,7 @@ const SattaDashboard = ({
               website helps users find chart information and result pages
               without visiting multiple websites.{" "}
             </p>
-            <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center mt-3">
+            <p className="text-lg md:text-xl font-bold italic text-amber-800 text-center mt-3">
              Today satta result and chart information
             </p>
           </div>

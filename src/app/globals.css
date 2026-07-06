@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: 147 51 234;
-  /* Purple */
-  --color-secondary: 15 23 42;
-  /* Slate dark */
-  --color-accent: 251 191 36;
+  --color-primary: 220 38 38;
+  /* Red */
+  --color-secondary: 251 191 36;
   /* Amber */
+  --color-accent: 249 115 22;
+  /* Orange accent */
   --color-success: 34 197 94;
-  --color-glow: 168 85 247;
-  /* Purple glow */
+  --color-glow: 249 115 22;
+  /* Amber glow */
 }
 
 * {
@@ -18,20 +18,20 @@
 
 /* Main Background Gradient */
 .bg-main-gradient {
-  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 50%, #fef2f2 100%);
 }
 
 .bg-card-gradient {
-  background: linear-gradient(145deg, rgba(139, 92, 246, 0.1) 0%, rgba(30, 27, 75, 0.8) 100%);
+  background: linear-gradient(145deg, rgba(254, 243, 199, 0.75) 0%, rgba(254, 252, 232, 0.9) 100%);
   backdrop-filter: blur(10px);
 }
 
 .bg-header-gradient {
-  background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 50%, #f59e0b 100%);
+  background: linear-gradient(90deg, #fde68a 0%, #fbbf24 50%, #fb923c 100%);
 }
 
 .bg-accent-gradient {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  background: linear-gradient(135deg, #fbbf24 0%, #fb923c 50%, #f97316 100%);
 }
 
 /* Glow Effects */
@@ -40,7 +40,7 @@
 }
 
 .glow-purple {
-  box-shadow: 0 0 20px rgba(147, 51, 234, 0.4), 0 0 40px rgba(147, 51, 234, 0.2);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.4), 0 0 40px rgba(251, 191, 36, 0.2);
 }
 
 .glow-text-amber {
@@ -49,12 +49,6 @@
 
 .glow-text-white {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
-}
-
-/* Glass Effect */
-.glass-card {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(100, 116, 139, 0.3);
 }
 
 .glass-dark {
@@ -139,8 +133,8 @@
 
 .pattern-grid {
   background-image:
-    linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(251, 191, 36, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 191, 36, 0.1) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
@@ -151,11 +145,11 @@
 
 /* Table Styles */
 .table-row-gradient:nth-child(odd) {
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.08) 0%, rgba(30, 27, 75, 0.5) 100%);
+  background: linear-gradient(90deg, rgba(254, 231, 165, 0.6) 0%, rgba(254, 244, 229, 1) 100%);
 }
 
 .table-row-gradient:nth-child(even) {
-  background: linear-gradient(90deg, rgba(251, 191, 36, 0.05) 0%, rgba(30, 27, 75, 0.3) 100%);
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.15) 0%, rgba(254, 252, 232, 1) 100%);
 }
 
 /* Button Hover Effects */

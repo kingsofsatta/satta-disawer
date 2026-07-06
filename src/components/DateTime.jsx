@@ -31,7 +31,7 @@ const DateTime = () => {
   }, []);
 
   return (
-    <p className="text-lg font-semibold text-slate-400">{dateTime}</p>
+    <p className="text-lg font-semibold text-black">{dateTime}</p>
   );
 };
 
