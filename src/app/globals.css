@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: 251 191 36;
+  --color-primary: 220 38 38;
+  /* Red */
+  --color-secondary: 251 191 36;
   /* Amber */
-  --color-secondary: 254 243 199;
-  /* Light cream */
-  --color-accent: 245 158 11;
+  --color-accent: 249 115 22;
   /* Orange accent */
   --color-success: 34 197 94;
-  --color-glow: 245 158 11;
+  --color-glow: 249 115 22;
   /* Amber glow */
 }
 
@@ -18,11 +18,11 @@
 
 /* Main Background Gradient */
 .bg-main-gradient {
-  background: linear-gradient(135deg, #fff9db 0%, #fef3c7 50%, #fffbeb 100%);
+  background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 50%, #fef2f2 100%);
 }
 
 .bg-card-gradient {
-  background: linear-gradient(145deg, rgba(254, 243, 199, 0.9) 0%, rgba(255, 250, 240, 0.95) 100%);
+  background: linear-gradient(145deg, rgba(254, 243, 199, 0.75) 0%, rgba(254, 252, 232, 0.9) 100%);
   backdrop-filter: blur(10px);
 }
 
@@ -40,7 +40,7 @@
 }
 
 .glow-purple {
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4), 0 0 40px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.4), 0 0 40px rgba(251, 191, 36, 0.2);
 }
 
 .glow-text-amber {
@@ -149,7 +149,7 @@
 }
 
 .table-row-gradient:nth-child(even) {
-  background: linear-gradient(90deg, rgba(251, 191, 36, 0.15) 0%, rgba(255, 249, 230, 1) 100%);
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.15) 0%, rgba(254, 252, 232, 1) 100%);
 }
 
 /* Button Hover Effects */

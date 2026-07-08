@@ -15,7 +15,7 @@ export default async function RootLayout({ children }) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-yellow-100 via-amber-100 to-amber-50 text-slate-900">
+    <div className="min-h-screen bg-gradient-to-b from-amber-100 via-amber-50 to-red-50 text-slate-900">
       <TopProgressBar />
       <Navbar />
       <main>
@@ -52,7 +52,7 @@ export default async function RootLayout({ children }) {
         <div className="bg-amber-50 py-6 relative">
           <div className="max-w-4xl mx-auto px-4">
             {/* Contact Section */}
-            <div className="mb-6 pb-6 border-b border-amber-300/70">
+            <div className="mb-6 pb-6 border-b border-violet-600/50">
               <p className="text-center text-red-600 font-bold text-base mb-4">📞 Get In Touch</p>
               <div className="flex flex-wrap gap-4 justify-center items-center">
                 {setting?.khaiwalSection1?.whatsappNumber && (
@@ -105,7 +105,7 @@ export default async function RootLayout({ children }) {
 
           {/* Bottom Decorative */}
           <div className="mt-6 flex justify-center">
-            <div className="h-0.5 w-32 bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full"></div>
+            <div className="h-0.5 w-32 bg-gradient-to-r from-transparent via-red-400 to-transparent rounded-full"></div>
           </div>
         </div>
       </footer>
