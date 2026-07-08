@@ -165,25 +165,25 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
   return (
     <div className="bg-transparent">
       {/* === TOP DYNAMIC SECTION === */}
-      <div className="bg-yellow-200 mx-2 md:mx-4 mt-4 rounded-2xl pt-5 pb-6 shadow-sm">
+      <div className="glass-card mx-2 md:mx-4 mt-4 rounded-2xl pt-5 pb-6 shadow-sm">
         <div className="text-center">
           <DateTime />
         </div>
-        <hr className="border-yellow-700 w-11/12 mx-auto my-5" />
+        <hr className="border-slate-700 w-11/12 mx-auto my-5" />
 
         <div className="flex uppercase mx-auto text-center w-full font-semibold flex-col gap-4 items-center justify-center">
           {!isMonthEnd && data && (
             <>
-              <p className="text-black text-2xl sm:text-3xl font-bold">
+              <p className="text-amber-500 text-2xl sm:text-3xl font-bold">
                 {data.game.replace("_", " ")}
               </p>
-              <p className="text-red-600 text-3xl md:text-4xl font-black">
+              <p className="text-violet-400 text-3xl md:text-4xl font-black">
                 {data.resultNumber}
               </p>
 
-              <div className="h-px w-32 bg-gradient-to-r from-transparent via-red-400 to-transparent my-2"></div>
+              <div className="h-px w-32 bg-gradient-to-r from-transparent via-violet-400 to-transparent my-2"></div>
 
-              <p className="text-black text-2xl sm:text-[28px] font-bold">
+              <p className="text-amber-500 text-2xl sm:text-[28px] font-bold">
                 {waitingGame.replace("_", " ").toUpperCase()}
               </p>
               <Image

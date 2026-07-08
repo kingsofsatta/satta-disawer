@@ -61,15 +61,15 @@ const SattaResultTable = ({ todayResults = [], yesterdayResults = [], externalGa
       <div className="relative overflow-x-auto rounded-2xl shadow-sm border border-slate-700">
         <table className="w-full text-sm text-left border-collapse">
           {/* Table Header */}
-          <thead className="text-sm sm:text-base bg-gradient-to-r from-amber-300 via-red-300 to-amber-300">
+           <thead className="text-sm sm:text-base bg-gradient-to-r from-violet-700 to-violet-600">
             <tr>
-              <th className="text-center text-slate-900 font-bold border border-red-200 py-4 w-[37%]">
+              <th className="text-center text-white font-bold border border-violet-600 py-4 w-[37%]">
                 🎮 सट्टा का नाम
               </th>
-              <th className="py-4 text-center text-slate-900 font-bold border border-red-200">
+              <th className="py-4 text-center text-violet-100 font-bold border border-violet-600">
                 ⏮️ कल आया था
               </th>
-              <th className="py-4 text-center text-slate-900 font-bold border border-red-200">
+              <th className="py-4 text-center text-violet-100 font-bold border border-violet-600">
                 🎯 आज का रिज़ल्ट
               </th>
             </tr>
@@ -77,25 +77,22 @@ const SattaResultTable = ({ todayResults = [], yesterdayResults = [], externalGa
           {/* Table Body */}
           <tbody>
             {tableRows.map((game) => (
-              <tr
-                key={game.id}
-                className={`border-b transition-colors duration-200 ${game.isExternal ? "bg-red-50 hover:bg-red-100" : "bg-white/90 hover:bg-yellow-50"}`}
-              >
+              <tr key={game.id} className="border-b border-slate-700 hover:bg-slate-700/50 transition-colors duration-200 bg-slate-800/50">
                 {/* Game Name Cell */}
-                <td className={`py-1 px-3 text-center font-bold border ${game.isExternal ? "border-red-200 bg-red-50" : "border-yellow-200 bg-yellow-50"}`}>
-                  <p className={`text-base w-full lg:text-lg font-bold text-black`}>
+                <td className="py-3 px-3 text-center font-bold border border-slate-700 bg-slate-800">
+                   <p className="text-base text-amber-500 w-full lg:text-lg font-bold">
                     {game.displayName}
                   </p>
-                  <span className="text-slate-500 text-sm font-medium">{game.time}</span>
+                  <span className="text-slate-400 text-sm font-medium">{game.time}</span>
                 </td>
                 {/* Yesterday Result Cell */}
-                <td className={`text-center border p-3 ${game.isExternal ? "border-red-200 bg-red-50" : "border-yellow-200 bg-yellow-50"}`}>
-                  <div className="text-lg lg:text-xl font-bold tracking-widest text-slate-800">
+                <td className="text-center bg-slate-800/50 border border-slate-700 p-3">
+                  <div className="text-lg lg:text-xl font-bold tracking-widest text-slate-300">
                     {game.yesterdayResult}
                   </div>
                 </td>
                 {/* Today Result Cell */}
-                <td className={`text-center border p-3 ${game.isExternal ? "border-red-200 bg-red-50" : "border-yellow-200 bg-yellow-50"}`}>
+                <td className="text-center bg-slate-800/50 border border-slate-700 p-3">
                   <ResultCell result={game.todayResult} isLoading={game.isLoading} />
                 </td>
               </tr>
