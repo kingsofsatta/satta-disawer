@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import SattaDashboard from "@/components/SattaDashboard";
+import StructuredData from "@/components/StructuredData";
 import {
   getTodayResultFromDB,
   getYesterdayResultsFromDB,
@@ -10,8 +11,31 @@ import {
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
 
 export const metadata = {
-  title: "Satta Disawer Satta",
-  description: "Satta Play - Satta Matka Results, Charts, and More",
+  title: "Satta Disawer | Live Satta Matka Results Today",
+  description: "Get instant Satta Disawer results today. Live updates for Disawer, Gali, Faridabad, Delhi Bazar & all Satta Matka games. Check latest charts, predictions & winning numbers.",
+  keywords: [
+    "satta disawer today",
+    "satta result today",
+    "disawer result today",
+    "gali result today",
+    "satta king today",
+    "live satta result",
+    "satta matka live",
+    "today satta number"
+  ],
+  openGraph: {
+    title: "Satta Disawer | Live Satta Matka Results Today",
+    description: "Get instant Satta Disawer results today. Live updates for all Satta Matka games.",
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Satta Disawer | Live Satta Matka Results Today",
+    description: "Get instant Satta Disawer results today. Live updates for all Satta Matka games.",
+  },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com',
+  },
 };
 
 export default async function Home() {
@@ -38,15 +62,35 @@ export default async function Home() {
   // Build site config with khaiwal sections
   const siteConfig = buildSiteConfig(settings);
 
+  // Structured Data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Satta Disawer",
+    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://sattadisawer.com",
+    "description": "Get fast and accurate Satta Disawer results, charts, and predictions. Live updates for all Satta Matka games.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${process.env.NEXT_PUBLIC_SITE_URL || "https://sattadisawer.com"}/chart?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
-    <SattaDashboard
-      todayResults={todayResults}
-      yesterdayResults={yesterdayResults}
-      lastResult={lastResult}
-      setting={siteConfig}
-      monthlyResults={monthlyResults}
-      disawarData={disawarData}
-    />
+    <>
+      <StructuredData data={structuredData} />
+      <SattaDashboard
+        todayResults={todayResults}
+        yesterdayResults={yesterdayResults}
+        lastResult={lastResult}
+        setting={siteConfig}
+        monthlyResults={monthlyResults}
+        disawarData={disawarData}
+      />
+    </>
   );
 }
 

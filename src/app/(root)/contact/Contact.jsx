@@ -9,7 +9,7 @@ const Contact = ({ setting }) => {
       <div className="flex flex-col justify-center items-center">
         {/* Header Card */}
         <div className="bg-gradient-to-r from-violet-700 to-violet-600 rounded-lg p-5 mb-6 w-full text-center">
-          <h1 className="text-xl md:text-2xl font-semibold text-white">
+          <p className="text-xl md:text-2xl font-semibold text-white">
             <Typewriter
               words={["ईमानदारी ही हमारी पहचान है।"]}
               cursor
@@ -17,14 +17,14 @@ const Contact = ({ setting }) => {
               cursorStyle=""
               typeSpeed={80}
             />
-          </h1>
+          </p>
         </div>
 
-        {/* Site Name */}
+        {/* Site Name - Main Heading */}
         <div className="bg-amber-500 rounded-lg w-full text-center py-6 mb-6">
-          <h2 className="text-3xl lg:text-4xl text-white font-bold">
-            Satta Disawer Satta
-          </h2>
+          <h1 className="text-3xl lg:text-4xl text-white font-bold">
+            Contact Us - Satta Disawer
+          </h1>
         </div>
 
         {/* Contact Section */}

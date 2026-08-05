@@ -8,6 +8,39 @@ import {
   parseSlugData,
 } from "@/services/resultServer";
 
+// Generate metadata for dynamic pages
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  const slugData = parseSlugData(slug);
+  
+  if (!slugData) {
+    return {
+      title: 'Page Not Found',
+    };
+  }
+
+  const { name: gameName, year } = slugData;
+  
+  return {
+    title: `${gameName} Chart ${year} | Yearly Record Chart`,
+    description: `View complete ${gameName} yearly chart for ${year}. Get accurate historical results, patterns, and trends for ${gameName} Satta Matka game.`,
+    keywords: [
+      `${gameName.toLowerCase()} chart`,
+      `${gameName.toLowerCase()} ${year}`,
+      `${gameName.toLowerCase()} result`,
+      `satta ${gameName.toLowerCase()}`,
+      `${gameName.toLowerCase()} yearly chart`,
+    ],
+    openGraph: {
+      title: `${gameName} Chart ${year} | Yearly Record Chart`,
+      description: `View complete ${gameName} yearly chart for ${year}. Get accurate historical results and patterns.`,
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com'}/${slug}`,
+    },
+  };
+}
+
 const DynamicTable = async ({ params }) => {
   const { slug } = params;
 

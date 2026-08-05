@@ -76,7 +76,7 @@ const Navbar = () => {
                   <Image src="/logo.png" alt="Satta Disawer Logo" width={50} height={50} />
                 </div>
                 <div className="hidden sm:block">
-                  <h1 className="text-sm sm:text-lg font-black text-white leading-none">SATTA DISAWER</h1>
+                  <div className="text-sm sm:text-lg font-black text-white leading-none">SATTA DISAWER</div>
                   <p className="text-xs text-amber-400 font-semibold tracking-wider">SATTA</p>
                 </div>
               </Link>

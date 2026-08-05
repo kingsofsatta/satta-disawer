@@ -78,9 +78,9 @@ const SattaDashboard = ({
             </p>
           </div>
           <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 py-5 shadow-lg shadow-amber-500/20">
-            <h2 className="text-3xl px-3 lg:text-4xl text-slate-900 font-black tracking-tight">
+            <h1 className="text-3xl px-3 lg:text-4xl text-slate-900 font-black tracking-tight">
               {displaySiteName}
-            </h2>
+            </h1>
           </div>
           {/* Live Results Banner */}
           <div className="bg-gradient-to-r from-violet-700 via-violet-600 to-violet-700 py-2">

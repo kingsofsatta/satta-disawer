@@ -5,10 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import "../globals.css";
 
-export const metadata = {
-  title: "Satta Disawer",
-  description: "Satta Disawer - Satta Disawer Results, Charts, and More",
-};
+// Metadata is inherited from root layout.js
+// This layout focuses on structure and components
 
 export default async function RootLayout({ children }) {
   const setting = await getSettings();
