@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com'),
   title: {
     default: "Satta Disawer | Live Results, Charts & Predictions",
     template: "%s | Satta Disawer"
@@ -67,7 +67,7 @@ export const metadata = {
     // bing: 'your-bing-verification-code',
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com',
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com',
   },
 };
 

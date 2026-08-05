@@ -18,7 +18,7 @@ export const metadata = {
     description: "View comprehensive Satta Matka charts for all games. Analyze patterns and trends.",
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com'}/chart`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com'}/chart`,
   },
 };
 

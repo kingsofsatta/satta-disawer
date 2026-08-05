@@ -1,7 +1,7 @@
 import { GAMES } from '@/utils/gameConfig';
 
 export default async function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com';
   
   // Static pages
   const staticPages = [

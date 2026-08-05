@@ -15,7 +15,7 @@ export const metadata = {
     description: "Get answers to frequently asked questions about Satta Disawer and Satta Matka games.",
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com'}/faq`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com'}/faq`,
   },
 };
 

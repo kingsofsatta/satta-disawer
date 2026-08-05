@@ -1,5 +1,5 @@
 export default function robots() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com';
   
   return {
     rules: [

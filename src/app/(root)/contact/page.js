@@ -10,7 +10,7 @@ export const metadata = {
     description: "Get in touch with Satta Disawer for support and queries.",
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com'}/contact`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com'}/contact`,
   },
 };
 

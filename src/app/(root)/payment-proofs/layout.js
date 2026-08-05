@@ -13,7 +13,7 @@ export const metadata = {
     description: "View authentic payment proofs from our winners. Real transaction screenshots.",
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com'}/payment-proofs`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com'}/payment-proofs`,
   },
 };
 

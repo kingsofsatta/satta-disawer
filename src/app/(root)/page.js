@@ -34,7 +34,7 @@ export const metadata = {
     description: "Get instant Satta Disawer results today. Live updates for all Satta Matka games.",
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com',
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com',
   },
 };
 
@@ -67,13 +67,13 @@ export default async function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Satta Disawer",
-    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://sattadisawer.com",
+    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com",
     "description": "Get fast and accurate Satta Disawer results, charts, and predictions. Live updates for all Satta Matka games.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": `${process.env.NEXT_PUBLIC_SITE_URL || "https://sattadisawer.com"}/chart?q={search_term_string}`
+        "urlTemplate": `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com"}/chart?q={search_term_string}`
       },
       "query-input": "required name=search_term_string"
     }

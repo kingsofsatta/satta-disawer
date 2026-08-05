@@ -36,7 +36,7 @@ export async function generateMetadata({ params }) {
       description: `View complete ${gameName} yearly chart for ${year}. Get accurate historical results and patterns.`,
     },
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://sattadisawer.com'}/${slug}`,
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com'}/${slug}`,
     },
   };
 }
