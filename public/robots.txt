@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://www.sattadisawer.com/sitemap.xml
+Host: https://www.sattadisawer.com/

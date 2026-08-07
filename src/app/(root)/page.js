@@ -9,6 +9,7 @@ import {
   getDisawarDataFromDB,
 } from "@/services/resultServer";
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
+import { getExternalGames, fetchExternalGames } from "@/services/externalGameService";
 
 export const metadata = {
   title: "Satta Disawer | Live Satta Matka Results Today",
@@ -49,8 +50,17 @@ export default async function Home() {
       getSettingsFromDB(),
     ]);
 
-  console.log("Settings from DB:", settings?.khaiwalSection1 ? "Section1 present" : "Section1 missing");
-  console.log("Settings from DB:", settings?.khaiwalSection2 ? "Section2 present" : "Section2 missing");
+  let externalGames = await getExternalGames();
+  const needsRefresh =
+    externalGames.length === 0 ||
+    externalGames.some(
+      (game) => game.todayResult == null || game.yesterdayResult == null,
+    );
+
+  if (needsRefresh) {
+    await fetchExternalGames();
+    externalGames = await getExternalGames();
+  }
 
   // Get current month's results
   const currentDate = new Date();
@@ -80,16 +90,17 @@ export default async function Home() {
   };
 
   return (
-    <>
+      <>
       <StructuredData data={structuredData} />
-      <SattaDashboard
-        todayResults={todayResults}
-        yesterdayResults={yesterdayResults}
-        lastResult={lastResult}
-        setting={siteConfig}
-        monthlyResults={monthlyResults}
-        disawarData={disawarData}
-      />
+    <SattaDashboard
+      todayResults={todayResults}
+      yesterdayResults={yesterdayResults}
+      lastResult={lastResult}
+      setting={siteConfig}
+      monthlyResults={monthlyResults}
+      disawarData={disawarData}
+      externalGames={externalGames}
+    />
     </>
   );
 }

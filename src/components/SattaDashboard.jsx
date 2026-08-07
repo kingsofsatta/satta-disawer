@@ -14,6 +14,7 @@ const SattaDashboard = ({
   setting,
   monthlyResults = [],
   disawarData,
+  externalGames = [],
   currentSite = "site 3",
   siteName = "Satta Disawer Satta",
 }) => {
@@ -25,7 +26,7 @@ const SattaDashboard = ({
   const daysInMonth = new Date(
     currentYear,
     currentDate.getMonth() + 1,
-    0
+    0,
   ).getDate();
 
   // Use site name from settings or props
@@ -48,7 +49,7 @@ const SattaDashboard = ({
       GAMES.forEach((game, index) => {
         // Find result for this specific date and game
         const result = monthlyResults.find(
-          (r) => r.date === dayStr && r.game === game.key
+          (r) => r.date === dayStr && r.game === game.key,
         );
         row[`game${index}`] = result ? result.resultNumber : "--";
       });
@@ -79,13 +80,30 @@ const SattaDashboard = ({
           </div>
           <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 py-5 shadow-lg shadow-amber-500/20">
             <h1 className="text-3xl px-3 lg:text-4xl text-slate-900 font-black tracking-tight">
-              {displaySiteName}
+              Today Satta Result for All Satta Games |{" "}
+              <Link href="https://www.sattadisawer.com">SattaDisawer.Com</Link>
             </h1>
+          </div>
+          <div className="bg-slate-800 py-4 px-4 mt-5">
+            <p className="text-sm md:text-base text-center text-slate-300 leading-relaxed">
+              Welcome to our platform where users can check satta disawar
+              result, satta king chart, today satta result, and all satta games
+              result in one place. We provide chart pages, result updates, jodi
+              records, panel records, and market-wise information for users
+              looking for quick and easy access to popular game results. <br />
+              Many visitors search daily for disawar result, gali result,
+              faridabad result, ghaziabad result, and other market updates. This
+              website helps users find chart information and result pages
+              without visiting multiple websites.{" "}
+            </p>
+            <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center mt-3">
+             Today satta result and chart information
+            </p>
           </div>
           {/* Live Results Banner */}
           <div className="bg-gradient-to-r from-violet-700 via-violet-600 to-violet-700 py-2">
             <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center">
-              Live Satta Disawer Result.
+              Check satta disawar result online
             </p>
           </div>
         </div>
@@ -99,6 +117,7 @@ const SattaDashboard = ({
         <SattaResultTable
           todayResults={todayResults}
           yesterdayResults={yesterdayResults}
+          externalGames={externalGames}
         />
 
         {/* Chart Grid */}
@@ -106,7 +125,9 @@ const SattaDashboard = ({
           <div className="bg-gradient-to-r from-violet-700 to-violet-600 rounded-t-2xl py-5 text-center">
             <h2 className="text-xl sm:text-2xl lg:text-3xl text-white font-bold flex items-center justify-center gap-3">
               <span>📅</span>
-              <span>{currentMonth} MONTH CHART {currentYear}</span>
+              <span>
+                {currentMonth} MONTH CHART {currentYear}
+              </span>
               <span>📅</span>
             </h2>
           </div>
@@ -161,7 +182,8 @@ const SattaDashboard = ({
         <SimpleFAQ />
         <div className="flex flex-col justify-center items-center mt-5 gap-2">
           <p className="text-center text-violet-100 text-base mb-1 mt-2 hindi-text">
-            Join our Telegram channel to get results quickly and receive superfast results:
+            Join our Telegram channel to get results quickly and receive
+            superfast results:
           </p>
           {telegramNumber && (
             <Link
@@ -169,7 +191,14 @@ const SattaDashboard = ({
               href={`https://t.me/${telegramNumber}`}
               className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 btn-glow"
             >
-              <span><Image src='/telegram-icon.webp' height={24} width={24} alt="Telegram" /></span>
+              <span>
+                <Image
+                  src="/telegram-icon.webp"
+                  height={24}
+                  width={24}
+                  alt="Telegram"
+                />
+              </span>
               <span className="hindi-text">Telegram पर संपर्क करें</span>
             </Link>
           )}

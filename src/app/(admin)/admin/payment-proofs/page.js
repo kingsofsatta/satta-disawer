@@ -25,7 +25,7 @@ export default function AdminPaymentProofs() {
 
     if (!user) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900 flex items-center justify-center">
+            <div className="flex min-h-[calc(100vh-5rem)] items-center justify-center px-4 py-10">
                 <div className="text-center">
                     <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-400 mb-4"></div>
                     <p className="text-white font-semibold">Loading...</p>
@@ -35,25 +35,17 @@ export default function AdminPaymentProofs() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900 pt-20">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-slate-900 via-violet-950 to-slate-900 border-b border-violet-500/30 shadow-xl shadow-violet-900/20">
-                <div className="max-w-6xl mx-auto px-4 py-8">
-                    <div className="flex items-center gap-3 mb-2">
-                        <Link
-                            href="/admin"
-                            className="hover:bg-white/10 p-2 rounded-lg transition-colors"
-                        >
-                            <ChevronLeft className="text-amber-400" />
-                        </Link>
+        <div className="space-y-10">
+            <div className="rounded-3xl border border-white/10 bg-slate-900/85 p-6 shadow-xl shadow-black/20">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
                         <h1 className="text-3xl font-black text-white">Payment Proof Management</h1>
+                        <p className="mt-2 text-sm text-slate-300">Manage and upload payment proofs for display on the public page.</p>
                     </div>
-                    <p className="text-gray-400 ml-11">Manage and upload payment proofs for display on the public page</p>
                 </div>
             </div>
 
-            {/* Content */}
-            <div className="max-w-6xl mx-auto px-4 py-12">
+            <div className="rounded-3xl border border-white/10 bg-slate-900/85 p-6 shadow-xl shadow-black/20">
                 <PaymentProofSection />
             </div>
         </div>

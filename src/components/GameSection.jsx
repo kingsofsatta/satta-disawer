@@ -162,7 +162,6 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
 
   // Check if second section is enabled
   const showSecondSection = khaiwalSection2?.enabled && khaiwalSection2?.contactName;
-  console.log(data, "data.game")
   return (
     <div className="bg-transparent">
       {/* === TOP DYNAMIC SECTION === */}

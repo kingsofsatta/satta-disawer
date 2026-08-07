@@ -2,27 +2,35 @@ import React from "react";
 import Image from "next/image";
 import { GAMES, GAME_MAPPING } from "@/utils/gameConfig";
 
-const SattaResultTable = ({ todayResults = [], yesterdayResults = [] }) => {
+const SattaResultTable = ({ todayResults = [], yesterdayResults = [], externalGames = [] }) => {
   // Create games array from centralized config
   const sattaGames = GAMES.map((game, index) => {
-    const todayResult = todayResults.find(
-      (r) => r.game === game.key
-    )?.resultNumber;
-    const yesterdayResult = yesterdayResults.find(
-      (r) => r.game === game.key
-    )?.resultNumber;
+    const todayResult = todayResults.find((r) => r.game === game.key)?.resultNumber;
+    const yesterdayResult = yesterdayResults.find((r) => r.game === game.key)?.resultNumber;
 
     return {
-      id: index + 1,
+      id: `local-${index}`,
       displayName: game.name,
       time: game.time,
       yesterdayResult: yesterdayResult || "--",
-      todayResult: todayResult,
+      todayResult: todayResult || "--",
       isLoading: !todayResult,
+      isExternal: false,
     };
   });
 
-  // Component to render result cell content
+  const externalRows = externalGames.map((game, index) => ({
+    id: `external-${index}`,
+    displayName: game.name,
+    time: game.time,
+    yesterdayResult: game.yesterdayResult || "--",
+    todayResult: game.todayResult || "--",
+    isLoading: false,
+    isExternal: true,
+  }));
+
+  const tableRows = [...sattaGames, ...externalRows];
+
   const ResultCell = ({ result, isLoading }) => {
     if (isLoading) {
       return (
@@ -41,7 +49,7 @@ const SattaResultTable = ({ todayResults = [], yesterdayResults = [] }) => {
 
     return (
       <div className="flex justify-center">
-        <span className="text-lg lg:text-xl font-black tracking-widest text-violet-400">
+        <span className="text-lg lg:text-xl font-black tracking-widest text-red-600">
           {result}
         </span>
       </div>
@@ -53,7 +61,7 @@ const SattaResultTable = ({ todayResults = [], yesterdayResults = [] }) => {
       <div className="relative overflow-x-auto rounded-2xl shadow-sm border border-slate-700">
         <table className="w-full text-sm text-left border-collapse">
           {/* Table Header */}
-          <thead className="text-sm sm:text-base bg-gradient-to-r from-violet-700 to-violet-600">
+           <thead className="text-sm sm:text-base bg-gradient-to-r from-violet-700 to-violet-600">
             <tr>
               <th className="text-center text-white font-bold border border-violet-600 py-4 w-[37%]">
                 🎮 सट्टा का नाम
@@ -68,11 +76,11 @@ const SattaResultTable = ({ todayResults = [], yesterdayResults = [] }) => {
           </thead>
           {/* Table Body */}
           <tbody>
-            {sattaGames.map((game, index) => (
+            {tableRows.map((game) => (
               <tr key={game.id} className="border-b border-slate-700 hover:bg-slate-700/50 transition-colors duration-200 bg-slate-800/50">
                 {/* Game Name Cell */}
                 <td className="py-3 px-3 text-center font-bold border border-slate-700 bg-slate-800">
-                  <p className="text-base text-amber-500 w-full lg:text-lg font-bold">
+                   <p className="text-base text-amber-500 w-full lg:text-lg font-bold">
                     {game.displayName}
                   </p>
                   <span className="text-slate-400 text-sm font-medium">{game.time}</span>
@@ -85,10 +93,7 @@ const SattaResultTable = ({ todayResults = [], yesterdayResults = [] }) => {
                 </td>
                 {/* Today Result Cell */}
                 <td className="text-center bg-slate-800/50 border border-slate-700 p-3">
-                  <ResultCell
-                    result={game.todayResult}
-                    isLoading={game.isLoading}
-                  />
+                  <ResultCell result={game.todayResult} isLoading={game.isLoading} />
                 </td>
               </tr>
             ))}
