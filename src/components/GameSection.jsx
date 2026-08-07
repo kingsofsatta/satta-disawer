@@ -103,6 +103,14 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
 
 const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
   const currentYear = new Date().getFullYear();
+  
+  // Format date as "05 August 2026"
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  });
 
   // Function to get current IST time in minutes since midnight
   const getCurrentISTMinutes = () => {
@@ -177,7 +185,7 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
               <p className="text-amber-500 text-2xl sm:text-3xl font-bold">
                 {data.game.replace("_", " ")}
               </p>
-              <p className="text-violet-400 text-3xl md:text-4xl font-black">
+              <p className="text-white text-3xl md:text-4xl font-black">
                 {data.resultNumber}
               </p>
 
@@ -249,8 +257,15 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
 
       <div className="bg-slate-800 py-4 px-4 mt-5">
         <p className="text-sm md:text-base text-center text-slate-300 leading-relaxed">
-          Welcome to SattaDisawer.com, your trusted source for the latest Satta Disawar results, charts, and daily updates. We provide fast and accurate results for popular games like Kalyan, Milan, Rajdhani, Ratan, and Main Bazar. Stay updated with real-time open and close numbers, along with easy access to historical charts and records. <br />Our platform is designed to offer a smooth and user-friendly experience, helping you quickly find the information you need. We also share daily guessing numbers based on trends and analysis. <br />
-          Visit SattaDisawer.com regularly for quick updates, reliable data, and all Satta-related information in one place.
+          <strong>Looking for the Satta Disawar Chart Today {formattedDate}?</strong>{" "}
+          SattaDisawer.com provides the latest available{" "}
+          <strong>Satta Disawer Result, Satta King Result, Gali Result, Faridabad Result, Ghaziabad Result, Delhi Bazar Result, Shri Ganesh Result and Mathura Result</strong>{" "}
+          in one place.
+          <br /><br />
+          Check daily result updates, market timings,{" "}
+          <strong>Satta charts and previous result records</strong>{" "}
+          with easy-to-find information.{" "}
+          <strong>The latest Satta Disawar results are given below.</strong>
         </p>
         <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center mt-3">
           The current Satta Disawer Results.

@@ -49,7 +49,7 @@ const SattaResultTable = ({ todayResults = [], yesterdayResults = [], externalGa
 
     return (
       <div className="flex justify-center">
-        <span className="text-lg lg:text-xl font-black tracking-widest text-red-600">
+        <span className="text-lg lg:text-xl font-black tracking-widest text-white">
           {result}
         </span>
       </div>

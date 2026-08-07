@@ -99,6 +99,17 @@ export default async function RootLayout({ children }) {
             <p className="text-center text-slate-300 text-xs sm:text-sm leading-relaxed hindi-text">
               यह एक समाचार प्रकाशन वेबसाइट है। वेबसाइट में दिखाए गए सभी नंबर अंकगणित और आर्टिफिशियल इंटेलिजेंस (एआई) पर आधारित हैं और राशि चक्र के आधार पर प्रदर्शित किए गए हैं। इस वेबसाइट का किसी भी जुआ प्रतिष्ठान से किसी भी प्रकार का कोई संबंध नहीं है। वेबसाइट का किसी भी अवैध गतिविधि जैसे जुआ, मनी लॉन्ड्रिंग या किसी अन्य गतिविधि से कोई संबंध नहीं है। यह वेबसाइट पूरी तरह से गूगल ऐड रेवेन्यू पर आश्रित है, इस वेबसाइट पर प्रदर्शित होने वाली सभी जानकारी इंटरनेट स्रोतों से ली गई है।
             </p>
+
+            {/* Footer Links */}
+            <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
+              <Link href="/terms" className="text-violet-400 hover:text-violet-300 transition-colors underline">
+                Terms of Service
+              </Link>
+              <span className="text-slate-600">|</span>
+              <Link href="/contact" className="text-violet-400 hover:text-violet-300 transition-colors underline">
+                Contact Us
+              </Link>
+            </div>
           </div>
 
           {/* Bottom Decorative */}

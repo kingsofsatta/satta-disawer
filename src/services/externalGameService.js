@@ -3,7 +3,17 @@ import ExternalGame from "@/models/ExternalGame";
 import { defaultGameSchedule } from "@/utils/defaultGameSchedule";
 import * as cheerio from "cheerio";
 
-const SOURCE_URL = "https://satta-king-fast.com/";
+const SOURCE_URL = "https://a7satta.com/";
+
+// Specific games to fetch from a7satta.com
+const TARGET_GAMES = [
+    { name: "DELHI BAZAR", pattern: /delhi\s*baz[ao]r/i },
+    { name: "SHRI GANESH", pattern: /shri?\s*ganesh/i },
+    { name: "FARIDABAD", pattern: /faridabad/i },
+    { name: "GHAZIABAD", pattern: /gaz?iabad/i },
+    { name: "GALI", pattern: /^gali$/i },
+    { name: "DISAWER", pattern: /dis?awer/i }
+];
 
 const normalizeGameName = (name) => name.trim().replace(/\s+/g, " ").toUpperCase();
 
@@ -16,12 +26,17 @@ const isDefaultGame = (game) => {
     );
 };
 
+const isTargetGame = (gameName) => {
+    const normalized = normalizeGameName(gameName);
+    return TARGET_GAMES.some(target => target.pattern.test(normalized));
+};
+
 export async function fetchExternalGames() {
     await connectDB();
 
     const response = await fetch(SOURCE_URL, {
         headers: {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
         },
     });
 
@@ -38,21 +53,43 @@ export async function fetchExternalGames() {
     const $ = cheerio.load(html);
     const parsedGames = [];
 
-    $("tr.game-result").each((_, row) => {
-        const name = $(row).find(".game-name").text().trim();
-        const timeRaw = $(row).find(".game-time").text().replace(/^at/i, "").trim();
-        const yesterdayResult = $(row).find(".yesterday-number h3").text().trim();
-        const todayResult = $(row).find(".today-number h3").text().trim();
-        if (!name || !timeRaw) {
-            return;
-        }
+    // Parse the main results table
+    $("table tr").each((_, row) => {
+        const cells = $(row).find("td");
+        if (cells.length < 2) return;
 
-        parsedGames.push({
-            name: normalizeGameName(name),
-            time: normalizeGameTime(timeRaw),
-            yesterdayResult: yesterdayResult || "--",
-            todayResult: todayResult || "--",
-        });
+        const firstCell = $(cells[0]).text().trim();
+        
+        // Extract game name and time from first cell (e.g., "DELHI BAZAR 3:15 PM")
+        const match = firstCell.match(/^(.+?)\s+(\d{1,2}:\d{2}\s*(?:AM|PM))$/i);
+        
+        if (match) {
+            const gameName = match[1].trim();
+            const gameTime = match[2].trim();
+            
+            // Only process games in our target list
+            if (!isTargetGame(gameName)) return;
+            
+            const yesterdayResult = $(cells[1]).text().trim();
+            const todayResult = cells.length > 2 ? $(cells[2]).text().trim() : "--";
+
+            // Skip if today's result contains "wait" or is empty
+            if (!todayResult || todayResult === "--" || /wait/i.test(todayResult)) {
+                parsedGames.push({
+                    name: normalizeGameName(gameName),
+                    time: normalizeGameTime(gameTime),
+                    yesterdayResult: yesterdayResult || "--",
+                    todayResult: "--",
+                });
+            } else {
+                parsedGames.push({
+                    name: normalizeGameName(gameName),
+                    time: normalizeGameTime(gameTime),
+                    yesterdayResult: yesterdayResult || "--",
+                    todayResult: todayResult,
+                });
+            }
+        }
     });
 
     const uniqueGames = [];
@@ -76,7 +113,7 @@ export async function fetchExternalGames() {
                             yesterdayResult: game.yesterdayResult,
                             fetchedAt: new Date(),
                         },
-                        $setOnInsert: { source: "satta-king-fast" },
+                        $setOnInsert: { source: "a7satta" },
                     },
                     { upsert: true }
                 );

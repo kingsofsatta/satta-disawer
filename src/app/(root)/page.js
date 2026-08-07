@@ -9,35 +9,51 @@ import {
   getDisawarDataFromDB,
 } from "@/services/resultServer";
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
-import { getExternalGames, fetchExternalGames } from "@/services/externalGameService";
+import { getExternalGames } from "@/services/externalGameService";
+import { triggerExternalGamesFetch } from "@/lib/triggerExternalGamesFetch";
 
-export const metadata = {
-  title: "Satta Disawer | Live Satta Matka Results Today",
-  description: "Get instant Satta Disawer results today. Live updates for Disawer, Gali, Faridabad, Delhi Bazar & all Satta Matka games. Check latest charts, predictions & winning numbers.",
-  keywords: [
-    "satta disawer today",
-    "satta result today",
-    "disawer result today",
-    "gali result today",
-    "satta king today",
-    "live satta result",
-    "satta matka live",
-    "today satta number"
-  ],
-  openGraph: {
-    title: "Satta Disawer | Live Satta Matka Results Today",
-    description: "Get instant Satta Disawer results today. Live updates for all Satta Matka games.",
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: "Satta Disawer | Live Satta Matka Results Today",
-    description: "Get instant Satta Disawer results today. Live updates for all Satta Matka games.",
-  },
-  alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com',
-  },
-};
+// Generate dynamic metadata
+export async function generateMetadata() {
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+  const dayWithSuffix = day + (day === 1 || day === 21 || day === 31 ? 'st' : day === 2 || day === 22 ? 'nd' : day === 3 || day === 23 ? 'rd' : 'th');
+  const monthName = currentDate.toLocaleDateString('en-GB', { month: 'long' });
+  const year = currentDate.getFullYear();
+  const dayName = currentDate.toLocaleDateString('en-GB', { weekday: 'long' });
+  
+  const formattedDate = `${dayWithSuffix} ${monthName} ${year}`;
+  
+  const title = `Satta King Winning Result ${formattedDate}`;
+  const description = `Check fast Satta King results for ${dayName}, ${day} ${monthName} ${year}. Get live updates for Gali, Faridabad, Ghaziabad & Delhi Bazar. View today's winning numbers live!`;
+  
+  return {
+    title,
+    description,
+    keywords: [
+      "satta disawer today",
+      "satta result today",
+      "disawer result today",
+      "gali result today",
+      "satta king today",
+      "live satta result",
+      "satta matka live",
+      "today satta number"
+    ],
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    alternates: {
+      canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com',
+    },
+  };
+}
 
 export default async function Home() {
   // Fetch all data directly from database
@@ -51,6 +67,8 @@ export default async function Home() {
     ]);
 
   let externalGames = await getExternalGames();
+  
+  // Trigger fetch with cooldown (15 minutes) - provides frequent updates without overwhelming the source
   const needsRefresh =
     externalGames.length === 0 ||
     externalGames.some(
@@ -58,7 +76,8 @@ export default async function Home() {
     );
 
   if (needsRefresh) {
-    await fetchExternalGames();
+    // Trigger external games fetch (with built-in cooldown)
+    await triggerExternalGamesFetch();
     externalGames = await getExternalGames();
   }
 

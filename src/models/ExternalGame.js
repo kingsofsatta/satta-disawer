@@ -6,7 +6,7 @@ const externalGameSchema = new mongoose.Schema(
         time: { type: String, required: true },
         todayResult: { type: String, default: null },
         yesterdayResult: { type: String, default: null },
-        source: { type: String, default: "satta-king-fast" },
+        source: { type: String, default: "a7satta" },
         fetchedAt: { type: Date, default: Date.now, expires: "2d" },
     },
     {
