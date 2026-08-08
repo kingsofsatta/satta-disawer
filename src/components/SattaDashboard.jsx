@@ -6,6 +6,12 @@ import SattaResultTable from "./SattaResultTable";
 import SimpleFAQ from "./SimpleFAQ";
 import Link from "next/link";
 import Image from "next/image";
+import { MessageCircle } from "lucide-react";
+
+const COMPLAINT_NUMBER = "94991 94846";
+const COMPLAINT_MESSAGE = encodeURIComponent(
+  "नमस्ते, मुझे भुगतान या किसी अन्य समस्या के संबंध में शिकायत दर्ज करनी है।",
+);
 
 const SattaDashboard = ({
   todayResults = [],
@@ -23,21 +29,29 @@ const SattaDashboard = ({
   const currentMonth = currentDate
     .toLocaleString("default", { month: "long" })
     .toUpperCase();
-  
+
   // Format date as "05 August 2026"
-  const formattedDate = currentDate.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
+  const formattedDate = currentDate.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
   });
-  
+
   // Format date for meta as "7th August 2026"
   const day = currentDate.getDate();
-  const dayWithSuffix = day + (day === 1 || day === 21 || day === 31 ? 'st' : day === 2 || day === 22 ? 'nd' : day === 3 || day === 23 ? 'rd' : 'th');
-  const metaFormattedDate = `${dayWithSuffix} ${currentDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }).split(' ').slice(0, 2).join(' ')}`;
-  
+  const dayWithSuffix =
+    day +
+    (day === 1 || day === 21 || day === 31
+      ? "st"
+      : day === 2 || day === 22
+        ? "nd"
+        : day === 3 || day === 23
+          ? "rd"
+          : "th");
+  const metaFormattedDate = `${dayWithSuffix} ${currentDate.toLocaleDateString("en-GB", { month: "long", year: "numeric" }).split(" ").slice(0, 2).join(" ")}`;
+
   // Get day name for meta description
-  const dayName = currentDate.toLocaleDateString('en-GB', { weekday: 'long' });
+  const dayName = currentDate.toLocaleDateString("en-GB", { weekday: "long" });
   const daysInMonth = new Date(
     currentYear,
     currentDate.getMonth() + 1,
@@ -99,24 +113,27 @@ const SattaDashboard = ({
               <Link href="https://www.sattadisawer.com">SattaDisawer.Com</Link>
             </h1>
           </div>
-          
+
           {/* Disclaimer */}
           <div className="bg-red-900/30 border-2 border-red-500/50 py-3 px-4 my-3 rounded-lg mx-2">
             <p className="text-sm md:text-base text-center text-red-200 leading-relaxed">
-              <strong>Disclaimer:</strong> This website is strictly for news and informational purposes. We have no link to any company or market mentioned and do not offer any paid services. Users must follow their local laws.{" "}
-              <Link 
-                href="/terms" 
+              <strong>Disclaimer:</strong> This website is strictly for news and
+              informational purposes. We have no link to any company or market
+              mentioned and do not offer any paid services. Users must follow
+              their local laws.{" "}
+              <Link
+                href="/terms"
                 className="text-amber-400 hover:text-amber-300 underline font-semibold transition-colors"
               >
                 Read more
               </Link>
             </p>
           </div>
-          
+
           {/* Live Results Banner */}
           <div className="bg-gradient-to-r from-violet-700 via-violet-600 to-violet-700 py-2">
             <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center">
-             Satta King Live Results 
+              Satta King Live Results
             </p>
           </div>
         </div>
@@ -193,20 +210,30 @@ const SattaDashboard = ({
               Fast Satta Result – Live Satta King Chart 2026 & Daily Records
             </h2>
             <p className="text-slate-300 leading-relaxed mb-6">
-              <strong>SattaDisawer.com</strong> is a leading online news and media platform providing real-time{" "}
-              <strong>live Satta result</strong> updates, <strong>Satta King chart</strong> records, and daily market historical data. 
-              Designed with a clean, fast-loading, and user-friendly interface, our website allows visitors to quickly check opening and closing numbers 
-              for all major markets in one convenient location. Whether you are searching for <strong>today Satta result</strong>, historical month-wise 
-              record charts, or fast updates, <strong>SattaDisawer.com</strong> delivers accurate information as soon as draws are officially published.
+              <strong>SattaDisawer.com</strong> is a leading online news and
+              media platform providing real-time{" "}
+              <strong>live Satta result</strong> updates,{" "}
+              <strong>Satta King chart</strong> records, and daily market
+              historical data. Designed with a clean, fast-loading, and
+              user-friendly interface, our website allows visitors to quickly
+              check opening and closing numbers for all major markets in one
+              convenient location. Whether you are searching for{" "}
+              <strong>today Satta result</strong>, historical month-wise record
+              charts, or fast updates, <strong>SattaDisawer.com</strong>{" "}
+              delivers accurate information as soon as draws are officially
+              published.
             </p>
 
             <h2 className="text-2xl md:text-3xl font-bold text-amber-400 mb-4 mt-8">
               Real-Time Satta King Today Result Updates
             </h2>
             <p className="text-slate-300 leading-relaxed mb-6">
-              Tracking daily market outcomes requires speed and accuracy. Our platform updates <strong>live Satta Matka result</strong> data automatically 
-              throughout the day according to official timing schedules. Users can easily track previous results alongside newly declared numbers without 
-              needing to refresh multiple pages or search across different websites.
+              Tracking daily market outcomes requires speed and accuracy. Our
+              platform updates <strong>live Satta Matka result</strong> data
+              automatically throughout the day according to official timing
+              schedules. Users can easily track previous results alongside newly
+              declared numbers without needing to refresh multiple pages or
+              search across different websites.
             </p>
 
             <h3 className="text-xl md:text-2xl font-bold text-violet-400 mb-4">
@@ -214,16 +241,22 @@ const SattaDashboard = ({
             </h3>
             <ul className="list-disc list-inside text-slate-300 space-y-3 mb-6">
               <li>
-                <strong>Superfast Live Updates:</strong> Instant publishing of <strong>daily result updates</strong> as soon as market numbers are declared.
+                <strong>Superfast Live Updates:</strong> Instant publishing of{" "}
+                <strong>daily result updates</strong> as soon as market numbers
+                are declared.
               </li>
               <li>
-                <strong>Organized Record Tables:</strong> Clear layout comparing yesterday's numbers with <strong>today Satta result</strong> data.
+                <strong>Organized Record Tables:</strong> Clear layout comparing
+                yesterday's numbers with <strong>today Satta result</strong>{" "}
+                data.
               </li>
               <li>
-                <strong>Mobile-Optimized Design:</strong> Smooth navigation for quick access on smartphones and tablets.
+                <strong>Mobile-Optimized Design:</strong> Smooth navigation for
+                quick access on smartphones and tablets.
               </li>
               <li>
-                <strong>Free Informational Access:</strong> All charts, daily logs, and historical archives are completely free to view.
+                <strong>Free Informational Access:</strong> All charts, daily
+                logs, and historical archives are completely free to view.
               </li>
             </ul>
 
@@ -231,9 +264,11 @@ const SattaDashboard = ({
               Comprehensive Satta King 2026 Record Charts
             </h2>
             <p className="text-slate-300 leading-relaxed mb-6">
-              Maintaining an accurate <strong>Satta King 2026 record</strong> is essential for users who track past trends and historical patterns. 
-              Our comprehensive <strong>Satta result chart</strong> archive organizes past draw outcomes by year, month, and date, making long-term 
-              data review simple and accessible.
+              Maintaining an accurate <strong>Satta King 2026 record</strong> is
+              essential for users who track past trends and historical patterns.
+              Our comprehensive <strong>Satta result chart</strong> archive
+              organizes past draw outcomes by year, month, and date, making
+              long-term data review simple and accessible.
             </p>
 
             <h3 className="text-xl md:text-2xl font-bold text-violet-400 mb-4">
@@ -241,27 +276,36 @@ const SattaDashboard = ({
             </h3>
             <ol className="list-decimal list-inside text-slate-300 space-y-3 mb-6">
               <li>
-                <strong>Monthly Result Charts:</strong> Complete month-by-month tables showing full daily sequence data for 2026.
+                <strong>Monthly Result Charts:</strong> Complete month-by-month
+                tables showing full daily sequence data for 2026.
               </li>
               <li>
-                <strong>Yearly Archives:</strong> Access to historical result logs from 2026, 2025, 2024, and earlier years.
+                <strong>Yearly Archives:</strong> Access to historical result
+                logs from 2026, 2025, 2024, and earlier years.
               </li>
               <li>
-                <strong>Structured Layout:</strong> Clean table format designed for easy trend analysis and historical reference.
+                <strong>Structured Layout:</strong> Clean table format designed
+                for easy trend analysis and historical reference.
               </li>
             </ol>
             <p className="text-slate-300 leading-relaxed mb-6">
-              By keeping yearly records neatly categorized in structured grids, <strong>SattaDisawer.com</strong> eliminates the hassle of searching 
-              through fragmented sources to find reliable <strong>Satta Matka chart</strong> data.
+              By keeping yearly records neatly categorized in structured grids,{" "}
+              <strong>SattaDisawer.com</strong> eliminates the hassle of
+              searching through fragmented sources to find reliable{" "}
+              <strong>Satta Matka chart</strong> data.
             </p>
 
             <h2 className="text-2xl md:text-3xl font-bold text-amber-400 mb-4 mt-8">
               Why Choose SattaDisawer.com for Daily Results?
             </h2>
             <p className="text-slate-300 leading-relaxed">
-              When searching for reliable <strong>fast Satta result</strong> websites, speed and clarity matter most. <strong>SattaDisawer.com</strong> aggregates 
-              public internet records into a single, organized informational database. Users rely on our site because we offer non-stop daily updates, 
-              organized history charts, and an easy-to-read table structure tailored for quick browsing.
+              When searching for reliable <strong>fast Satta result</strong>{" "}
+              websites, speed and clarity matter most.{" "}
+              <strong>SattaDisawer.com</strong> aggregates public internet
+              records into a single, organized informational database. Users
+              rely on our site because we offer non-stop daily updates,
+              organized history charts, and an easy-to-read table structure
+              tailored for quick browsing.
             </p>
           </div>
         </div>
@@ -296,6 +340,44 @@ const SattaDashboard = ({
             </Link>
           )}
         </div>
+
+        {/* Compact Complaint Section */}
+        <section
+          aria-labelledby="home-complaint-heading"
+          className="mx-2 mt-8 rounded-2xl border border-green-500/30 bg-slate-900/90 p-5 text-center shadow-lg shadow-green-950/20 md:mx-4 md:p-6"
+        >
+          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10 text-green-400">
+            <MessageCircle aria-hidden="true" className="h-7 w-7" />
+          </div>
+          <h2
+            id="home-complaint-heading"
+            className="hindi-text text-xl font-black text-white md:text-2xl"
+          >
+            भुगतान से जुड़ी शिकायत है?
+          </h2>
+          <p className="hindi-text mx-auto mt-2 max-w-xl text-base leading-7 text-slate-300">
+            भुगतान न मिलने या किसी अन्य समस्या के लिए हमें तुरंत WhatsApp पर
+            बताएं।
+          </p>
+          <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              href={`https://wa.me/${COMPLAINT_NUMBER}?text=${COMPLAINT_MESSAGE}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp पर शिकायत करें"
+              className="hindi-text inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-green-600 px-6 py-3 font-bold text-white transition-colors duration-200 hover:bg-green-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-green-300/60 active:bg-green-700"
+            >
+              <MessageCircle aria-hidden="true" className="h-5 w-5" />
+              WhatsApp पर शिकायत करें
+            </Link>
+            <Link
+              href="/contact"
+              className="hindi-text inline-flex min-h-12 items-center justify-center rounded-xl border border-violet-400/40 px-5 py-3 font-semibold text-violet-300 transition-colors duration-200 hover:bg-violet-500/10 hover:text-violet-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
+            >
+              पूरी जानकारी देखें
+            </Link>
+          </div>
+        </section>
 
         {/* Footer Spacing */}
         <div className="py-8 flex justify-center">

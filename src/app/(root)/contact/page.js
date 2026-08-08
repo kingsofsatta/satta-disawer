@@ -2,19 +2,19 @@ import React from "react";
 import Contact from "./Contact";
 
 export const metadata = {
-  title: "Contact Us | Satta Disawer Support",
-  description: "Get in touch with Satta Disawer for support, queries, or partnership opportunities. We're here to help you 24/7.",
-  keywords: ["satta contact", "satta support", "contact satta disawer"],
+  title: "शिकायत | Satta Disawer सहायता",
+  description: "भुगतान या किसी अन्य समस्या के लिए WhatsApp पर अपनी शिकायत दर्ज करें।",
+  keywords: ["सट्टा शिकायत", "भुगतान शिकायत", "satta complaint"],
   openGraph: {
-    title: "Contact Us | Satta Disawer Support",
-    description: "Get in touch with Satta Disawer for support and queries.",
+    title: "शिकायत | Satta Disawer सहायता",
+    description: "भुगतान या किसी अन्य समस्या के लिए WhatsApp पर शिकायत दर्ज करें।",
   },
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com'}/contact`,
   },
 };
 
-const page = () => {
+const ComplaintPage = () => {
   return (
     <div>
       <Contact />
@@ -22,4 +22,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ComplaintPage;

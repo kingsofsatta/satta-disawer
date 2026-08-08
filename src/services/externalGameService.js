@@ -1,35 +1,16 @@
 import { connectDB } from "@/lib/db";
 import ExternalGame from "@/models/ExternalGame";
-import { defaultGameSchedule } from "@/utils/defaultGameSchedule";
-import * as cheerio from "cheerio";
+import { parseA7SattaGames } from "@/services/a7SattaParser";
 
 const SOURCE_URL = "https://a7satta.com/";
-
-// Specific games to fetch from a7satta.com
-const TARGET_GAMES = [
-    { name: "DELHI BAZAR", pattern: /delhi\s*baz[ao]r/i },
-    { name: "SHRI GANESH", pattern: /shri?\s*ganesh/i },
-    { name: "FARIDABAD", pattern: /faridabad/i },
-    { name: "GHAZIABAD", pattern: /gaz?iabad/i },
-    { name: "GALI", pattern: /^gali$/i },
-    { name: "DISAWER", pattern: /dis?awer/i }
+const TARGET_GAME_NAMES = [
+    "DELHI BAZAR",
+    "SHRI GANESH",
+    "FARIDABAD",
+    "GHAZIABAD",
+    "GALI",
+    "DISAWER",
 ];
-
-const normalizeGameName = (name) => name.trim().replace(/\s+/g, " ").toUpperCase();
-
-const normalizeGameTime = (time) => time.trim().toUpperCase();
-
-const isDefaultGame = (game) => {
-    return defaultGameSchedule.some((defaultGame) =>
-        defaultGame.name.toUpperCase() === game.name.toUpperCase() &&
-        defaultGame.time.toUpperCase() === game.time.toUpperCase()
-    );
-};
-
-const isTargetGame = (gameName) => {
-    const normalized = normalizeGameName(gameName);
-    return TARGET_GAMES.some(target => target.pattern.test(normalized));
-};
 
 export async function fetchExternalGames() {
     await connectDB();
@@ -50,77 +31,30 @@ export async function fetchExternalGames() {
         throw new Error("External site returned a Cloudflare challenge page");
     }
 
-    const $ = cheerio.load(html);
-    const parsedGames = [];
+    const uniqueGames = parseA7SattaGames(html);
 
-    // Parse the main results table
-    $("table tr").each((_, row) => {
-        const cells = $(row).find("td");
-        if (cells.length < 2) return;
-
-        const firstCell = $(cells[0]).text().trim();
-        
-        // Extract game name and time from first cell (e.g., "DELHI BAZAR 3:15 PM")
-        const match = firstCell.match(/^(.+?)\s+(\d{1,2}:\d{2}\s*(?:AM|PM))$/i);
-        
-        if (match) {
-            const gameName = match[1].trim();
-            const gameTime = match[2].trim();
-            
-            // Only process games in our target list
-            if (!isTargetGame(gameName)) return;
-            
-            const yesterdayResult = $(cells[1]).text().trim();
-            const todayResult = cells.length > 2 ? $(cells[2]).text().trim() : "--";
-
-            // Skip if today's result contains "wait" or is empty
-            if (!todayResult || todayResult === "--" || /wait/i.test(todayResult)) {
-                parsedGames.push({
-                    name: normalizeGameName(gameName),
-                    time: normalizeGameTime(gameTime),
-                    yesterdayResult: yesterdayResult || "--",
-                    todayResult: "--",
-                });
-            } else {
-                parsedGames.push({
-                    name: normalizeGameName(gameName),
-                    time: normalizeGameTime(gameTime),
-                    yesterdayResult: yesterdayResult || "--",
-                    todayResult: todayResult,
-                });
-            }
-        }
-    });
-
-    const uniqueGames = [];
-    const seen = new Set();
-    for (const game of parsedGames) {
-        const key = `${game.name}||${game.time}`;
-        if (!seen.has(key) && !isDefaultGame(game)) {
-            seen.add(key);
-            uniqueGames.push(game);
-        }
+    if (uniqueGames.length !== 6) {
+        throw new Error(`Expected 6 target games, parsed ${uniqueGames.length}`);
     }
 
-    await Promise.all(
-        uniqueGames.map(async (game) => {
-            try {
-                await ExternalGame.updateOne(
-                    { name: game.name, time: game.time },
-                    {
-                        $set: {
-                            todayResult: game.todayResult,
-                            yesterdayResult: game.yesterdayResult,
-                            fetchedAt: new Date(),
-                        },
-                        $setOnInsert: { source: "a7satta" },
+    const fetchedAt = new Date();
+    await ExternalGame.bulkWrite(
+        uniqueGames.map((game) => ({
+            updateOne: {
+                filter: { name: game.name },
+                update: {
+                    $set: {
+                        time: game.time,
+                        todayResult: game.todayResult,
+                        yesterdayResult: game.yesterdayResult,
+                        source: "a7satta",
+                        fetchedAt,
                     },
-                    { upsert: true }
-                );
-            } catch (error) {
-                console.error("Failed to upsert external game:", game, error);
-            }
-        })
+                },
+                upsert: true,
+            },
+        })),
+        { ordered: false },
     );
 
     return uniqueGames;
@@ -128,12 +62,18 @@ export async function fetchExternalGames() {
 
 export async function getExternalGames() {
     await connectDB();
-    const games = await ExternalGame.find({}).sort({ fetchedAt: -1 }).lean();
-    return games.map((game) => ({
+    const games = await ExternalGame.find({
+        source: "a7satta",
+        name: { $in: TARGET_GAME_NAMES },
+    }).sort({ fetchedAt: -1 }).lean();
+
+    const uniqueGames = [...new Map(games.map((game) => [game.name, game])).values()];
+    return uniqueGames.map((game) => ({
         name: game.name,
         time: game.time,
         todayResult: game.todayResult,
         yesterdayResult: game.yesterdayResult,
+        fetchedAt: game.fetchedAt,
     }));
 }
 

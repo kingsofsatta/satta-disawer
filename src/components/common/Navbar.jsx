@@ -53,7 +53,7 @@ const Navbar = () => {
     { id: 1, title: "Home", href: "/", icon: "🏠" },
     { id: 2, title: "Chart", href: "/chart", icon: "📊" },
     { id: 3, title: "Payment Proof", href: "/payment-proofs", icon: "💳" },
-    { id: 4, title: "Contact", href: "/contact", icon: "📞" },
+    { id: 4, title: "Complaint", href: "/contact", icon: "📞" },
   ];
 
   const isActive = (href) => {

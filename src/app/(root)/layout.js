@@ -107,7 +107,7 @@ export default async function RootLayout({ children }) {
               </Link>
               <span className="text-slate-600">|</span>
               <Link href="/contact" className="text-violet-400 hover:text-violet-300 transition-colors underline">
-                Contact Us
+                शिकायत
               </Link>
             </div>
           </div>

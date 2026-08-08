@@ -1,12 +1,21 @@
 import { NextResponse } from "next/server";
 import { fetchExternalGames, cleanupExternalGames } from "@/services/externalGameService";
 
-// This API route is called by Vercel Cron Jobs
+// This API route is called every minute by cron-job.org.
 export async function GET(request) {
-    // Verify the request is from Vercel Cron
+    // cron-job.org can send either an Authorization header or ?secret=...
     const authHeader = request.headers.get('authorization');
-    
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    const querySecret = new URL(request.url).searchParams.get('secret');
+    const cronSecret = process.env.CRON_SECRET;
+
+    if (!cronSecret) {
+        return NextResponse.json(
+            { error: 'CRON_SECRET is not configured' },
+            { status: 500 },
+        );
+    }
+
+    if (authHeader !== `Bearer ${cronSecret}` && querySecret !== cronSecret) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -19,6 +28,7 @@ export async function GET(request) {
         return NextResponse.json({ 
             success: true, 
             gamesCount: games.length,
+            games,
             timestamp: new Date().toISOString(),
             source: "a7satta.com"
         });
@@ -30,6 +40,9 @@ export async function GET(request) {
         }, { status: 500 });
     }
 }
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 // Allow calling without auth for testing in development
 export async function POST(request) {

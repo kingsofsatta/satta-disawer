@@ -69,11 +69,12 @@ export default async function Home() {
   let externalGames = await getExternalGames();
   
   // Trigger fetch with cooldown (15 minutes) - provides frequent updates without overwhelming the source
+  const newestFetch = Math.max(
+    0,
+    ...externalGames.map((game) => new Date(game.fetchedAt).getTime() || 0),
+  );
   const needsRefresh =
-    externalGames.length === 0 ||
-    externalGames.some(
-      (game) => game.todayResult == null || game.yesterdayResult == null,
-    );
+    externalGames.length < 6 || Date.now() - newestFetch >= 15 * 60 * 1000;
 
   if (needsRefresh) {
     // Trigger external games fetch (with built-in cooldown)
