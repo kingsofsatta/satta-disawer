@@ -65,7 +65,6 @@ const SattaDashboard = ({
   };
 
   const monthlyChartData = createMonthlyChart();
-  console.log(firebaseScrapedCache,"firebaseScrapedCache");
   return (
     <div className="min-h-screen bg-transparent">
       {/* Main Content */}
@@ -194,7 +193,7 @@ const SattaDashboard = ({
               Fast Satta Result – Live Satta King Chart 2026 & Daily Records
             </h2>
             <p className="text-slate-300 leading-relaxed mb-6">
-              <strong>SattaDisawer.com</strong> is a leading online news and
+              <span className="font-semibold">SattaDisawer.com</span> is a leading online news and
               media platform providing real-time{" "}
               <strong>live Satta result</strong> updates,{" "}
               <strong>Satta King chart</strong> records, and daily market
@@ -203,7 +202,7 @@ const SattaDashboard = ({
               check opening and closing numbers for all major markets in one
               convenient location. Whether you are searching for{" "}
               <strong>today Satta result</strong>, historical month-wise record
-              charts, or fast updates, <strong>SattaDisawer.com</strong>{" "}
+              charts, or fast updates, <span className="font-semibold">SattaDisawer.com</span>{" "}
               delivers accurate information as soon as draws are officially
               published.
             </p>
@@ -274,7 +273,7 @@ const SattaDashboard = ({
             </ol>
             <p className="text-slate-300 leading-relaxed mb-6">
               By keeping yearly records neatly categorized in structured grids,{" "}
-              <strong>SattaDisawer.com</strong> eliminates the hassle of
+              <span className="font-semibold">SattaDisawer.com</span> eliminates the hassle of
               searching through fragmented sources to find reliable{" "}
               <strong>Satta Matka chart</strong> data.
             </p>
@@ -285,7 +284,7 @@ const SattaDashboard = ({
             <p className="text-slate-300 leading-relaxed">
               When searching for reliable <strong>fast Satta result</strong>{" "}
               websites, speed and clarity matter most.{" "}
-              <strong>SattaDisawer.com</strong> aggregates public internet
+              <span className="font-semibold">SattaDisawer.com</span> aggregates public internet
               records into a single, organized informational database. Users
               rely on our site because we offer non-stop daily updates,
               organized history charts, and an easy-to-read table structure

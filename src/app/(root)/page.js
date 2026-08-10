@@ -10,7 +10,6 @@ import {
 } from "@/services/resultServer";
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
 import { getExternalGames } from "@/services/externalGameService";
-import { triggerExternalGamesFetch } from "@/lib/triggerExternalGamesFetch";
 import {
   getFirebaseCustomGames,
   getFirebaseScrapedCache,
@@ -70,21 +69,9 @@ export default async function Home() {
       getSettingsFromDB(),
     ]);
 
-  let externalGames = await getExternalGames();
-  
-  // Trigger fetch with cooldown (15 minutes) - provides frequent updates without overwhelming the source
-  const newestFetch = Math.max(
-    0,
-    ...externalGames.map((game) => new Date(game.fetchedAt).getTime() || 0),
-  );
-  const needsRefresh =
-    externalGames.length < 6 || Date.now() - newestFetch >= 15 * 60 * 1000;
-
-  if (needsRefresh) {
-    // Trigger external games fetch (with built-in cooldown)
-    await triggerExternalGamesFetch();
-    externalGames = await getExternalGames();
-  }
+  // Read the latest stored snapshot. Refreshing the external source is handled by
+  // the cron route so an upstream website can never delay the homepage response.
+  const externalGames = await getExternalGames();
 
   // Get current month's results
   const currentDate = new Date();
@@ -180,5 +167,5 @@ export default async function Home() {
   );
 }
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+// Serve cached HTML immediately and refresh it in the background frequently.
+export const revalidate = 30;

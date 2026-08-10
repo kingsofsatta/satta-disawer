@@ -1,6 +1,6 @@
 import Navbar from "@/components/common/Navbar";
 import TopProgressBar from "@/components/TopProgressBar";
-import { getSettings } from "@/services/result";
+import { getSettingsFromDB } from "@/services/settingsServer";
 import Image from "next/image";
 import Link from "next/link";
 import "../globals.css";
@@ -9,7 +9,8 @@ import "../globals.css";
 // This layout focuses on structure and components
 
 export default async function RootLayout({ children }) {
-  const setting = await getSettings();
+  // Avoid a server-side HTTP round trip to this application's own API route.
+  const setting = await getSettingsFromDB();
   const currentYear = new Date().getFullYear();
 
   return (

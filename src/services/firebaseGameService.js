@@ -54,7 +54,7 @@ export async function getFirebaseCustomGames(year, month) {
   endpoint.searchParams.set("key", apiKey);
   endpoint.searchParams.set("pageSize", "366");
 
-  const response = await fetch(endpoint, { cache: "no-store" });
+  const response = await fetch(endpoint, { next: { revalidate: 60 } });
   if (!response.ok) {
     throw new Error(`Firebase custom_games request failed: ${response.status}`);
   }
@@ -117,7 +117,7 @@ export async function getFirebaseScrapedCache(year, month) {
   const getDocument = async (documentId) => {
     const endpoint = new URL(`${baseUrl}/${documentId}`);
     endpoint.searchParams.set("key", apiKey);
-    const response = await fetch(endpoint, { cache: "no-store" });
+    const response = await fetch(endpoint, { next: { revalidate: 60 } });
     if (response.status === 404) return null;
     if (!response.ok) {
       throw new Error(`Firebase ${documentId} request failed: ${response.status}`);
