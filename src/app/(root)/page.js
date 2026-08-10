@@ -11,6 +11,10 @@ import {
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
 import { getExternalGames } from "@/services/externalGameService";
 import { triggerExternalGamesFetch } from "@/lib/triggerExternalGamesFetch";
+import {
+  getFirebaseCustomGames,
+  getFirebaseScrapedCache,
+} from "@/services/firebaseGameService";
 
 // Generate dynamic metadata
 export async function generateMetadata() {
@@ -84,10 +88,26 @@ export default async function Home() {
 
   // Get current month's results
   const currentDate = new Date();
-  const monthlyResults = await getMonthlyResultsFromDB(
-    currentDate.getMonth() + 1,
-    currentDate.getFullYear()
-  );
+  const [monthlyResults, firebaseCustomGames, firebaseScrapedCache] = await Promise.all([
+    getMonthlyResultsFromDB(
+      currentDate.getMonth() + 1,
+      currentDate.getFullYear(),
+    ),
+    getFirebaseCustomGames(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+    ).catch((error) => {
+      console.error("Failed to fetch Firebase custom games:", error.message);
+      return { columns: [], rows: [] };
+    }),
+    getFirebaseScrapedCache(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+    ).catch((error) => {
+      console.error("Failed to fetch Firebase scraped cache:", error.message);
+      return { homepageGames: [], chart: null };
+    }),
+  ]);
 
   // Build site config with khaiwal sections
   const siteConfig = buildSiteConfig(settings);
@@ -95,18 +115,51 @@ export default async function Home() {
   // Structured Data for SEO
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Satta Disawer",
-    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com",
-    "description": "Get fast and accurate Satta Disawer results, charts, and predictions. Live updates for all Satta Matka games.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com"}/chart?q={search_term_string}`
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://www.sattadisawer.com/#website",
+        "url": "https://www.sattadisawer.com/",
+        "name": "Satta Disawer",
+        "description": "Satta Disawer provides daily result updates, charts and historical records for popular markets.",
+        "inLanguage": "en-IN",
+        "publisher": {
+          "@id": "https://www.sattadisawer.com/#organization"
+        }
       },
-      "query-input": "required name=search_term_string"
-    }
+      {
+        "@type": "Organization",
+        "@id": "https://www.sattadisawer.com/#organization",
+        "name": "Satta Disawer",
+        "url": "https://www.sattadisawer.com/"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.sattadisawer.com/#webpage",
+        "url": "https://www.sattadisawer.com/",
+        "name": "Today Satta Result for All Satta Games | SattaDisawer.Com",
+        "description": "Check daily Satta Disawer results, Satta King charts, market updates and historical result records.",
+        "isPartOf": {
+          "@id": "https://www.sattadisawer.com/#website"
+        },
+        "about": {
+          "@id": "https://www.sattadisawer.com/#organization"
+        },
+        "inLanguage": "en-IN"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.sattadisawer.com/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.sattadisawer.com/"
+          }
+        ]
+      },
+    ]
   };
 
   return (
@@ -120,6 +173,8 @@ export default async function Home() {
       monthlyResults={monthlyResults}
       disawarData={disawarData}
       externalGames={externalGames}
+      firebaseCustomGames={firebaseCustomGames}
+      firebaseScrapedCache={firebaseScrapedCache}
     />
     </>
   );

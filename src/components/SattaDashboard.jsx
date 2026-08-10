@@ -1,12 +1,13 @@
 "use client";
 import { GAMES } from "@/utils/gameConfig";
+import { MessageCircle } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { Typewriter } from "react-simple-typewriter";
+import FirebaseScrapedCacheTables from "./FirebaseScrapedCacheTables";
 import GameSection from "./GameSection";
 import SattaResultTable from "./SattaResultTable";
 import SimpleFAQ from "./SimpleFAQ";
-import Link from "next/link";
-import Image from "next/image";
-import { MessageCircle } from "lucide-react";
 
 const COMPLAINT_NUMBER = "94991 94846";
 const COMPLAINT_MESSAGE = encodeURIComponent(
@@ -21,8 +22,7 @@ const SattaDashboard = ({
   monthlyResults = [],
   disawarData,
   externalGames = [],
-  currentSite = "site 3",
-  siteName = "Satta Disawer Satta",
+  firebaseScrapedCache = { homepageGames: [], chart: null },
 }) => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
@@ -36,30 +36,6 @@ const SattaDashboard = ({
     month: "long",
     year: "numeric",
   });
-
-  // Format date for meta as "7th August 2026"
-  const day = currentDate.getDate();
-  const dayWithSuffix =
-    day +
-    (day === 1 || day === 21 || day === 31
-      ? "st"
-      : day === 2 || day === 22
-        ? "nd"
-        : day === 3 || day === 23
-          ? "rd"
-          : "th");
-  const metaFormattedDate = `${dayWithSuffix} ${currentDate.toLocaleDateString("en-GB", { month: "long", year: "numeric" }).split(" ").slice(0, 2).join(" ")}`;
-
-  // Get day name for meta description
-  const dayName = currentDate.toLocaleDateString("en-GB", { weekday: "long" });
-  const daysInMonth = new Date(
-    currentYear,
-    currentDate.getMonth() + 1,
-    0,
-  ).getDate();
-
-  // Use site name from settings or props
-  const displaySiteName = setting?.siteName || siteName;
 
   // Get current day of the month
   const currentDay = currentDate.getDate();
@@ -89,7 +65,7 @@ const SattaDashboard = ({
   };
 
   const monthlyChartData = createMonthlyChart();
-
+  console.log(firebaseScrapedCache,"firebaseScrapedCache");
   return (
     <div className="min-h-screen bg-transparent">
       {/* Main Content */}
@@ -202,6 +178,14 @@ const SattaDashboard = ({
             </table>
           </div>
         </div>
+
+        {/* <FirebaseMonthlyTable
+          data={firebaseCustomGames}
+          month={currentMonth}
+          year={currentYear}
+        /> */}
+
+        <FirebaseScrapedCacheTables data={firebaseScrapedCache} />
 
         {/* Additional Content Section */}
         <div className="mt-12 px-2 md:px-4">
