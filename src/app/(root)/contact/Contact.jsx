@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MessageCircle, Phone } from "lucide-react";
 import Image from "next/image";
 
-const COMPLAINT_NUMBER = "94991 94846";
+const COMPLAINT_NUMBER = "91 94991 94846";
 const DISPLAY_NUMBER = "+91 94991 94846";
 
 const Contact = () => {

@@ -1,5 +1,6 @@
 import { connectDB } from "@/lib/db";
 import ExternalGame from "@/models/ExternalGame";
+import Result from "@/models/Result";
 import { parseA7SattaGames } from "@/services/a7SattaParser";
 
 const SOURCE_URL = "https://a7satta.com/";
@@ -11,6 +12,55 @@ const TARGET_GAME_NAMES = [
     "GALI",
     "DISAWER",
 ];
+
+const RESULT_GAME_BY_EXTERNAL_NAME = {
+    "DELHI BAZAR": "delhi-bazar",
+    "SHRI GANESH": "shri-ganesh",
+    FARIDABAD: "faridabad",
+    GHAZIABAD: "gaziyabad",
+    GALI: "gali",
+    DISAWER: "disawer",
+};
+
+function getISTDate(daysOffset = 0) {
+    const date = new Date(Date.now() + 5.5 * 60 * 60 * 1000);
+    date.setUTCDate(date.getUTCDate() + daysOffset);
+    return date.toISOString().slice(0, 10);
+}
+
+async function saveGamesToResults(games) {
+    const today = getISTDate();
+    const yesterday = getISTDate(-1);
+    const operations = [];
+
+    for (const game of games) {
+        const resultGame = RESULT_GAME_BY_EXTERNAL_NAME[game.name];
+        if (!resultGame) continue;
+
+        if (/^\d+$/.test(game.todayResult)) {
+            operations.push({
+                updateOne: {
+                    filter: { game: resultGame, date: today },
+                    update: { $set: { resultNumber: game.todayResult } },
+                    upsert: true,
+                },
+            });
+        }
+
+        if (/^\d+$/.test(game.yesterdayResult)) {
+            operations.push({
+                updateOne: {
+                    filter: { game: resultGame, date: yesterday },
+                    update: { $set: { resultNumber: game.yesterdayResult } },
+                    upsert: true,
+                },
+            });
+        }
+    }
+
+    if (operations.length === 0) return;
+    await Result.bulkWrite(operations, { ordered: false });
+}
 
 export async function fetchExternalGames() {
     await connectDB();
@@ -56,6 +106,10 @@ export async function fetchExternalGames() {
         })),
         { ordered: false },
     );
+
+    // Keep the primary results collection in sync with the scraped snapshot.
+    // Placeholder values are deliberately excluded so they cannot erase a result.
+    await saveGamesToResults(uniqueGames);
 
     return uniqueGames;
 }

@@ -28,6 +28,7 @@ export async function GET(request) {
         return NextResponse.json({ 
             success: true, 
             gamesCount: games.length,
+            resultsCollectionUpdated: true,
             games,
             timestamp: new Date().toISOString(),
             source: "a7satta.com"
