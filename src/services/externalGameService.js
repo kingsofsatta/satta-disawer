@@ -2,6 +2,8 @@ import { connectDB } from "@/lib/db";
 import ExternalGame from "@/models/ExternalGame";
 import Result from "@/models/Result";
 import { parseA7SattaGames } from "@/services/a7SattaParser";
+import { getWaitingGameByISTTime } from "@/utils/resultCompatibility";
+import { canUseDisawerTodayResult } from "@/utils/externalResultGuard";
 
 const SOURCE_URL = "https://a7satta.com/";
 const TARGET_GAME_NAMES = [
@@ -31,32 +33,55 @@ function getISTDate(daysOffset = 0) {
 async function saveGamesToResults(games) {
     const today = getISTDate();
     const yesterday = getISTDate(-1);
-    const operations = [];
+    const waitingGame = getWaitingGameByISTTime();
+    const candidates = [];
 
     for (const game of games) {
         const resultGame = RESULT_GAME_BY_EXTERNAL_NAME[game.name];
         if (!resultGame) continue;
 
-        if (/^\d+$/.test(game.todayResult)) {
-            operations.push({
-                updateOne: {
-                    filter: { game: resultGame, date: today },
-                    update: { $set: { resultNumber: game.todayResult } },
-                    upsert: true,
-                },
+        const canSaveTodayResult =
+            resultGame !== "disawer" || canUseDisawerTodayResult();
+
+        if (canSaveTodayResult && /^\d+$/.test(game.todayResult)) {
+            candidates.push({
+                game: resultGame,
+                date: today,
+                resultNumber: game.todayResult,
             });
         }
 
         if (/^\d+$/.test(game.yesterdayResult)) {
-            operations.push({
-                updateOne: {
-                    filter: { game: resultGame, date: yesterday },
-                    update: { $set: { resultNumber: game.yesterdayResult } },
-                    upsert: true,
-                },
+            candidates.push({
+                game: resultGame,
+                date: yesterday,
+                resultNumber: game.yesterdayResult,
             });
         }
     }
+
+    if (candidates.length === 0) return;
+
+    const existingResults = await Result.find({
+        $or: candidates.map(({ game, date }) => ({ game, date })),
+    }).select({ game: 1, date: 1, resultNumber: 1 }).lean();
+    const existingByGameAndDate = new Map(
+        existingResults.map((result) => [
+            `${result.game}||${result.date}`,
+            result.resultNumber,
+        ]),
+    );
+    const changedCandidates = candidates.filter(
+        ({ game, date, resultNumber }) =>
+            existingByGameAndDate.get(`${game}||${date}`) !== resultNumber,
+    );
+    const operations = changedCandidates.map(({ game, date, resultNumber }) => ({
+        updateOne: {
+            filter: { game, date },
+            update: { $set: { resultNumber, waitingGame } },
+            upsert: true,
+        },
+    }));
 
     if (operations.length === 0) return;
     await Result.bulkWrite(operations, { ordered: false });

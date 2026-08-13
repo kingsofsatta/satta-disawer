@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Result from "@/models/Result";
+import {
+    getWaitingGameByISTTime,
+    withCompatibleWaitingGame,
+} from "@/utils/resultCompatibility";
 
 // Function to clean up data older than 2 years
 async function cleanupOldData() {
@@ -50,7 +54,7 @@ export async function GET(request) {
         } else if (type === "last") {
             // Get last result
             const results = await Result.findOne({}).sort({ createdAt: -1 });
-            return NextResponse.json(results || {});
+            return NextResponse.json(withCompatibleWaitingGame(results) || {});
         } else if (type === "disawar") {
             // Get disawar results
             const today = getISTDate();
@@ -87,7 +91,7 @@ export async function GET(request) {
         }
 
         const results = await Result.find(query).sort({ date: -1 });
-        return NextResponse.json(results);
+        return NextResponse.json(results.map(withCompatibleWaitingGame));
     } catch (error) {
         console.error("Error fetching results:", error);
         return NextResponse.json(
@@ -116,7 +120,7 @@ export async function POST(request) {
         const normalizedData = {
             ...data,
             game: data.game.toLowerCase().trim(),
-            waitingGame: data.waitingGame ? data.waitingGame.toLowerCase().trim() : "",
+            waitingGame: getWaitingGameByISTTime(),
         };
 
         const result = await Result.create(normalizedData);

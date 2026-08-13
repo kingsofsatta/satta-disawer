@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Result from "@/models/Result";
+import {
+    getWaitingGameByISTTime,
+    withCompatibleWaitingGame,
+} from "@/utils/resultCompatibility";
 
 export async function PUT(request, { params }) {
     try {
@@ -9,7 +13,11 @@ export async function PUT(request, { params }) {
         const { id } = params;
         const data = await request.json();
 
-        const result = await Result.findByIdAndUpdate(id, data, { new: true });
+        const result = await Result.findByIdAndUpdate(
+            id,
+            { ...data, waitingGame: getWaitingGameByISTTime() },
+            { new: true },
+        );
 
         if (!result) {
             return NextResponse.json(
@@ -18,7 +26,7 @@ export async function PUT(request, { params }) {
             );
         }
 
-        return NextResponse.json(result);
+        return NextResponse.json(withCompatibleWaitingGame(result));
     } catch (error) {
         console.error("Error updating result:", error);
         return NextResponse.json(

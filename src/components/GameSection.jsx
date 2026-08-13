@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import DateTime from "./DateTime";
-import { GAMES } from "@/utils/gameConfig";
+import { getWaitingGameByISTTime } from "@/utils/resultCompatibility";
 
 // Default schedule fallback
 const defaultSchedule = [
@@ -112,33 +112,9 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
     year: 'numeric'
   });
 
-  // Function to get current IST time in minutes since midnight
-  const getCurrentISTMinutes = () => {
-    const now = new Date();
-    // Add IST offset (5.5 hours)
-    now.setTime(now.getTime() + (5.5 * 60 * 60 * 1000));
-    const hours = now.getUTCHours();
-    const minutes = now.getUTCMinutes();
-    return hours * 60 + minutes;
-  };
-
-  // Function to parse game time string to minutes since midnight
-  const parseTimeToMinutes = (timeStr) => {
-    const [time, ampm] = timeStr.split(' ');
-    let [hours, mins] = time.split(':').map(Number);
-    if (ampm === 'PM' && hours !== 12) hours += 12;
-    if (ampm === 'AM' && hours === 12) hours = 0;
-    return hours * 60 + mins;
-  };
-
-  // Get current time in IST minutes
-  const currentMinutes = getCurrentISTMinutes();
-
-  // Find the next game based on current time (fallback only)
-  const nextGame = GAMES.find(game => parseTimeToMinutes(game.time) > currentMinutes) || GAMES[0];
-
-  // Use waitingGame from data if available, otherwise calculate from time
-  const waitingGame = data?.waitingGame || nextGame.key;
+  // Waiting game always follows the centralized table schedule in IST. Cron
+  // results do not need to provide this field.
+  const waitingGame = getWaitingGameByISTTime();
 
   // Determine if current IST date is the last day of the month
   const isMonthEnd = (() => {

@@ -2,6 +2,7 @@
 import { connectDB } from "@/lib/db";
 import Result from "@/models/Result";
 import { GAMES } from "@/utils/gameConfig";
+import { withCompatibleWaitingGame } from "@/utils/resultCompatibility";
 
 function getISTDate(daysOffset = 0) {
     const date = new Date();
@@ -55,13 +56,42 @@ export async function getYesterdayResultsFromDB() {
 export async function getLastResultFromDB() {
     try {
         await connectDB();
-        const result = await Result.find({})
-            .sort({ updatedAt: -1 })
-            .limit(1)
-            .lean();
+        const today = getISTDate();
+        const yesterday = getISTDate(-1);
+        const featuredGameOrder = [
+            'disawer',
+            'shirdi-dham',
+            'kaliyar',
+            'delhi-bazar',
+            'shri-ganesh',
+            'faridabad',
+            'shakti-peeth',
+            'gaziyabad',
+            'mathura',
+            'gali',
+        ];
 
-        if (!result || result.length === 0) return null;
-        return JSON.parse(JSON.stringify(result[0]));
+        // A cron write can occur later than the game's actual declaration time.
+        // Pick the latest declared game in the daily schedule, not the document
+        // with the newest database timestamp.
+        const results = await Result.find({
+            date: { $in: [today, yesterday] },
+            game: { $in: featuredGameOrder },
+        }).lean();
+        const resultByDateAndGame = new Map(
+            results.map((result) => [`${result.date}||${result.game}`, result]),
+        );
+
+        for (const date of [today, yesterday]) {
+            for (const game of [...featuredGameOrder].reverse()) {
+                const result = resultByDateAndGame.get(`${date}||${game}`);
+                if (result) {
+                    return JSON.parse(JSON.stringify(withCompatibleWaitingGame(result)));
+                }
+            }
+        }
+
+        return null;
     } catch (error) {
         console.error("Error fetching last result from DB:", error);
         return null;

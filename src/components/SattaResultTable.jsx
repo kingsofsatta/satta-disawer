@@ -1,6 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { GAMES } from "@/utils/gameConfig";
+import {
+  canUseDisawerTodayResult,
+  isSnapshotFromCurrentISTDate,
+} from "@/utils/externalResultGuard";
 
 const EXTERNAL_NAME_BY_LOCAL_KEY = {
   disawer: "DISAWER",
@@ -28,7 +32,17 @@ const SattaResultTable = ({
     const localYesterdayResult = yesterdayResults.find(
       (r) => r.game === game.key,
     )?.resultNumber;
-    const todayResult = externalGame?.todayResult || localTodayResult;
+    const disawerIsWaiting =
+      game.key === "disawer" && !canUseDisawerTodayResult();
+    const externalTodayResultIsCurrent =
+      game.key !== "disawer" ||
+      isSnapshotFromCurrentISTDate(externalGame?.fetchedAt);
+    const externalTodayResult = externalTodayResultIsCurrent
+      ? externalGame?.todayResult
+      : null;
+    const todayResult = disawerIsWaiting
+      ? null
+      : externalTodayResult || localTodayResult;
     const yesterdayResult =
       externalGame?.yesterdayResult || localYesterdayResult;
 
