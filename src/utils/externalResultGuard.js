@@ -1,5 +1,14 @@
 const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
-const DISAWER_RELEASE_MINUTES = 5 * 60 + 20;
+const GALI_RELEASE_MINUTES = 23 * 60 + 30;
+
+const GAME_RELEASE_MINUTES = {
+  disawer: 5 * 60 + 20,
+  "delhi-bazar": 15 * 60,
+  "shri-ganesh": 16 * 60 + 40,
+  faridabad: 18 * 60,
+  gaziyabad: 21 * 60 + 30,
+  gali: GALI_RELEASE_MINUTES,
+};
 
 function getISTParts(date = new Date()) {
   const ist = new Date(date.getTime() + IST_OFFSET_MS);
@@ -10,8 +19,16 @@ function getISTParts(date = new Date()) {
   };
 }
 
-export function canUseDisawerTodayResult(now = new Date()) {
-  return getISTParts(now).minutes >= DISAWER_RELEASE_MINUTES;
+export function canUseExternalTodayResult(game, now = new Date()) {
+  const releaseMinutes = GAME_RELEASE_MINUTES[game];
+  return releaseMinutes === undefined || getISTParts(now).minutes >= releaseMinutes;
+}
+
+// a7satta rolls its table to the next game cycle after Gali, before the IST
+// calendar date changes. During that window its "yesterday" column no longer
+// maps reliably to calendar yesterday.
+export function canSyncExternalYesterdayResult(now = new Date()) {
+  return getISTParts(now).minutes < GALI_RELEASE_MINUTES;
 }
 
 export function isSnapshotFromCurrentISTDate(fetchedAt, now = new Date()) {

@@ -3,7 +3,10 @@ import ExternalGame from "@/models/ExternalGame";
 import Result from "@/models/Result";
 import { parseA7SattaGames } from "@/services/a7SattaParser";
 import { getWaitingGameByISTTime } from "@/utils/resultCompatibility";
-import { canUseDisawerTodayResult } from "@/utils/externalResultGuard";
+import {
+    canSyncExternalYesterdayResult,
+    canUseExternalTodayResult,
+} from "@/utils/externalResultGuard";
 
 const SOURCE_URL = "https://a7satta.com/";
 const TARGET_GAME_NAMES = [
@@ -35,27 +38,29 @@ async function saveGamesToResults(games) {
     const yesterday = getISTDate(-1);
     const waitingGame = getWaitingGameByISTTime();
     const candidates = [];
+    const canSyncYesterday = canSyncExternalYesterdayResult();
 
     for (const game of games) {
         const resultGame = RESULT_GAME_BY_EXTERNAL_NAME[game.name];
         if (!resultGame) continue;
 
-        const canSaveTodayResult =
-            resultGame !== "disawer" || canUseDisawerTodayResult();
+        const canSaveTodayResult = canUseExternalTodayResult(resultGame);
 
         if (canSaveTodayResult && /^\d+$/.test(game.todayResult)) {
             candidates.push({
                 game: resultGame,
                 date: today,
                 resultNumber: game.todayResult,
+                historical: false,
             });
         }
 
-        if (/^\d+$/.test(game.yesterdayResult)) {
+        if (canSyncYesterday && /^\d+$/.test(game.yesterdayResult)) {
             candidates.push({
                 game: resultGame,
                 date: yesterday,
                 resultNumber: game.yesterdayResult,
+                historical: true,
             });
         }
     }
@@ -72,16 +77,22 @@ async function saveGamesToResults(games) {
         ]),
     );
     const changedCandidates = candidates.filter(
-        ({ game, date, resultNumber }) =>
-            existingByGameAndDate.get(`${game}||${date}`) !== resultNumber,
-    );
-    const operations = changedCandidates.map(({ game, date, resultNumber }) => ({
-        updateOne: {
-            filter: { game, date },
-            update: { $set: { resultNumber, waitingGame } },
-            upsert: true,
+        ({ game, date, resultNumber, historical }) => {
+            const existing = existingByGameAndDate.get(`${game}||${date}`);
+            return historical ? existing === undefined : existing !== resultNumber;
         },
-    }));
+    );
+    const operations = changedCandidates.map(
+        ({ game, date, resultNumber, historical }) => ({
+            updateOne: {
+                filter: { game, date },
+                update: historical
+                    ? { $setOnInsert: { resultNumber, waitingGame } }
+                    : { $set: { resultNumber, waitingGame } },
+                upsert: true,
+            },
+        }),
+    );
 
     if (operations.length === 0) return;
     await Result.bulkWrite(operations, { ordered: false });

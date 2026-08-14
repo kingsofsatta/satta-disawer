@@ -58,40 +58,48 @@ export async function getLastResultFromDB() {
         await connectDB();
         const today = getISTDate();
         const yesterday = getISTDate(-1);
-        const featuredGameOrder = [
-            'disawer',
-            'shirdi-dham',
-            'kaliyar',
-            'delhi-bazar',
-            'shri-ganesh',
-            'faridabad',
-            'shakti-peeth',
-            'gaziyabad',
-            'mathura',
-            'gali',
-        ];
+        const now = new Date(Date.now() + (5.5 * 60 * 60 * 1000));
+        const currentMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
+        const scheduledGames = GAMES.map((game) => {
+            const match = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(game.time);
+            if (!match) return null;
 
-        // A cron write can occur later than the game's actual declaration time.
-        // Pick the latest declared game in the daily schedule, not the document
-        // with the newest database timestamp.
+            let hours = Number(match[1]) % 12;
+            if (match[3].toUpperCase() === 'PM') hours += 12;
+
+            return {
+                game: game.key,
+                minutes: hours * 60 + Number(match[2]),
+            };
+        }).filter(Boolean);
+
         const results = await Result.find({
             date: { $in: [today, yesterday] },
-            game: { $in: featuredGameOrder },
+            game: { $in: scheduledGames.map(({ game }) => game) },
         }).lean();
         const resultByDateAndGame = new Map(
             results.map((result) => [`${result.date}||${result.game}`, result]),
         );
 
-        for (const date of [today, yesterday]) {
-            for (const game of [...featuredGameOrder].reverse()) {
-                const result = resultByDateAndGame.get(`${date}||${game}`);
-                if (result) {
-                    return JSON.parse(JSON.stringify(withCompatibleWaitingGame(result)));
-                }
-            }
-        }
+        // Ignore results for games whose scheduled time has not arrived yet.
+        // If a scheduled result is missing, fall back to the previous completed
+        // game, then to the latest game from yesterday.
+        const todayGames = scheduledGames
+            .filter(({ minutes }) => minutes <= currentMinutes)
+            .sort((a, b) => b.minutes - a.minutes);
+        const yesterdayGames = [...scheduledGames]
+            .sort((a, b) => b.minutes - a.minutes);
+        const candidates = [
+            ...todayGames.map(({ game }) => `${today}||${game}`),
+            ...yesterdayGames.map(({ game }) => `${yesterday}||${game}`),
+        ];
+        const result = candidates
+            .map((key) => resultByDateAndGame.get(key))
+            .find(Boolean);
 
-        return null;
+        return result
+            ? JSON.parse(JSON.stringify(withCompatibleWaitingGame(result)))
+            : null;
     } catch (error) {
         console.error("Error fetching last result from DB:", error);
         return null;
