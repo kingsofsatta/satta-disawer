@@ -4,6 +4,7 @@ import { GAMES } from "@/utils/gameConfig";
 import {
   canUseExternalTodayResult,
   isSnapshotFromCurrentISTDate,
+  isGaliCarryoverWindow,
 } from "@/utils/externalResultGuard";
 
 const EXTERNAL_NAME_BY_LOCAL_KEY = {
@@ -39,11 +40,17 @@ const SattaResultTable = ({
     const externalTodayResult = externalTodayResultIsCurrent
       ? externalGame?.todayResult
       : null;
+    const isGaliCarryover = game.key === "gali" && isGaliCarryoverWindow();
+    const externalGaliCarryoverResult = isGaliCarryover
+      ? externalTodayResult || externalGame?.yesterdayResult
+      : null;
     const todayResult = externalGameIsWaiting
       ? null
       : externalTodayResult || localTodayResult;
     const yesterdayResult =
-      localYesterdayResult || externalGame?.yesterdayResult;
+      externalGaliCarryoverResult ||
+      localYesterdayResult ||
+      externalGame?.yesterdayResult;
 
     return {
       id: `local-${index}`,

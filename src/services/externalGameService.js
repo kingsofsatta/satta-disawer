@@ -6,6 +6,7 @@ import { getWaitingGameByISTTime } from "@/utils/resultCompatibility";
 import {
     canSyncExternalYesterdayResult,
     canUseExternalTodayResult,
+    isGaliCarryoverWindow,
 } from "@/utils/externalResultGuard";
 
 const SOURCE_URL = "https://a7satta.com/";
@@ -39,12 +40,32 @@ async function saveGamesToResults(games) {
     const waitingGame = getWaitingGameByISTTime();
     const candidates = [];
     const canSyncYesterday = canSyncExternalYesterdayResult();
+    const galiCarryover = isGaliCarryoverWindow();
 
     for (const game of games) {
         const resultGame = RESULT_GAME_BY_EXTERNAL_NAME[game.name];
         if (!resultGame) continue;
 
         const canSaveTodayResult = canUseExternalTodayResult(resultGame);
+
+        if (resultGame === "gali" && galiCarryover) {
+            // During 00:00-01:59 IST, the newly published Gali number belongs
+            // to the previous calendar date. Prefer the source's today cell,
+            // but tolerate its post-midnight table rollover to yesterday.
+            const carryoverResult = /^\d+$/.test(game.todayResult)
+                ? game.todayResult
+                : game.yesterdayResult;
+
+            if (/^\d+$/.test(carryoverResult)) {
+                candidates.push({
+                    game: resultGame,
+                    date: yesterday,
+                    resultNumber: carryoverResult,
+                    historical: false,
+                });
+            }
+            continue;
+        }
 
         if (canSaveTodayResult && /^\d+$/.test(game.todayResult)) {
             candidates.push({

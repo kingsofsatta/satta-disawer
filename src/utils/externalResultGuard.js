@@ -1,5 +1,6 @@
 const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
 const GALI_RELEASE_MINUTES = 23 * 60 + 30;
+const GALI_CARRYOVER_END_MINUTES = 2 * 60;
 
 const GAME_RELEASE_MINUTES = {
   disawer: 5 * 60 + 20,
@@ -22,6 +23,12 @@ function getISTParts(date = new Date()) {
 export function canUseExternalTodayResult(game, now = new Date()) {
   const releaseMinutes = GAME_RELEASE_MINUTES[game];
   return releaseMinutes === undefined || getISTParts(now).minutes >= releaseMinutes;
+}
+
+// Gali is announced shortly after midnight even though it belongs to the
+// previous day's game cycle. Keep that association until 02:00 IST.
+export function isGaliCarryoverWindow(now = new Date()) {
+  return getISTParts(now).minutes < GALI_CARRYOVER_END_MINUTES;
 }
 
 // a7satta rolls its table to the next game cycle after Gali, before the IST
