@@ -28,9 +28,6 @@ export async function PUT(request) {
 
         const data = await request.json();
 
-        console.log("Received khaiwalSection1:", data.khaiwalSection1 ? "present" : "missing");
-        console.log("Received khaiwalSection2:", data.khaiwalSection2 ? "present" : "missing");
-
         // Remove _id from update data to avoid immutable field error
         const { _id, ...updateData } = data;
         updateData.updatedAt = new Date();
@@ -46,9 +43,6 @@ export async function PUT(request) {
 
         // Fetch the updated document
         const settings = await collection.findOne({});
-
-        console.log("Settings saved - khaiwalSection1:", settings?.khaiwalSection1 ? "saved" : "missing");
-        console.log("Settings saved - khaiwalSection2:", settings?.khaiwalSection2 ? "saved" : "missing");
 
         return NextResponse.json(settings);
     } catch (error) {

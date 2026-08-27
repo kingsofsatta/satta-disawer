@@ -23,7 +23,6 @@ export async function getTodayResultFromDB() {
     try {
         await connectDB();
         const today = getISTDate();
-        console.log('DB: Fetching results for:', today);
 
         const results = await Result.find({ date: today })
             .sort({ updatedAt: -1 })

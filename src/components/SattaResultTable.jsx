@@ -1,68 +1,29 @@
-import React from "react";
-import Image from "next/image";
 import { GAMES } from "@/utils/gameConfig";
-import {
-  canUseExternalTodayResult,
-  isSnapshotFromCurrentISTDate,
-  isGaliCarryoverWindow,
-} from "@/utils/externalResultGuard";
-
-const EXTERNAL_NAME_BY_LOCAL_KEY = {
-  disawer: "DISAWER",
-  "delhi-bazar": "DELHI BAZAR",
-  "shri-ganesh": "SHRI GANESH",
-  faridabad: "FARIDABAD",
-  gaziyabad: "GHAZIABAD",
-  gali: "GALI",
-};
 
 const SattaResultTable = ({
   todayResults = [],
   yesterdayResults = [],
-  externalGames = [],
 }) => {
   // Create games array from centralized config
   const sattaGames = GAMES.map((game, index) => {
-    const externalName = EXTERNAL_NAME_BY_LOCAL_KEY[game.key];
-    const externalGame = externalName
-      ? externalGames.find((item) => item.name === externalName)
-      : null;
     const localTodayResult = todayResults.find(
       (r) => r.game === game.key,
     )?.resultNumber;
     const localYesterdayResult = yesterdayResults.find(
       (r) => r.game === game.key,
     )?.resultNumber;
-    const externalGameIsWaiting =
-      Boolean(externalName) && !canUseExternalTodayResult(game.key);
-    const externalTodayResultIsCurrent =
-      !externalName || isSnapshotFromCurrentISTDate(externalGame?.fetchedAt);
-    const externalTodayResult = externalTodayResultIsCurrent
-      ? externalGame?.todayResult
-      : null;
-    const isGaliCarryover = game.key === "gali" && isGaliCarryoverWindow();
-    const externalGaliCarryoverResult = isGaliCarryover
-      ? externalTodayResult || externalGame?.yesterdayResult
-      : null;
-    const todayResult = externalGameIsWaiting
-      ? null
-      : externalTodayResult || localTodayResult;
-    const yesterdayResult =
-      externalGaliCarryoverResult ||
-      localYesterdayResult ||
-      externalGame?.yesterdayResult;
+    const todayResult = localTodayResult;
+    const yesterdayResult = localYesterdayResult;
 
     return {
       id: `local-${index}`,
       displayName: game.name,
-      time: externalGame?.time || game.time,
+      time: game.time,
       yesterdayResult: yesterdayResult || "--",
       todayResult: todayResult || "--",
       isLoading: !todayResult,
-      isExternal: Boolean(externalGame),
     };
   });
-
   const tableRows = sattaGames;
 
   const ResultCell = ({ result, isLoading }) => {
@@ -78,7 +39,7 @@ const SattaResultTable = ({
             priority={false}
           /> */}
           <span className="text-lg lg:text-xl font-black tracking-widest text-white">
-           --
+            --
           </span>
         </div>
       );

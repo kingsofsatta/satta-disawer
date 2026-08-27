@@ -67,7 +67,6 @@ export async function updateSettings(settings) {
 // ==================== RESULTS QUERIES ====================
 export async function getTodayResult() {
   const today = getISTDate(); // Use IST date
-  console.log('Fetching results for:', today); // Debug log
 
   try {
     const response = await fetch(`${API_BASE}/api/results?type=today`, {

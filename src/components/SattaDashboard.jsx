@@ -21,7 +21,6 @@ const SattaDashboard = ({
   setting,
   monthlyResults = [],
   disawarData,
-  externalGames = [],
   firebaseScrapedCache = { homepageGames: [], chart: null },
 }) => {
   const currentDate = new Date();
@@ -122,7 +121,6 @@ const SattaDashboard = ({
         <SattaResultTable
           todayResults={todayResults}
           yesterdayResults={yesterdayResults}
-          externalGames={externalGames}
         />
 
         {/* Chart Grid */}

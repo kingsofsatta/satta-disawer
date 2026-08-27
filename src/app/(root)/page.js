@@ -9,7 +9,6 @@ import {
   getDisawarDataFromDB,
 } from "@/services/resultServer";
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
-import { getExternalGames } from "@/services/externalGameService";
 import {
   getFirebaseCustomGames,
   getFirebaseScrapedCache,
@@ -68,10 +67,6 @@ export default async function Home() {
       getDisawarDataFromDB(),
       getSettingsFromDB(),
     ]);
-
-  // Read the latest stored snapshot. Refreshing the external source is handled by
-  // the cron route so an upstream website can never delay the homepage response.
-  const externalGames = await getExternalGames();
 
   // Get current month's results
   const currentDate = new Date();
@@ -159,7 +154,6 @@ export default async function Home() {
       setting={siteConfig}
       monthlyResults={monthlyResults}
       disawarData={disawarData}
-      externalGames={externalGames}
       firebaseCustomGames={firebaseCustomGames}
       firebaseScrapedCache={firebaseScrapedCache}
     />

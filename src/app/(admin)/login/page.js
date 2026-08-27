@@ -37,7 +37,6 @@ const LoginPage = () => {
       });
 
       const data = await response.json();
-console.log(data,response)
       if (response.ok) {
         setSuccess('Login successful! Redirecting...');
         
