@@ -1,4 +1,4 @@
-import { GAMES } from "@/utils/gameConfig";
+import { GAMES, normalizeGameKey } from "@/utils/gameConfig";
 
 const SattaResultTable = ({
   todayResults = [],
@@ -7,10 +7,10 @@ const SattaResultTable = ({
   // Create games array from centralized config
   const sattaGames = GAMES.map((game, index) => {
     const localTodayResult = todayResults.find(
-      (r) => r.game === game.key,
+      (r) => normalizeGameKey(r.game) === game.key,
     )?.resultNumber;
     const localYesterdayResult = yesterdayResults.find(
-      (r) => r.game === game.key,
+      (r) => normalizeGameKey(r.game) === game.key,
     )?.resultNumber;
     const todayResult = localTodayResult;
     const yesterdayResult = localYesterdayResult;

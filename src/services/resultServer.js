@@ -1,7 +1,7 @@
 // Server-side results service - uses direct database access
 import { connectDB } from "@/lib/db";
 import Result from "@/models/Result";
-import { GAMES } from "@/utils/gameConfig";
+import { GAMES, getCompatibleGameKeys } from "@/utils/gameConfig";
 import { withCompatibleWaitingGame } from "@/utils/resultCompatibility";
 
 function getISTDate(daysOffset = 0) {
@@ -132,14 +132,14 @@ export async function getDisawarDataFromDB() {
         // Get today's DISAWAR result (use lowercase 'disawer' as stored in DB)
         const todayResult = await Result.findOne({
             date: today,
-            game: 'disawer'
-        }).lean();
+            game: { $in: getCompatibleGameKeys('disawer') }
+        }).sort({ updatedAt: -1 }).lean();
 
         // Get yesterday's DISAWAR result
         const yesterdayResult = await Result.findOne({
             date: yesterday,
-            game: 'disawer'
-        }).lean();
+            game: { $in: getCompatibleGameKeys('disawer') }
+        }).sort({ updatedAt: -1 }).lean();
 
         return {
             today: todayResult?.resultNumber || null,
@@ -160,7 +160,7 @@ export async function getYearlyResultsFromDB(gameKey, year) {
         console.log(`DB: Fetching yearly results for ${gameKey} in ${year}`);
 
         const results = await Result.find({
-            game: gameKey,
+            game: { $in: getCompatibleGameKeys(gameKey) },
             date: { $gte: startDate, $lte: endDate }
         }).sort({ date: 1 }).lean();
 

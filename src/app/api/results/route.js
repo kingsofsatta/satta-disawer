@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Result from "@/models/Result";
+import { getCompatibleGameKeys, normalizeGameKey } from "@/utils/gameConfig";
 import {
     getWaitingGameByISTTime,
     withCompatibleWaitingGame,
@@ -61,8 +62,8 @@ export async function GET(request) {
             const yesterday = getISTDate(-1);
 
             const [todayResult, yesterdayResult] = await Promise.all([
-                Result.findOne({ game: "disawer", date: today }),
-                Result.findOne({ game: "disawer", date: yesterday }),
+                Result.findOne({ game: { $in: getCompatibleGameKeys("disawer") }, date: today }).sort({ updatedAt: -1 }),
+                Result.findOne({ game: { $in: getCompatibleGameKeys("disawer") }, date: yesterday }).sort({ updatedAt: -1 }),
             ]);
 
             return NextResponse.json({
@@ -79,12 +80,12 @@ export async function GET(request) {
             const startDate = `${year}-01-01`;
             const endDate = `${year}-12-31`;
             query = {
-                game: game.toLowerCase().trim(),
+                game: { $in: getCompatibleGameKeys(game) },
                 date: { $gte: startDate, $lte: endDate },
             };
         } else if (game) {
             // Get results by game
-            query = { game: game.toLowerCase().trim() };
+            query = { game: { $in: getCompatibleGameKeys(game) } };
         } else if (date) {
             // Get results by date
             query = { date };
@@ -119,7 +120,7 @@ export async function POST(request) {
         // Normalize data
         const normalizedData = {
             ...data,
-            game: data.game.toLowerCase().trim(),
+            game: normalizeGameKey(data.game),
             waitingGame: getWaitingGameByISTTime(),
         };
 

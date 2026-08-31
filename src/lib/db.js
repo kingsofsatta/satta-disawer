@@ -1,8 +1,4 @@
 import mongoose from "mongoose";
-import dns from "node:dns";
-
-// Set reliable DNS servers to avoid connection issues
-dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const mongoUri =
   process.env.MONGODB_URI ||
@@ -24,7 +20,8 @@ export async function connectDB() {
       serverSelectionTimeoutMS: 10000,
       socketTimeoutMS: 45000,
       maxPoolSize: 10,
-      minPoolSize: 2,
+      // Serverless functions should not keep a minimum number of sockets open.
+      minPoolSize: 0,
     };
 
     cached.promise = mongoose

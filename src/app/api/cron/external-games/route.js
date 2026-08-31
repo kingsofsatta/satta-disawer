@@ -1,6 +1,28 @@
 import { NextResponse } from "next/server";
 import { fetchExternalGames, cleanupExternalGames } from "@/services/externalGameService";
 
+const MAX_ATTEMPTS = 3;
+
+async function runCronWithRetry() {
+    let lastError;
+
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
+        try {
+            const games = await fetchExternalGames();
+            await cleanupExternalGames();
+            return { games, attempt };
+        } catch (error) {
+            lastError = error;
+            console.error(`External games attempt ${attempt} failed:`, error.message);
+            if (attempt < MAX_ATTEMPTS) {
+                await new Promise((resolve) => setTimeout(resolve, attempt * 500));
+            }
+        }
+    }
+
+    throw lastError;
+}
+
 // This API route is called every minute by cron-job.org.
 export async function GET(request) {
     // cron-job.org can send either an Authorization header or ?secret=...
@@ -21,8 +43,7 @@ export async function GET(request) {
 
     try {
         console.log("Starting external games cron job...");
-        await cleanupExternalGames();
-        const games = await fetchExternalGames();
+        const { games, attempt } = await runCronWithRetry();
         console.log(`Successfully fetched ${games.length} games from a7satta.com`);
         
         return NextResponse.json({ 
@@ -30,6 +51,7 @@ export async function GET(request) {
             gamesCount: games.length,
             resultsCollectionUpdated: true,
             games,
+            attempt,
             timestamp: new Date().toISOString(),
             source: "a7satta.com"
         });
@@ -52,12 +74,12 @@ export async function POST(request) {
     }
 
     try {
-        await cleanupExternalGames();
-        const games = await fetchExternalGames();
+        const { games, attempt } = await runCronWithRetry();
         return NextResponse.json({ 
             success: true, 
             gamesCount: games.length,
-            games: games
+            games,
+            attempt,
         });
     } catch (error) {
         return NextResponse.json({ 

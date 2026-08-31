@@ -1,5 +1,12 @@
 "use client";
+import { useEffect, useState } from "react";
 import { GAMES } from "@/utils/gameConfig";
+import {
+  getDisawarData,
+  getLastResult,
+  getTodayResult,
+  getYesterdayResults,
+} from "@/services/result";
 import { MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,6 +30,45 @@ const SattaDashboard = ({
   disawarData,
   firebaseScrapedCache = { homepageGames: [], chart: null },
 }) => {
+  const [liveTodayResults, setLiveTodayResults] = useState(todayResults);
+  const [liveYesterdayResults, setLiveYesterdayResults] = useState(yesterdayResults);
+  const [liveLastResult, setLiveLastResult] = useState(lastResult);
+  const [liveDisawarData, setLiveDisawarData] = useState(disawarData);
+
+  useEffect(() => {
+    let active = true;
+
+    const refreshResults = async () => {
+      try {
+        // Refresh the shared external snapshot first; this endpoint only
+        // scrapes when its MongoDB cache is at least one minute old.
+        await fetch("/api/external-games", { cache: "no-store" });
+        const [today, yesterday, latest, disawar] = await Promise.all([
+          getTodayResult(),
+          getYesterdayResults(),
+          getLastResult(),
+          getDisawarData(),
+        ]);
+
+        if (!active) return;
+        setLiveTodayResults(today);
+        setLiveYesterdayResults(yesterday);
+        setLiveLastResult(latest);
+        setLiveDisawarData(disawar);
+      } catch (error) {
+        console.error("Failed to refresh live results:", error);
+      }
+    };
+
+    refreshResults();
+    const intervalId = window.setInterval(refreshResults, 60 * 1000);
+
+    return () => {
+      active = false;
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate
@@ -113,14 +159,14 @@ const SattaDashboard = ({
         </div>
 
         <GameSection
-          data={lastResult}
+          data={liveLastResult}
           setting={setting}
-          disawarData={disawarData}
-          todayResults={todayResults}
+          disawarData={liveDisawarData}
+          todayResults={liveTodayResults}
         />
         <SattaResultTable
-          todayResults={todayResults}
-          yesterdayResults={yesterdayResults}
+          todayResults={liveTodayResults}
+          yesterdayResults={liveYesterdayResults}
         />
 
         {/* Chart Grid */}

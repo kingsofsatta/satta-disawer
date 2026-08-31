@@ -156,7 +156,7 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
         <hr className="border-slate-700 w-11/12 mx-auto my-5" />
 
         <div className="flex uppercase mx-auto text-center w-full font-semibold flex-col gap-4 items-center justify-center">
-          {!isMonthEnd && data && (
+          {data && (
             <>
               <p className="text-amber-500 text-2xl sm:text-3xl font-bold">
                 {data.game.replace("_", " ")}

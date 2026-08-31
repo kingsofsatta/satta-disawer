@@ -78,6 +78,21 @@ export const GAME_KEYS = GAMES.map(game => game.key);
 // Get all game names for display
 export const GAME_NAMES = GAMES.map(game => game.name);
 
+// Older imports and external sources have used both "Disawar" and
+// "Desawar". Keep one canonical database key while still displaying those
+// existing records.
+export const normalizeGameKey = (value = "") => {
+  const key = String(value).toLowerCase().trim().replace(/[\s_]+/g, "-");
+  return ["disawar", "desawar", "desawer"].includes(key) ? "disawer" : key;
+};
+
+export const getCompatibleGameKeys = (value) => {
+  const key = normalizeGameKey(value);
+  return key === "disawer"
+    ? ["disawer", "disawar", "desawar", "desawer"]
+    : [key];
+};
+
 // Create options for Sanity schema
 export const GAME_OPTIONS = GAMES.map(game => ({
   title: game.name,
