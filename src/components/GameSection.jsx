@@ -115,17 +115,14 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
   // Waiting game always follows the centralized table schedule in IST. Cron
   // results do not need to provide this field.
   const waitingGame = getWaitingGameByISTTime();
-
-  // Determine if current IST date is the last day of the month
-  const isMonthEnd = (() => {
-    const now = new Date();
-    now.setTime(now.getTime() + (5.5 * 60 * 60 * 1000));
-    const day = now.getUTCDate();
-    const month = now.getUTCMonth();
-    const year = now.getUTCFullYear();
-    const daysInMonth = new Date(year, month + 1, 0).getUTCDate();
-    return day === daysInMonth;
-  })();
+  // Hide the featured latest/waiting banner only on the final calendar day in
+  // IST. The latest game being Disawer must not hide it on ordinary days.
+  const istNow = new Date(Date.now() + 5.5 * 60 * 60 * 1000);
+  const istDay = istNow.getUTCDate();
+  const istMonth = istNow.getUTCMonth();
+  const istYear = istNow.getUTCFullYear();
+  const isMonthEnd =
+    istDay === new Date(Date.UTC(istYear, istMonth + 1, 0)).getUTCDate();
 
   // Get khaiwal sections from settings
   const khaiwalSection1 = setting?.khaiwalSection1 || {
@@ -153,33 +150,38 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
         <div className="text-center">
           <DateTime />
         </div>
-        <hr className="border-slate-700 w-11/12 mx-auto my-5" />
 
-        <div className="flex uppercase mx-auto text-center w-full font-semibold flex-col gap-4 items-center justify-center">
-          {data && (
-            <>
-              <p className="text-amber-500 text-2xl sm:text-3xl font-bold">
-                {data.game.replace("_", " ")}
-              </p>
-              <p className="text-white text-3xl md:text-4xl font-black">
-                {data.resultNumber}
-              </p>
+        {!isMonthEnd && (
+          <>
+          <hr className="border-slate-700 w-11/12 mx-auto my-5" />
 
-              <div className="h-px w-32 bg-gradient-to-r from-transparent via-violet-400 to-transparent my-2"></div>
+          <div className="flex uppercase mx-auto text-center w-full font-semibold flex-col gap-4 items-center justify-center">
+            {data && (
+              <>
+                <p className="text-amber-500 text-2xl sm:text-3xl font-bold">
+                  {data.game.replace("_", " ")}
+                </p>
+                <p className="text-white text-3xl md:text-4xl font-black">
+                  {data.resultNumber}
+                </p>
 
-              <p className="text-amber-500 text-2xl sm:text-[28px] font-bold">
-                {waitingGame.replace("_", " ").toUpperCase()}
-              </p>
-              <Image
-                className="mx-auto rounded-full"
-                alt="wait icon"
-                width={45}
-                height={45}
-                src="/loading.gif"
-              />
-            </>
-          )}
-        </div>
+                <div className="h-px w-32 bg-gradient-to-r from-transparent via-violet-400 to-transparent my-2"></div>
+
+                <p className="text-amber-500 text-2xl sm:text-[28px] font-bold">
+                  {waitingGame.replace("_", " ").toUpperCase()}
+                </p>
+                <Image
+                  className="mx-auto rounded-full"
+                  alt="wait icon"
+                  width={45}
+                  height={45}
+                  src="/loading.gif"
+                />
+              </>
+            )}
+          </div>
+          </>
+        )}
       </div>
 
       {/* DISAWAR Section */}

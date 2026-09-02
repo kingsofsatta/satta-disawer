@@ -21,21 +21,22 @@ function getISTParts(date = new Date()) {
 }
 
 export function canUseExternalTodayResult(game, now = new Date()) {
+  const { date, minutes } = getISTParts(now);
+  const [year, month, day] = date.split("-").map(Number);
+  const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
+
+  // On the final day of a month only Disawer publishes a new result. Never
+  // treat numbers retained by the source for other games as today's results.
+  if (day === daysInMonth && game !== "disawer") return false;
+
   const releaseMinutes = GAME_RELEASE_MINUTES[game];
-  return releaseMinutes === undefined || getISTParts(now).minutes >= releaseMinutes;
+  return releaseMinutes === undefined || minutes >= releaseMinutes;
 }
 
 // Gali is announced shortly after midnight even though it belongs to the
 // previous day's game cycle. Keep that association until 02:00 IST.
 export function isGaliCarryoverWindow(now = new Date()) {
   return getISTParts(now).minutes < GALI_CARRYOVER_END_MINUTES;
-}
-
-// a7satta rolls its table to the next game cycle after Gali, before the IST
-// calendar date changes. During that window its "yesterday" column no longer
-// maps reliably to calendar yesterday.
-export function canSyncExternalYesterdayResult(now = new Date()) {
-  return getISTParts(now).minutes < GALI_RELEASE_MINUTES;
 }
 
 export function isSnapshotFromCurrentISTDate(fetchedAt, now = new Date()) {

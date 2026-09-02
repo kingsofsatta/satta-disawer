@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
+import dns from "node:dns";
 
+// Set reliable DNS servers to avoid connection issues
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const mongoUri =
   process.env.MONGODB_URI ||
   "mongodb+srv://admin:admin@cluster0.szokn.mongodb.net/goodluck?appName=Cluster0";

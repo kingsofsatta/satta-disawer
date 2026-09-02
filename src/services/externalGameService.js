@@ -4,9 +4,9 @@ import Result from "@/models/Result";
 import { parseA7SattaGames } from "@/services/a7SattaParser";
 import { getWaitingGameByISTTime } from "@/utils/resultCompatibility";
 import {
-    canSyncExternalYesterdayResult,
     canUseExternalTodayResult,
     isGaliCarryoverWindow,
+    isSnapshotFromCurrentISTDate,
 } from "@/utils/externalResultGuard";
 
 const SOURCE_URL = "https://a7satta.com/";
@@ -39,7 +39,6 @@ async function saveGamesToResults(games) {
     const yesterday = getISTDate(-1);
     const waitingGame = getWaitingGameByISTTime();
     const candidates = [];
-    const canSyncYesterday = canSyncExternalYesterdayResult();
     const galiCarryover = isGaliCarryoverWindow();
 
     for (const game of games) {
@@ -49,19 +48,16 @@ async function saveGamesToResults(games) {
         const canSaveTodayResult = canUseExternalTodayResult(resultGame);
 
         if (resultGame === "gali" && galiCarryover) {
-            // During 00:00-01:59 IST, the newly published Gali number belongs
-            // to the previous calendar date. Prefer the source's today cell,
-            // but tolerate its post-midnight table rollover to yesterday.
-            const carryoverResult = /^\d+$/.test(game.todayResult)
-                ? game.todayResult
-                : game.yesterdayResult;
+            // During 00:00-01:59 IST, a newly published Gali number belongs to
+            // the previous calendar date. Do not fall back to the source's
+            // yesterday cell because it may contain an older carried result.
+            const carryoverResult = game.todayResult;
 
             if (/^\d+$/.test(carryoverResult)) {
                 candidates.push({
                     game: resultGame,
                     date: yesterday,
                     resultNumber: carryoverResult,
-                    historical: false,
                 });
             }
             continue;
@@ -72,16 +68,6 @@ async function saveGamesToResults(games) {
                 game: resultGame,
                 date: today,
                 resultNumber: game.todayResult,
-                historical: false,
-            });
-        }
-
-        if (canSyncYesterday && /^\d+$/.test(game.yesterdayResult)) {
-            candidates.push({
-                game: resultGame,
-                date: yesterday,
-                resultNumber: game.yesterdayResult,
-                historical: true,
             });
         }
     }
@@ -98,18 +84,16 @@ async function saveGamesToResults(games) {
         ]),
     );
     const changedCandidates = candidates.filter(
-        ({ game, date, resultNumber, historical }) => {
+        ({ game, date, resultNumber }) => {
             const existing = existingByGameAndDate.get(`${game}||${date}`);
-            return historical ? existing === undefined : existing !== resultNumber;
+            return existing !== resultNumber;
         },
     );
     const operations = changedCandidates.map(
-        ({ game, date, resultNumber, historical }) => ({
+        ({ game, date, resultNumber }) => ({
             updateOne: {
                 filter: { game, date },
-                update: historical
-                    ? { $setOnInsert: { resultNumber, waitingGame } }
-                    : { $set: { resultNumber, waitingGame } },
+                update: { $set: { resultNumber, waitingGame } },
                 upsert: true,
             },
         }),
@@ -179,13 +163,24 @@ export async function getExternalGames() {
     }).sort({ fetchedAt: -1 }).lean();
 
     const uniqueGames = [...new Map(games.map((game) => [game.name, game])).values()];
-    return uniqueGames.map((game) => ({
+    const snapshot = uniqueGames.map((game) => ({
         name: game.name,
         time: game.time,
         todayResult: game.todayResult,
         yesterdayResult: game.yesterdayResult,
         fetchedAt: game.fetchedAt,
     }));
+
+    // A current-day cache can contain a newly scraped result even when an
+    // earlier guarded write did not reach the primary Result collection.
+    // Reconcile only current-IST-day snapshots and only their today values.
+    if (snapshot.some((game) => isSnapshotFromCurrentISTDate(game.fetchedAt))) {
+        await saveGamesToResults(
+            snapshot.filter((game) => isSnapshotFromCurrentISTDate(game.fetchedAt)),
+        );
+    }
+
+    return snapshot;
 }
 
 export async function cleanupExternalGames() {
