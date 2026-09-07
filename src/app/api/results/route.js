@@ -7,32 +7,9 @@ import {
     withCompatibleWaitingGame,
 } from "@/utils/resultCompatibility";
 
-// Function to clean up data older than 2 years
-async function cleanupOldData() {
-    try {
-        const twoYearsAgo = new Date();
-        twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
-
-        const cutoffDate = `${twoYearsAgo.getFullYear()}-${String(twoYearsAgo.getMonth() + 1).padStart(2, '0')}-${String(twoYearsAgo.getDate()).padStart(2, '0')}`;
-
-        const result = await Result.deleteMany({
-            date: { $lt: cutoffDate }
-        });
-
-        if (result.deletedCount > 0) {
-            console.log(`Cleanup: Deleted ${result.deletedCount} records older than ${cutoffDate}`);
-        }
-    } catch (error) {
-        console.error("Error during data cleanup:", error);
-    }
-}
-
 export async function GET(request) {
     try {
         await connectDB();
-
-        // Run cleanup for old data (older than 2 years)
-        await cleanupOldData();
 
         // Get query parameters
         const { searchParams } = new URL(request.url);

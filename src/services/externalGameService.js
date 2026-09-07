@@ -49,9 +49,12 @@ async function saveGamesToResults(games) {
 
         if (resultGame === "gali" && galiCarryover) {
             // During 00:00-01:59 IST, a newly published Gali number belongs to
-            // the previous calendar date. Do not fall back to the source's
-            // yesterday cell because it may contain an older carried result.
-            const carryoverResult = game.todayResult;
+            // the previous calendar date. A7Satta may roll the table over at
+            // midnight and expose that number in the yesterday column, so use
+            // it when the today column has already been cleared.
+            const carryoverResult = /^\d+$/.test(game.todayResult)
+                ? game.todayResult
+                : game.yesterdayResult;
 
             if (/^\d+$/.test(carryoverResult)) {
                 candidates.push({
