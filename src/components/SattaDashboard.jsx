@@ -11,7 +11,7 @@ import { MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Typewriter } from "react-simple-typewriter";
-import FirebaseScrapedCacheTables from "./FirebaseScrapedCacheTables";
+import ExtraGamesTable from "./ExtraGamesTable";
 import GameSection from "./GameSection";
 import SattaResultTable from "./SattaResultTable";
 import SimpleFAQ from "./SimpleFAQ";
@@ -28,7 +28,7 @@ const SattaDashboard = ({
   setting,
   monthlyResults = [],
   disawarData,
-  firebaseScrapedCache = { homepageGames: [], chart: null },
+  extraGames = [],
 }) => {
   const [liveTodayResults, setLiveTodayResults] = useState(todayResults);
   const [liveYesterdayResults, setLiveYesterdayResults] = useState(yesterdayResults);
@@ -222,13 +222,7 @@ const SattaDashboard = ({
           </div>
         </div>
 
-        {/* <FirebaseMonthlyTable
-          data={firebaseCustomGames}
-          month={currentMonth}
-          year={currentYear}
-        /> */}
-
-        <FirebaseScrapedCacheTables data={firebaseScrapedCache} />
+        <ExtraGamesTable games={extraGames} />
 
         {/* Additional Content Section */}
         <div className="mt-12 px-2 md:px-4">

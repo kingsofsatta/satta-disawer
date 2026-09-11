@@ -9,10 +9,7 @@ import {
   getDisawarDataFromDB,
 } from "@/services/resultServer";
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
-import {
-  getFirebaseCustomGames,
-  getFirebaseScrapedCache,
-} from "@/services/firebaseGameService";
+import { getExtraGames } from "@/services/extraGameService";
 
 // Generate dynamic metadata
 export async function generateMetadata() {
@@ -70,24 +67,14 @@ export default async function Home() {
 
   // Get current month's results
   const currentDate = new Date();
-  const [monthlyResults, firebaseCustomGames, firebaseScrapedCache] = await Promise.all([
+  const [monthlyResults, extraGames] = await Promise.all([
     getMonthlyResultsFromDB(
       currentDate.getMonth() + 1,
       currentDate.getFullYear(),
     ),
-    getFirebaseCustomGames(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-    ).catch((error) => {
-      console.error("Failed to fetch Firebase custom games:", error.message);
-      return { columns: [], rows: [] };
-    }),
-    getFirebaseScrapedCache(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-    ).catch((error) => {
-      console.error("Failed to fetch Firebase scraped cache:", error.message);
-      return { homepageGames: [], chart: null };
+    getExtraGames().catch((error) => {
+      console.error("Failed to fetch extra games from MongoDB:", error.message);
+      return [];
     }),
   ]);
 
@@ -154,8 +141,7 @@ export default async function Home() {
       setting={siteConfig}
       monthlyResults={monthlyResults}
       disawarData={disawarData}
-      firebaseCustomGames={firebaseCustomGames}
-      firebaseScrapedCache={firebaseScrapedCache}
+      extraGames={extraGames}
     />
     </>
   );

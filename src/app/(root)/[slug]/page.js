@@ -7,6 +7,32 @@ import {
   gameSlugMapping,
   parseSlugData,
 } from "@/services/resultServer";
+import { getExtraGamesMonthlyArchive } from "@/services/extraGameService";
+
+const EXTRA_GAME_CHART_KEYS = {
+  disawer: "dswr",
+  "delhi-bazar": "dlbz",
+  "shri-ganesh": "srgn",
+  faridabad: "frbd",
+  gaziyabad: "gzbd",
+  gali: "gali",
+};
+
+const mergeExtraGamesArchive = (yearlyData, gameKey, archives) => {
+  const resultKey = EXTRA_GAME_CHART_KEYS[gameKey];
+  if (!resultKey) return yearlyData;
+
+  ["JAN", "FEB"].forEach((month, index) => {
+    for (const row of archives[index]?.chart?.rows || []) {
+      const value = row.results?.[resultKey];
+      if (value && value !== "--" && !yearlyData[month]?.[row.day]) {
+        yearlyData[month][row.day] = value;
+      }
+    }
+  });
+
+  return yearlyData;
+};
 
 // Generate metadata for dynamic pages
 export async function generateMetadata({ params }) {
@@ -55,8 +81,16 @@ const DynamicTable = async ({ params }) => {
   const { name: gameName, year } = slugData;
 
   // Fetch yearly data directly from database
-  const results = await getYearlyResultsFromDB(gameKey, year);
-  const yearlyData = transformYearlyData(results);
+  const [results, januaryArchive, februaryArchive] = await Promise.all([
+    getYearlyResultsFromDB(gameKey, year),
+    getExtraGamesMonthlyArchive(Number(year), 1).catch(() => ({ chart: null })),
+    getExtraGamesMonthlyArchive(Number(year), 2).catch(() => ({ chart: null })),
+  ]);
+  const yearlyData = mergeExtraGamesArchive(
+    transformYearlyData(results),
+    gameKey,
+    [januaryArchive, februaryArchive],
+  );
 
   return (
     <div>

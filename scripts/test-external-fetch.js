@@ -18,12 +18,16 @@ import dns from 'node:dns';
 dns.setServers(['8.8.8.8', '1.1.1.1']);
 
 // Load environment variables
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://admin:admin@cluster0.szokn.mongodb.net/goodluck?appName=Cluster0";
+const MONGODB_URI = process.env.MONGODB_URI;
 const SOURCE_URL = "https://a7satta.com/";
 
 
 // Test 1: MongoDB Connection
 async function testMongoDBConnection() {
+    if (!MONGODB_URI) {
+        throw new Error("MONGODB_URI is not configured");
+    }
+
     console.log("📡 Test 1: Testing MongoDB Connection...");
     console.log(`   URI: ${MONGODB_URI.replace(/\/\/([^:]+):([^@]+)@/, '//$1:****@')}`);
     
