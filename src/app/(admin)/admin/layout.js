@@ -3,7 +3,16 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Database, CreditCard, SlidersHorizontal, Sparkles, Settings, Menu, X } from "lucide-react";
+import {
+  Home,
+  Database,
+  CreditCard,
+  SlidersHorizontal,
+  Sparkles,
+  Settings,
+  Menu,
+  X,
+} from "lucide-react";
 
 const navLinks = [
   { href: "/admin", label: "Dashboard", icon: Home },
@@ -11,7 +20,11 @@ const navLinks = [
   { href: "/admin/payment-proofs", label: "Payment Proofs", icon: CreditCard },
   { href: "/admin/site-config", label: "Site Config", icon: Settings },
   { href: "/admin/goodluck-config", label: "Good Luck Config", icon: Sparkles },
-  { href: "/admin/t1-config", label: "T1 Config", icon: SlidersHorizontal },
+  {
+    href: "/admin/satta-king-firm",
+    label: "Satta King Firm",
+    icon: SlidersHorizontal,
+  },
 ];
 
 export default function AdminLayout({ children }) {
@@ -39,8 +52,12 @@ export default function AdminLayout({ children }) {
       <div className="border-b border-white/10 bg-slate-950/95 backdrop-blur sticky top-0 z-50">
         <div className="mx-auto px-4 py-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-orange-400 font-semibold">Admin Dashboard</p>
-            <h1 className="mt-2 text-2xl sm:text-3xl font-black">Satta Disawer Control Center</h1>
+            <p className="text-xs uppercase tracking-[0.3em] text-orange-400 font-semibold">
+              Admin Dashboard
+            </p>
+            <h1 className="mt-2 text-2xl sm:text-3xl font-black">
+              Satta Disawer Control Center
+            </h1>
           </div>
           <button
             type="button"
@@ -54,14 +71,20 @@ export default function AdminLayout({ children }) {
       </div>
 
       {/* Mobile drawer */}
-      <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${mobileOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
+      <div
+        className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${mobileOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+      >
         <div
           className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${mobileOpen ? "opacity-100" : "opacity-0"}`}
           onClick={() => setMobileOpen(false)}
         />
-        <aside className={`absolute left-0 top-10 h-full w-[min(18rem,90vw)] max-w-sm bg-slate-900/95 p-4 shadow-2xl shadow-black/30 transform-gpu transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
+        <aside
+          className={`absolute left-0 top-10 h-full w-[min(18rem,90vw)] max-w-sm bg-slate-900/95 p-4 shadow-2xl shadow-black/30 transform-gpu transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}
+        >
           <div className="mb-6 flex items-center justify-between">
-            <p className="text-sm uppercase tracking-[0.3em] text-orange-400 font-semibold">Admin Menu</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-orange-400 font-semibold">
+              Admin Menu
+            </p>
             <button
               type="button"
               className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-slate-900/90 text-slate-100 transition hover:bg-slate-800"
@@ -80,7 +103,9 @@ export default function AdminLayout({ children }) {
                   key={link.href}
                   href={link.href}
                   className={`flex items-center gap-3 rounded-2xl px-3 py-2 text-sm font-semibold transition ${
-                    isActive ? "bg-orange-500 text-black" : "text-slate-200 hover:bg-slate-800"
+                    isActive
+                      ? "bg-orange-500 text-black"
+                      : "text-slate-200 hover:bg-slate-800"
                   }`}
                   onClick={() => setMobileOpen(false)}
                 >
@@ -96,7 +121,9 @@ export default function AdminLayout({ children }) {
       <div className="mx-auto px-4 py-8 grid gap-8 lg:grid-cols-[280px_1fr]">
         <aside className="hidden lg:block sticky top-24 self-start rounded-3xl border border-white/10 bg-slate-900/85 p-5 shadow-xl shadow-black/20 h-[80vh]">
           <div className="mb-8">
-            <p className="text-sm uppercase tracking-[0.3em] text-orange-400 font-semibold">Admin Menu</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-orange-400 font-semibold">
+              Admin Menu
+            </p>
           </div>
           <nav className="space-y-2">
             {navLinks.map((link) => {
@@ -107,7 +134,9 @@ export default function AdminLayout({ children }) {
                   key={link.href}
                   href={link.href}
                   className={`flex items-center gap-3 rounded-3xl px-4 py-3 text-sm font-semibold transition ${
-                    isActive ? "bg-orange-500 text-black" : "bg-slate-950/80 text-slate-200 hover:bg-slate-900"
+                    isActive
+                      ? "bg-orange-500 text-black"
+                      : "bg-slate-950/80 text-slate-200 hover:bg-slate-900"
                   }`}
                 >
                   <Icon size={16} />
@@ -123,4 +152,3 @@ export default function AdminLayout({ children }) {
     </div>
   );
 }
-

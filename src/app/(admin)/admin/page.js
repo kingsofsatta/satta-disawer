@@ -110,7 +110,7 @@ const AdminDashboard = () => {
     { href: "/admin/payment-proofs", label: "Payment Proofs" },
     { href: "/admin/site-config", label: "Site Config" },
     { href: "/admin/goodluck-config", label: "Good Luck Config" },
-    { href: "/admin/t1-config", label: "T1 Config" },
+    { href: "/admin/satta-king-firm", label: "Satta King Firm" },
   ];
 
   const indexOfLastResult = currentPage * resultsPerPage;
@@ -133,12 +133,18 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-8 shadow-xl shadow-black/30">
-
         <div className="grid gap-4 md:grid-cols-3">
           {adminCards.map((card) => (
-            <div key={card.label} className="rounded-3xl border border-white/10 bg-slate-950/70 p-6">
-              <p className="text-sm uppercase tracking-[0.3em] text-slate-500">{card.label}</p>
-              <p className="mt-4 text-4xl font-black text-white">{card.value}</p>
+            <div
+              key={card.label}
+              className="rounded-3xl border border-white/10 bg-slate-950/70 p-6"
+            >
+              <p className="text-sm uppercase tracking-[0.3em] text-slate-500">
+                {card.label}
+              </p>
+              <p className="mt-4 text-4xl font-black text-white">
+                {card.value}
+              </p>
               <p className="mt-3 text-sm text-slate-400">{card.description}</p>
             </div>
           ))}
@@ -149,8 +155,12 @@ const AdminDashboard = () => {
         <section className="rounded-3xl border border-white/10 bg-slate-900/85 p-6 shadow-xl shadow-black/20">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-orange-400 font-semibold">Recent results</p>
-              <h2 className="mt-3 text-2xl font-bold text-white">Latest saved entries</h2>
+              <p className="text-sm uppercase tracking-[0.3em] text-orange-400 font-semibold">
+                Recent results
+              </p>
+              <h2 className="mt-3 text-2xl font-bold text-white">
+                Latest saved entries
+              </h2>
             </div>
             <Link
               href="/admin/update-data"
@@ -169,20 +179,32 @@ const AdminDashboard = () => {
             <div className="mt-6 space-y-3">
               {latestResults.length === 0 ? (
                 <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 text-slate-400">
-                  No results have been added yet. Use the Update Data page to add new entries.
+                  No results have been added yet. Use the Update Data page to
+                  add new entries.
                 </div>
               ) : (
                 latestResults.map((item) => (
-                  <div key={item._id} className="rounded-3xl border border-white/10 bg-slate-950/70 p-5">
+                  <div
+                    key={item._id}
+                    className="rounded-3xl border border-white/10 bg-slate-950/70 p-5"
+                  >
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                       <div>
-                        <p className="text-sm uppercase tracking-[0.3em] text-slate-500">{item.game}</p>
-                        <p className="mt-2 text-xl font-semibold text-white">{item.resultNumber}</p>
+                        <p className="text-sm uppercase tracking-[0.3em] text-slate-500">
+                          {item.game}
+                        </p>
+                        <p className="mt-2 text-xl font-semibold text-white">
+                          {item.resultNumber}
+                        </p>
                       </div>
-                      <span className="rounded-full bg-orange-500/10 px-3 py-1 text-sm font-semibold text-orange-300">{item.date}</span>
+                      <span className="rounded-full bg-orange-500/10 px-3 py-1 text-sm font-semibold text-orange-300">
+                        {item.date}
+                      </span>
                     </div>
                     {item.waitingGame && (
-                      <p className="mt-3 text-sm text-slate-400">Waiting game: {item.waitingGame}</p>
+                      <p className="mt-3 text-sm text-slate-400">
+                        Waiting game: {item.waitingGame}
+                      </p>
                     )}
                   </div>
                 ))
@@ -191,7 +213,10 @@ const AdminDashboard = () => {
           )}
 
           <div className="mt-8 flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400">
-            <p>{results.length} total result{results.length === 1 ? "" : "s"} saved.</p>
+            <p>
+              {results.length} total result{results.length === 1 ? "" : "s"}{" "}
+              saved.
+            </p>
             <div className="flex items-center gap-2">
               <span>Page</span>
               <select
@@ -213,18 +238,25 @@ const AdminDashboard = () => {
             <div className="mt-4 flex flex-wrap gap-2">
               {getPageList(totalPages, currentPage, 1).map((p, i) =>
                 p === "left-ellipsis" || p === "right-ellipsis" ? (
-                  <span key={`e-${i}`} className="px-3 py-2 text-sm text-slate-400">...</span>
+                  <span
+                    key={`e-${i}`}
+                    className="px-3 py-2 text-sm text-slate-400"
+                  >
+                    ...
+                  </span>
                 ) : (
                   <button
                     key={p}
                     onClick={() => handlePageChange(p)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                      currentPage === p ? "bg-orange-500 text-black" : "bg-slate-950/70 text-slate-300 hover:bg-slate-900"
+                      currentPage === p
+                        ? "bg-orange-500 text-black"
+                        : "bg-slate-950/70 text-slate-300 hover:bg-slate-900"
                     }`}
                   >
                     {p}
                   </button>
-                )
+                ),
               )}
             </div>
           )}
@@ -232,8 +264,12 @@ const AdminDashboard = () => {
 
         <aside className="rounded-3xl border border-white/10 bg-slate-900/85 p-6 shadow-xl shadow-black/20">
           <div className="mb-5">
-            <p className="text-sm uppercase tracking-[0.3em] text-orange-400 font-semibold">Quick actions</p>
-            <h2 className="mt-3 text-2xl font-bold text-white">Go to admin sections</h2>
+            <p className="text-sm uppercase tracking-[0.3em] text-orange-400 font-semibold">
+              Quick actions
+            </p>
+            <h2 className="mt-3 text-2xl font-bold text-white">
+              Go to admin sections
+            </h2>
           </div>
 
           <div className="grid gap-3">

@@ -71,7 +71,7 @@ const T1Config = () => {
             };
 
             await updateSettings(configToSave);
-            alert("T1 site configuration saved successfully!");
+            alert("Satta King Firm site configuration saved successfully!");
             // Don't hide the modal after saving
             // setShowConfig(false);
             // if (onConfigSaved) {
@@ -112,9 +112,9 @@ const T1Config = () => {
 
     return (
         <div className="p-4 max-w-3xl mx-auto">
-            <h3 className="text-white text-xl mb-2">T1 Site Configuration</h3>
+            <h3 className="text-white text-xl mb-2">Satta King Firm Site Configuration</h3>
             <p className="text-white/70 text-sm mb-4">
-                Configure the khaiwal section for T1 site.
+                Configure the khaiwal section for Satta King Firm site.
             </p>
             {/* Khaiwal Section */}
             <div className="mb-6 p-4 bg-white/10 rounded-lg border border-white/20">
