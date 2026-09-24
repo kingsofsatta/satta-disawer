@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getExternalGames, fetchExternalGames, cleanupExternalGames } from "@/services/externalGameService";
+import { A7_TARGET_GAME_NAMES } from "@/services/a7SattaParser";
 
 export async function GET(request) {
     try {
@@ -12,7 +13,10 @@ export async function GET(request) {
 
         // Browser polling hits this endpoint. Only scrape when the shared DB
         // snapshot is stale, so every visitor does not call the source site.
-        if (games.length < 6 || Date.now() - newestFetch >= 60 * 1000) {
+        if (
+            games.length < A7_TARGET_GAME_NAMES.length ||
+            Date.now() - newestFetch >= 60 * 1000
+        ) {
             games = await fetchExternalGames();
         }
 

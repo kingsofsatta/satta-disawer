@@ -1,13 +1,21 @@
 import * as cheerio from "cheerio";
 
 const TARGET_GAMES = [
-    { name: "DELHI BAZAR", pattern: /delhi\s*baz[ao]r/i },
-    { name: "SHRI GANESH", pattern: /shr(?:i|ee)?\s*ganesh/i },
-    { name: "FARIDABAD", pattern: /faridabad/i },
-    { name: "GHAZIABAD", pattern: /ga(?:z|zh|zi)y?iabad/i },
+    { name: "SADAR BAZAR", pattern: /^sadar\s*baz[ao]r$/i },
+    { name: "GWALIOR", pattern: /^g(?:w|aw)ali(?:o|a)r$/i },
+    { name: "DELHI BAZAR", pattern: /^delhi\s*baz[ao]r$/i },
+    { name: "DELHI MATKA", pattern: /^delhi\s*matka$/i },
+    { name: "SHRI GANESH", pattern: /^shr(?:i|ee)?\s*ganesh$/i },
+    { name: "AGRA", pattern: /^agra$/i },
+    { name: "FARIDABAD", pattern: /^faridabad$/i },
+    { name: "ALWAR", pattern: /^alwar$/i },
+    { name: "GHAZIABAD", pattern: /^ga(?:z|zh|zi)y?iabad$/i },
+    { name: "DWARKA", pattern: /^dwarka$/i },
     { name: "GALI", pattern: /^gali$/i },
-    { name: "DISAWER", pattern: /d(?:i|e)saw(?:e|a)r/i },
+    { name: "DISAWER", pattern: /^d(?:i|e)saw(?:e|a)r$/i },
 ];
+
+export const A7_TARGET_GAME_NAMES = TARGET_GAMES.map(({ name }) => name);
 
 const normalizeText = (value) => value.trim().replace(/\s+/g, " ");
 

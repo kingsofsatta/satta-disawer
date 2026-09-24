@@ -42,7 +42,7 @@ export default function ExtraGamesTable({ games = [] }) {
           </thead>
           <tbody>
             {extraGames.map((game) => (
-              <tr key={game.id} className="border-b border-slate-700 bg-slate-800/50 transition-colors hover:bg-slate-700/50">
+              <tr key={game.id || normalizeGameName(game.name)} className="border-b border-slate-700 bg-slate-800/50 transition-colors hover:bg-slate-700/50">
                 <td className="border border-slate-700 bg-slate-800 px-3 py-3 text-center font-bold">
                   <p className="text-base font-bold text-amber-500 lg:text-lg">{game.name}</p>
                   <span className="text-sm font-medium text-slate-400">{game.time}</span>

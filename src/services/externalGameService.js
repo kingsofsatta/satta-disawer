@@ -1,7 +1,10 @@
 import { connectDB } from "@/lib/db";
 import ExternalGame from "@/models/ExternalGame";
 import Result from "@/models/Result";
-import { parseA7SattaGames } from "@/services/a7SattaParser";
+import {
+    A7_TARGET_GAME_NAMES,
+    parseA7SattaGames,
+} from "@/services/a7SattaParser";
 import { getWaitingGameByISTTime } from "@/utils/resultCompatibility";
 import {
     canUseExternalTodayResult,
@@ -10,15 +13,6 @@ import {
 } from "@/utils/externalResultGuard";
 
 const SOURCE_URL = "https://a7satta.com/";
-const TARGET_GAME_NAMES = [
-    "DELHI BAZAR",
-    "SHRI GANESH",
-    "FARIDABAD",
-    "GHAZIABAD",
-    "GALI",
-    "DISAWER",
-];
-
 const RESULT_GAME_BY_EXTERNAL_NAME = {
     "DELHI BAZAR": "delhi-bazar",
     "SHRI GANESH": "shri-ganesh",
@@ -127,8 +121,10 @@ export async function fetchExternalGames() {
 
     const uniqueGames = parseA7SattaGames(html);
 
-    if (uniqueGames.length !== 6) {
-        throw new Error(`Expected 6 target games, parsed ${uniqueGames.length}`);
+    if (uniqueGames.length !== A7_TARGET_GAME_NAMES.length) {
+        throw new Error(
+            `Expected ${A7_TARGET_GAME_NAMES.length} target games, parsed ${uniqueGames.length}`,
+        );
     }
 
     const fetchedAt = new Date();
@@ -162,10 +158,13 @@ export async function getExternalGames() {
     await connectDB();
     const games = await ExternalGame.find({
         source: "a7satta",
-        name: { $in: TARGET_GAME_NAMES },
+        name: { $in: A7_TARGET_GAME_NAMES },
     }).sort({ fetchedAt: -1 }).lean();
 
-    const uniqueGames = [...new Map(games.map((game) => [game.name, game])).values()];
+    const gamesByName = new Map(games.map((game) => [game.name, game]));
+    const uniqueGames = A7_TARGET_GAME_NAMES
+        .map((name) => gamesByName.get(name))
+        .filter(Boolean);
     const snapshot = uniqueGames.map((game) => ({
         name: game.name,
         time: game.time,

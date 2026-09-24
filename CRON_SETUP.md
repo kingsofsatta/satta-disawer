@@ -2,10 +2,16 @@
 
 This project automatically fetches game results from **a7satta.com** for the following games:
 
+- Sadar Bazar
+- Gwalior
 - Delhi Bazar
+- Delhi Matka
 - Shree Ganesh
+- Agra
 - Faridabad
+- Alwar
 - Ghaziabad
+- Dwarka
 - Gali
 - Disawer
 
@@ -177,5 +183,5 @@ External games are stored with the following structure:
 - Results are automatically cleaned up after 2 days
 - Duplicate games (same name and time) are automatically handled
 - Games that match your default schedule are filtered out
-- Only the 6 specified games are fetched, even if a7satta.com has more
+- Only the 12 specified games are fetched, even if a7satta.com has more
 - 15-minute cooldown prevents excessive requests to a7satta.com

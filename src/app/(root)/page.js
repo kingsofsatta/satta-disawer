@@ -10,6 +10,30 @@ import {
 } from "@/services/resultServer";
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
 import { getExtraGames } from "@/services/extraGameService";
+import { getExternalGames } from "@/services/externalGameService";
+
+const normalizeGameName = (name) =>
+  String(name || "").trim().toUpperCase().replace(/\s+/g, " ");
+
+const mergeExternalGames = (extraGames, externalGames) => {
+  const displayGames = externalGames.map((game) => ({
+    id: `a7satta-${normalizeGameName(game.name).replace(/\s+/g, "-").toLowerCase()}`,
+    name: game.name,
+    time: game.time,
+    yesterday: game.yesterdayResult || "--",
+    today: game.todayResult || "--",
+  }));
+  const externalGameNames = new Set(
+    displayGames.map((game) => normalizeGameName(game.name)),
+  );
+
+  return [
+    ...displayGames,
+    ...extraGames.filter(
+      (game) => !externalGameNames.has(normalizeGameName(game.name)),
+    ),
+  ];
+};
 
 // Generate dynamic metadata
 export async function generateMetadata() {
@@ -67,7 +91,7 @@ export default async function Home() {
 
   // Get current month's results
   const currentDate = new Date();
-  const [monthlyResults, extraGames] = await Promise.all([
+  const [monthlyResults, databaseExtraGames, externalGames] = await Promise.all([
     getMonthlyResultsFromDB(
       currentDate.getMonth() + 1,
       currentDate.getFullYear(),
@@ -76,7 +100,12 @@ export default async function Home() {
       console.error("Failed to fetch extra games from MongoDB:", error.message);
       return [];
     }),
+    getExternalGames().catch((error) => {
+      console.error("Failed to fetch A7Satta games from MongoDB:", error.message);
+      return [];
+    }),
   ]);
+  const extraGames = mergeExternalGames(databaseExtraGames, externalGames);
 
   // Build site config with khaiwal sections
   const siteConfig = buildSiteConfig(settings);
