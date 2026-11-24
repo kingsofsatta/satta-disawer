@@ -247,7 +247,7 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
           <strong>
             Looking for the Satta Disawar Chart Today {formattedDate}?
           </strong>{" "}
-          SattaDisawer.com provides the latest available{" "}
+          sattakingresult1.com provides the latest available{" "}
           <span className="font-semibold">
             Satta King Result 1 Result, Satta King Result, Gali Result,
             Faridabad Result, Ghaziabad Result, Delhi Bazar Result, Shri Ganesh

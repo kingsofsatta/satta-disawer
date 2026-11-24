@@ -17,7 +17,7 @@ export const metadata = {
       "Get answers to frequently asked questions about Satta King Result 1 and Satta Matka games.",
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com"}/faq`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattakingresult1.com"}/faq`,
   },
 };
 

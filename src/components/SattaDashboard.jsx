@@ -138,8 +138,10 @@ const SattaDashboard = ({
           </div>
           <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 py-2 sm:py-5 shadow-lg shadow-amber-500/20">
             <h1 className="sm:text-3xl text-2xl px-3 lg:text-4xl text-slate-900 font-black tracking-tight">
-              Satta King Result 1 Result Today {formattedDate} |{" "}
-              <Link href="https://www.sattadisawer.com">SattaDisawer.Com</Link>
+              Satta King Result 1  Today {formattedDate} |{" "}
+              <Link href="https://www.sattakingresult1.com">
+                sattakingresult1.com
+              </Link>
             </h1>
           </div>
 
@@ -240,7 +242,7 @@ const SattaDashboard = ({
               Fast Satta Result – Live Satta King Chart 2026 & Daily Records
             </h2>
             <p className="text-slate-300 leading-relaxed mb-6">
-              <span className="font-semibold">SattaDisawer.com</span> is a
+              <span className="font-semibold">sattakingresult1.com</span> is a
               leading online news and media platform providing real-time{" "}
               <strong>live Satta result</strong> updates,{" "}
               <strong>Satta King chart</strong> records, and daily market
@@ -250,8 +252,9 @@ const SattaDashboard = ({
               convenient location. Whether you are searching for{" "}
               <strong>today Satta result</strong>, historical month-wise record
               charts, or fast updates,{" "}
-              <span className="font-semibold">SattaDisawer.com</span> delivers
-              accurate information as soon as draws are officially published.
+              <span className="font-semibold">sattakingresult1.com</span>{" "}
+              delivers accurate information as soon as draws are officially
+              published.
             </p>
 
             <h2 className="text-2xl md:text-3xl font-bold text-amber-400 mb-4 mt-8">
@@ -320,22 +323,22 @@ const SattaDashboard = ({
             </ol>
             <p className="text-slate-300 leading-relaxed mb-6">
               By keeping yearly records neatly categorized in structured grids,{" "}
-              <span className="font-semibold">SattaDisawer.com</span> eliminates
-              the hassle of searching through fragmented sources to find
-              reliable <strong>Satta Matka chart</strong> data.
+              <span className="font-semibold">sattakingresult1.com</span>{" "}
+              eliminates the hassle of searching through fragmented sources to
+              find reliable <strong>Satta Matka chart</strong> data.
             </p>
 
             <h2 className="text-2xl md:text-3xl font-bold text-amber-400 mb-4 mt-8">
-              Why Choose SattaDisawer.com for Daily Results?
+              Why Choose sattakingresult1.com for Daily Results?
             </h2>
             <p className="text-slate-300 leading-relaxed">
               When searching for reliable <strong>fast Satta result</strong>{" "}
               websites, speed and clarity matter most.{" "}
-              <span className="font-semibold">SattaDisawer.com</span> aggregates
-              public internet records into a single, organized informational
-              database. Users rely on our site because we offer non-stop daily
-              updates, organized history charts, and an easy-to-read table
-              structure tailored for quick browsing.
+              <span className="font-semibold">sattakingresult1.com</span>{" "}
+              aggregates public internet records into a single, organized
+              informational database. Users rely on our site because we offer
+              non-stop daily updates, organized history charts, and an
+              easy-to-read table structure tailored for quick browsing.
             </p>
           </div>
         </div>

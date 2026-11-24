@@ -3,7 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Terms of Service | Satta King Result 1",
   description:
-    "Terms of Service for SattaDisawer.com - Read our legal terms, user agreements, and service disclaimers.",
+    "Terms of Service for sattakingresult1.com - Read our legal terms, user agreements, and service disclaimers.",
   robots: {
     index: true,
     follow: true,
@@ -22,10 +22,10 @@ export default function TermsOfService() {
           <p className="text-lg text-slate-300">
             Website:{" "}
             <Link
-              href="https://www.sattadisawer.com/"
+              href="https://www.sattakingresult1.com/"
               className="text-violet-400 hover:text-violet-300 underline"
             >
-              https://www.sattadisawer.com/
+              https://www.sattakingresult1.com/
             </Link>
           </p>
         </div>
@@ -40,11 +40,11 @@ export default function TermsOfService() {
             <p className="text-slate-300 leading-relaxed">
               These Terms of Service (&quot;Terms&quot;) constitute a legally
               binding agreement made between you (&quot;the User&quot;) and the
-              owners and operators of <strong>Satta king Disawer.com</strong>{" "}
+              owners and operators of <strong>Satta king Result 1.com</strong>{" "}
               (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), concerning
               your access to and use of our website and services. By accessing
-              or using <strong>SattaDisawer.com</strong>, you confirm that you
-              have read, understood, and agreed to be bound by all of these
+              or using <strong>sattakingresult1.com</strong>, you confirm that
+              you have read, understood, and agreed to be bound by all of these
               Terms. If you do not agree with all of these Terms, you are
               expressly prohibited from using the website and must discontinue
               use immediately.
@@ -57,9 +57,9 @@ export default function TermsOfService() {
               2. Description of Services & Disclaimer
             </h2>
             <p className="text-slate-300 leading-relaxed mb-4">
-              <strong>SattaDisawer.com</strong> operates as an independent news
-              publishing, informational archive, and result display platform.
-              The primary services provided include:
+              <strong>sattakingresult1.com</strong> operates as an independent
+              news publishing, informational archive, and result display
+              platform. The primary services provided include:
             </p>
             <ol className="list-decimal list-inside space-y-3 text-slate-300 pl-4">
               <li>
@@ -125,7 +125,7 @@ export default function TermsOfService() {
               4. Third-Party Links & External Khaiwal Contacts
             </h2>
             <p className="text-slate-300 leading-relaxed mb-4">
-              <strong>SattaDisawer.com</strong> may display contact details,
+              <strong>sattakingresult1.com</strong> may display contact details,
               referral links, or buttons directing users to third-party
               communication channels (such as Telegram, or third-party payment
               providers including Paytm, PhonePe, Google Pay, and Bank
@@ -153,8 +153,8 @@ export default function TermsOfService() {
             <p className="text-slate-300 leading-relaxed">
               Unless otherwise indicated, the website design, text, logos,
               layout, charts, code, and content on{" "}
-              <strong>SattaDisawer.com</strong> are our proprietary property or
-              licensed to us, protected by copyright, trademark, and
+              <strong>sattakingresult1.com</strong> are our proprietary property
+              or licensed to us, protected by copyright, trademark, and
               intellectual property laws. Unauthorized reproduction, scraping,
               or commercial exploitation of the content without express written
               permission is strictly prohibited.
@@ -193,15 +193,15 @@ export default function TermsOfService() {
             <ul className="list-disc list-inside space-y-3 text-slate-300 pl-4">
               <li>
                 <strong>&quot;AS IS&quot; Basis:</strong> THE SERVICES AND
-                CONTENT ON SATTADISAWER.COM ARE PROVIDED ON AN &quot;AS-IS&quot;
-                AND &quot;AS-AVAILABLE&quot; BASIS. WE DISCLAIM ALL WARRANTIES,
-                EXPRESS OR IMPLIED, INCLUDING ACCURACY, COMPLETENESS,
-                TIMELINESS, OR FITNESS FOR A PARTICULAR PURPOSE.
+                CONTENT ON sattakingresult1.com ARE PROVIDED ON AN
+                &quot;AS-IS&quot; AND &quot;AS-AVAILABLE&quot; BASIS. WE
+                DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING ACCURACY,
+                COMPLETENESS, TIMELINESS, OR FITNESS FOR A PARTICULAR PURPOSE.
               </li>
               <li>
                 <strong>Limitation of Liability:</strong> IN NO EVENT SHALL
-                SATTADISAWER.COM, ITS OPERATORS, OR AFFILIATES BE LIABLE FOR ANY
-                DIRECT, INDIRECT, CONSEQUENTIAL, INCIDENTAL, SPECIAL, OR
+                sattakingresult1.com, ITS OPERATORS, OR AFFILIATES BE LIABLE FOR
+                ANY DIRECT, INDIRECT, CONSEQUENTIAL, INCIDENTAL, SPECIAL, OR
                 PUNITIVE DAMAGES ARISING FROM YOUR USE OF THE WEBSITE OR
                 RELIANCE ON ANY INFORMATION PUBLISHED HEREIN.
               </li>
@@ -217,9 +217,9 @@ export default function TermsOfService() {
               These Terms shall be governed by and construed in accordance with
               applicable governing laws without regard to conflict of law
               principles. Any legal dispute or claim arising out of or related
-              to the use of <strong>SattaDisawer.com</strong> shall be subject
-              to the exclusive jurisdiction of the competent courts designated
-              by the website administration.
+              to the use of <strong>sattakingresult1.com</strong> shall be
+              subject to the exclusive jurisdiction of the competent courts
+              designated by the website administration.
             </p>
           </section>
 

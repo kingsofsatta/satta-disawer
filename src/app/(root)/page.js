@@ -85,7 +85,7 @@ export async function generateMetadata() {
     },
     alternates: {
       canonical:
-        process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com",
+        process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattakingresult1.com",
     },
   };
 }
@@ -136,46 +136,46 @@ export default async function Home() {
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://www.sattadisawer.com/#website",
-        url: "https://www.sattadisawer.com/",
+        "@id": "https://www.sattakingresult1.com/#website",
+        url: "https://www.sattakingresult1.com/",
         name: "Satta King Result 1",
         description:
           "Satta King Result 1 provides daily result updates, charts and historical records for popular markets.",
         inLanguage: "en-IN",
         publisher: {
-          "@id": "https://www.sattadisawer.com/#organization",
+          "@id": "https://www.sattakingresult1.com/#organization",
         },
       },
       {
         "@type": "Organization",
-        "@id": "https://www.sattadisawer.com/#organization",
+        "@id": "https://www.sattakingresult1.com/#organization",
         name: "Satta King Result 1",
-        url: "https://www.sattadisawer.com/",
+        url: "https://www.sattakingresult1.com/",
       },
       {
         "@type": "WebPage",
-        "@id": "https://www.sattadisawer.com/#webpage",
-        url: "https://www.sattadisawer.com/",
-        name: "Today Satta Result for All Satta Games | SattaDisawer.Com",
+        "@id": "https://www.sattakingresult1.com/#webpage",
+        url: "https://www.sattakingresult1.com/",
+        name: "Today Satta Result for All Satta Games | sattakingresult1.com",
         description:
           "Check daily Satta King Result 1 results, Satta King charts, market updates and historical result records.",
         isPartOf: {
-          "@id": "https://www.sattadisawer.com/#website",
+          "@id": "https://www.sattakingresult1.com/#website",
         },
         about: {
-          "@id": "https://www.sattadisawer.com/#organization",
+          "@id": "https://www.sattakingresult1.com/#organization",
         },
         inLanguage: "en-IN",
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://www.sattadisawer.com/#breadcrumb",
+        "@id": "https://www.sattakingresult1.com/#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://www.sattadisawer.com/",
+            item: "https://www.sattakingresult1.com/",
           },
         ],
       },

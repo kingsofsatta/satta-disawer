@@ -3,7 +3,8 @@ import ChartOne from "./ChartOne";
 
 export const metadata = {
   title: "Satta Charts | Disawer, Gali, Faridabad Charts",
-  description: "View comprehensive Satta Matka charts for all games. Yearly charts for Disawer, Gali, Faridabad, Delhi Bazar and more. Analyze patterns and trends.",
+  description:
+    "View comprehensive Satta Matka charts for all games. Yearly charts for Disawer, Gali, Faridabad, Delhi Bazar and more. Analyze patterns and trends.",
   keywords: [
     "satta chart",
     "disawer chart",
@@ -11,21 +12,20 @@ export const metadata = {
     "faridabad chart",
     "satta matka chart",
     "yearly chart",
-    "satta king chart"
+    "satta king chart",
   ],
   openGraph: {
     title: "Satta Charts | Disawer, Gali, Faridabad Charts",
-    description: "View comprehensive Satta Matka charts for all games. Analyze patterns and trends.",
+    description:
+      "View comprehensive Satta Matka charts for all games. Analyze patterns and trends.",
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com'}/chart`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattakingresult1.com"}/chart`,
   },
 };
 
 const page = () => {
-  return (
-      <ChartOne />
-  );
+  return <ChartOne />;
 };
 
 export default page;

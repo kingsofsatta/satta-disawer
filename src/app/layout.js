@@ -7,11 +7,11 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const baseUrl = process.env.SITE_URL || "https://www.sattadisawer.com/";
+const baseUrl = process.env.SITE_URL || "https://www.sattakingresult1.com/";
 
 export const metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com",
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattakingresult1.com",
   ),
   title: {
     default: "Satta King Result 1 | Live Results, Charts & Predictions",
@@ -82,7 +82,7 @@ export const metadata = {
   },
   alternates: {
     canonical:
-      process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com",
+      process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattakingresult1.com",
   },
 };
 

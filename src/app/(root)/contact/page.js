@@ -12,7 +12,7 @@ export const metadata = {
       "भुगतान या किसी अन्य समस्या के लिए WhatsApp पर शिकायत दर्ज करें।",
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com"}/contact`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattakingresult1.com"}/contact`,
   },
 };
 
