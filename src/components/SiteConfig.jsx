@@ -4,7 +4,6 @@ import { getSettings, updateSettings } from "@/services/result";
 import { Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { defaultGameSchedule } from "@/utils/defaultGameSchedule";
 
-
 const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
   const [configLoading, setConfigLoading] = useState(false);
   const [expandedSection, setExpandedSection] = useState(null);
@@ -23,7 +22,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
     telegramNumber: "",
     paymentNumber: "",
     rate: "",
-    gameSchedule: [...defaultGameSchedule]
+    gameSchedule: [...defaultGameSchedule],
   });
 
   // Load configuration when component mounts or showConfig changes
@@ -46,14 +45,20 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
 
         // Load khaiwal section
         setKhaiwalSection({
-          contactName: config.khaiwalSection?.contactName || config.contactName || "",
-          whatsappNumber: config.khaiwalSection?.whatsappNumber || config.whatsappNumber || "",
+          contactName:
+            config.khaiwalSection?.contactName || config.contactName || "",
+          whatsappNumber:
+            config.khaiwalSection?.whatsappNumber ||
+            config.whatsappNumber ||
+            "",
           telegramNumber: config.khaiwalSection?.telegramNumber || "",
-          paymentNumber: config.khaiwalSection?.paymentNumber || config.paymentNumber || "",
+          paymentNumber:
+            config.khaiwalSection?.paymentNumber || config.paymentNumber || "",
           rate: config.khaiwalSection?.rate || config.rate || "",
-          gameSchedule: config.khaiwalSection?.gameSchedule?.length > 0
-            ? config.khaiwalSection.gameSchedule
-            : [...defaultGameSchedule]
+          gameSchedule:
+            config.khaiwalSection?.gameSchedule?.length > 0
+              ? config.khaiwalSection.gameSchedule
+              : [...defaultGameSchedule],
         });
       }
     } catch (error) {
@@ -66,7 +71,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
     try {
       const configToSave = {
         ...siteConfig,
-        khaiwalSection
+        khaiwalSection,
       };
 
       await updateSettings(configToSave);
@@ -87,15 +92,17 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
   const addGame = () => {
     setKhaiwalSection({
       ...khaiwalSection,
-      gameSchedule: [...khaiwalSection.gameSchedule, { name: "", time: "" }]
+      gameSchedule: [...khaiwalSection.gameSchedule, { name: "", time: "" }],
     });
   };
 
   const removeGame = (index) => {
-    const newSchedule = khaiwalSection.gameSchedule.filter((_, i) => i !== index);
+    const newSchedule = khaiwalSection.gameSchedule.filter(
+      (_, i) => i !== index,
+    );
     setKhaiwalSection({
       ...khaiwalSection,
-      gameSchedule: newSchedule
+      gameSchedule: newSchedule,
     });
   };
 
@@ -104,7 +111,7 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
     newSchedule[index] = { ...newSchedule[index], [field]: value };
     setKhaiwalSection({
       ...khaiwalSection,
-      gameSchedule: newSchedule
+      gameSchedule: newSchedule,
     });
   };
 
@@ -113,10 +120,12 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
       <div className="bg-white/15 backdrop-blur-lg border border-white/20 rounded-2xl p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
-        <h3 className="text-white text-xl mb-6">Satta Disawer Site Configuration</h3>
+        <h3 className="text-white text-xl mb-6">
+          Satta King Result 1 Site Configuration
+        </h3>
 
         <p className="text-white/70 text-sm mb-4">
-          Configure the khaiwal section for Satta Disawer.
+          Configure the khaiwal section for Satta King Result 1.
         </p>
 
         {/* Khaiwal Section */}
@@ -127,65 +136,105 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
               Khaiwal Section
             </h4>
             <button
-              onClick={() => setExpandedSection(expandedSection === 'khaiwal' ? null : 'khaiwal')}
+              onClick={() =>
+                setExpandedSection(
+                  expandedSection === "khaiwal" ? null : "khaiwal",
+                )
+              }
               className="text-white/70 hover:text-white p-1"
             >
-              {expandedSection === 'khaiwal' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+              {expandedSection === "khaiwal" ? (
+                <ChevronUp size={20} />
+              ) : (
+                <ChevronDown size={20} />
+              )}
             </button>
           </div>
 
           {/* Basic Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-white/80 text-sm font-medium mb-2">Name</label>
+              <label className="block text-white/80 text-sm font-medium mb-2">
+                Name
+              </label>
               <input
                 type="text"
                 value={khaiwalSection.contactName || ""}
-                onChange={(e) => setKhaiwalSection({ ...khaiwalSection, contactName: e.target.value })}
+                onChange={(e) =>
+                  setKhaiwalSection({
+                    ...khaiwalSection,
+                    contactName: e.target.value,
+                  })
+                }
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
                 placeholder="Enter khaiwal name (e.g., TEJU BHAI KHAIWAL)"
                 disabled={configLoading}
               />
             </div>
             <div>
-              <label className="block text-white/80 text-sm font-medium mb-2">WhatsApp Number</label>
+              <label className="block text-white/80 text-sm font-medium mb-2">
+                WhatsApp Number
+              </label>
               <input
                 type="number"
                 value={khaiwalSection.whatsappNumber || ""}
-                onChange={(e) => setKhaiwalSection({ ...khaiwalSection, whatsappNumber: e.target.value })}
+                onChange={(e) =>
+                  setKhaiwalSection({
+                    ...khaiwalSection,
+                    whatsappNumber: e.target.value,
+                  })
+                }
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
                 placeholder="919999999999"
                 disabled={configLoading}
               />
             </div>
             <div>
-              <label className="block text-white/80 text-sm font-medium mb-2">Telegram Username</label>
+              <label className="block text-white/80 text-sm font-medium mb-2">
+                Telegram Username
+              </label>
               <input
                 type="text"
                 value={khaiwalSection.telegramNumber || ""}
-                onChange={(e) => setKhaiwalSection({ ...khaiwalSection, telegramNumber: e.target.value })}
+                onChange={(e) =>
+                  setKhaiwalSection({
+                    ...khaiwalSection,
+                    telegramNumber: e.target.value,
+                  })
+                }
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
                 placeholder="telegram_username (without @)"
                 disabled={configLoading}
               />
             </div>
             <div>
-              <label className="block text-white/80 text-sm font-medium mb-2">Payment Number</label>
+              <label className="block text-white/80 text-sm font-medium mb-2">
+                Payment Number
+              </label>
               <input
                 type="text"
                 value={khaiwalSection.paymentNumber || ""}
-                onChange={(e) => setKhaiwalSection({ ...khaiwalSection, paymentNumber: e.target.value })}
+                onChange={(e) =>
+                  setKhaiwalSection({
+                    ...khaiwalSection,
+                    paymentNumber: e.target.value,
+                  })
+                }
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
                 placeholder="UPI/Phone number for payments"
                 disabled={configLoading}
               />
             </div>
             <div>
-              <label className="block text-white/80 text-sm font-medium mb-2">Rate (₹)</label>
+              <label className="block text-white/80 text-sm font-medium mb-2">
+                Rate (₹)
+              </label>
               <input
                 type="number"
                 value={khaiwalSection.rate || ""}
-                onChange={(e) => setKhaiwalSection({ ...khaiwalSection, rate: e.target.value })}
+                onChange={(e) =>
+                  setKhaiwalSection({ ...khaiwalSection, rate: e.target.value })
+                }
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
                 placeholder="e.g., 90"
                 disabled={configLoading}
@@ -194,10 +243,12 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
           </div>
 
           {/* Game Schedule - Collapsible */}
-          {expandedSection === 'khaiwal' && (
+          {expandedSection === "khaiwal" && (
             <div className="mt-4 pt-4 border-t border-white/20">
               <div className="flex items-center justify-between mb-3">
-                <label className="text-white/80 text-sm font-medium">Game Schedule</label>
+                <label className="text-white/80 text-sm font-medium">
+                  Game Schedule
+                </label>
                 <button
                   onClick={addGame}
                   disabled={configLoading}
@@ -212,7 +263,9 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
                     <input
                       type="text"
                       value={game.name}
-                      onChange={(e) => updateGame(index, 'name', e.target.value)}
+                      onChange={(e) =>
+                        updateGame(index, "name", e.target.value)
+                      }
                       className="flex-1 px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
                       placeholder="Game name"
                       disabled={configLoading}
@@ -220,7 +273,9 @@ const SiteConfig = ({ showConfig, setShowConfig, onConfigSaved }) => {
                     <input
                       type="text"
                       value={game.time}
-                      onChange={(e) => updateGame(index, 'time', e.target.value)}
+                      onChange={(e) =>
+                        updateGame(index, "time", e.target.value)
+                      }
                       className="w-28 px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
                       placeholder="Time"
                       disabled={configLoading}

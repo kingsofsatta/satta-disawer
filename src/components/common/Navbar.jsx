@@ -21,7 +21,8 @@ const Navbar = () => {
         const scrollTop = window.scrollY;
         // Cache document height on first scroll or window resize
         if (!docHeight) {
-          docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          docHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
         }
         const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         setScrollProgress(Math.min(progress, 100));
@@ -80,13 +81,25 @@ const Navbar = () => {
           <div className="max-w-6xl mx-auto px-2 sm:px-4">
             <div className="flex items-center justify-between h-14 sm:h-16">
               {/* Logo */}
-              <Link href="/" className="flex items-center gap-1.5 sm:gap-2 group flex-shrink-0">
+              <Link
+                href="/"
+                className="flex items-center gap-1.5 sm:gap-2 group flex-shrink-0"
+              >
                 <div className="w-10 h-10 sm:w-12 sm:h-12">
-                  <Image src="/logo.png" alt="Satta Disawer Logo" width={50} height={50} />
+                  <Image
+                    src="/logo.png"
+                    alt="Satta King Result 1 Logo"
+                    width={50}
+                    height={50}
+                  />
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-sm sm:text-lg font-black text-white leading-none">SATTA DISAWER</div>
-                  <p className="text-xs text-amber-400 font-semibold tracking-wider">SATTA</p>
+                  <div className="text-sm sm:text-lg font-black text-white leading-none">
+                    Satta King Result 1
+                  </div>
+                  <p className="text-xs text-amber-400 font-semibold tracking-wider">
+                    SATTA
+                  </p>
                 </div>
               </Link>
 
@@ -96,17 +109,22 @@ const Navbar = () => {
                   <Link
                     href={link.href}
                     key={link.id}
-                    className={`relative px-3 lg:px-6 py-2 lg:py-2.5 rounded-lg lg:rounded-xl font-bold text-xs lg:text-sm uppercase tracking-wide transition-all duration-300 flex items-center gap-1 lg:gap-2 overflow-hidden group ${isActive(link.href)
-                      ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 shadow-lg shadow-amber-500/40"
-                      : "text-white hover:text-amber-400"
-                      }`}
+                    className={`relative px-3 lg:px-6 py-2 lg:py-2.5 rounded-lg lg:rounded-xl font-bold text-xs lg:text-sm uppercase tracking-wide transition-all duration-300 flex items-center gap-1 lg:gap-2 overflow-hidden group ${
+                      isActive(link.href)
+                        ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 shadow-lg shadow-amber-500/40"
+                        : "text-white hover:text-amber-400"
+                    }`}
                   >
                     {/* Hover background effect */}
                     {!isActive(link.href) && (
                       <span className="absolute inset-0 bg-white/10 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-lg lg:rounded-xl"></span>
                     )}
-                    <span className="relative z-10 text-sm lg:text-base">{link.icon}</span>
-                    <span className="relative z-10 hidden xl:inline">{link.title}</span>
+                    <span className="relative z-10 text-sm lg:text-base">
+                      {link.icon}
+                    </span>
+                    <span className="relative z-10 hidden xl:inline">
+                      {link.title}
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -114,7 +132,9 @@ const Navbar = () => {
               {/* Live Badge */}
               <div className="hidden lg:flex items-center gap-2 bg-green-500/20 border border-green-500/50 px-2 py-1 rounded-full flex-shrink-0">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                <span className="text-green-400 text-xs font-bold uppercase tracking-wider">Live</span>
+                <span className="text-green-400 text-xs font-bold uppercase tracking-wider">
+                  Live
+                </span>
               </div>
 
               {/* Mobile Menu Button */}
@@ -123,25 +143,34 @@ const Navbar = () => {
                 className="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-1 rounded-lg bg-white/10 hover:bg-white/20 transition-colors flex-shrink-0"
                 aria-label="Toggle menu"
               >
-                <span className={`w-4 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}></span>
-                <span className={`w-4 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`}></span>
-                <span className={`w-4 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}></span>
+                <span
+                  className={`w-4 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}
+                ></span>
+                <span
+                  className={`w-4 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`}
+                ></span>
+                <span
+                  className={`w-4 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
+                ></span>
               </button>
             </div>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        <div className={`md:hidden bg-slate-900/95 backdrop-blur-lg border-b border-violet-500/30 overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-[420px]" : "max-h-0"}`}>
+        <div
+          className={`md:hidden bg-slate-900/95 backdrop-blur-lg border-b border-violet-500/30 overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-[420px]" : "max-h-0"}`}
+        >
           <div className="px-3 py-3 space-y-1.5">
             {sattaLinks.map((link) => (
               <Link
                 href={link.href}
                 key={link.id}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 ${isActive(link.href)
-                  ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900"
-                  : "text-white hover:bg-white/10"
-                  }`}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 ${
+                  isActive(link.href)
+                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900"
+                    : "text-white hover:bg-white/10"
+                }`}
               >
                 <span className="text-lg">{link.icon}</span>
                 <span>{link.title}</span>

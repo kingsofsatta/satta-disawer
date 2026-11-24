@@ -56,7 +56,7 @@ export default function AdminLayout({ children }) {
               Admin Dashboard
             </p>
             <h1 className="mt-2 text-2xl sm:text-3xl font-black">
-              Satta Disawer Control Center
+              Satta King Result 1 Control Center
             </h1>
           </div>
           <button

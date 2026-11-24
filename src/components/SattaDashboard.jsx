@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { GAMES } from "@/utils/gameConfig";
 import {
   getDisawarData,
-  getLastResult,
   getTodayResult,
   getYesterdayResults,
 } from "@/services/result";
@@ -21,18 +20,20 @@ const COMPLAINT_MESSAGE = encodeURIComponent(
   "नमस्ते, मुझे भुगतान या किसी अन्य समस्या के संबंध में शिकायत दर्ज करनी है।",
 );
 
+const isPublishedResult = (value) =>
+  /^\d{1,3}$/.test(String(value ?? "").trim());
+
 const SattaDashboard = ({
   todayResults = [],
   yesterdayResults = [],
-  lastResult,
   setting,
   monthlyResults = [],
   disawarData,
   extraGames = [],
 }) => {
   const [liveTodayResults, setLiveTodayResults] = useState(todayResults);
-  const [liveYesterdayResults, setLiveYesterdayResults] = useState(yesterdayResults);
-  const [liveLastResult, setLiveLastResult] = useState(lastResult);
+  const [liveYesterdayResults, setLiveYesterdayResults] =
+    useState(yesterdayResults);
   const [liveDisawarData, setLiveDisawarData] = useState(disawarData);
 
   useEffect(() => {
@@ -43,17 +44,15 @@ const SattaDashboard = ({
         // Refresh the shared external snapshot first; this endpoint only
         // scrapes when its MongoDB cache is at least one minute old.
         await fetch("/api/external-games", { cache: "no-store" });
-        const [today, yesterday, latest, disawar] = await Promise.all([
+        const [today, yesterday, disawar] = await Promise.all([
           getTodayResult(),
           getYesterdayResults(),
-          getLastResult(),
           getDisawarData(),
         ]);
 
         if (!active) return;
         setLiveTodayResults(today);
         setLiveYesterdayResults(yesterday);
-        setLiveLastResult(latest);
         setLiveDisawarData(disawar);
       } catch (error) {
         console.error("Failed to refresh live results:", error);
@@ -110,6 +109,16 @@ const SattaDashboard = ({
   };
 
   const monthlyChartData = createMonthlyChart();
+  const featuredTodayResult = [...liveTodayResults]
+    .filter(
+      (result) =>
+        result.game !== "disawer" && isPublishedResult(result.resultNumber),
+    )
+    .sort(
+      (a, b) =>
+        GAMES.findIndex((game) => game.key === b.game) -
+        GAMES.findIndex((game) => game.key === a.game),
+    )[0];
   return (
     <div className="min-h-screen bg-transparent">
       {/* Main Content */}
@@ -129,7 +138,7 @@ const SattaDashboard = ({
           </div>
           <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 py-2 sm:py-5 shadow-lg shadow-amber-500/20">
             <h1 className="sm:text-3xl text-2xl px-3 lg:text-4xl text-slate-900 font-black tracking-tight">
-              Satta Desawar Result Today {formattedDate} |{" "}
+              Satta King Result 1 Result Today {formattedDate} |{" "}
               <Link href="https://www.sattadisawer.com">SattaDisawer.Com</Link>
             </h1>
           </div>
@@ -159,7 +168,7 @@ const SattaDashboard = ({
         </div>
 
         <GameSection
-          data={liveLastResult}
+          data={featuredTodayResult || null}
           setting={setting}
           disawarData={liveDisawarData}
           todayResults={liveTodayResults}
@@ -231,8 +240,8 @@ const SattaDashboard = ({
               Fast Satta Result – Live Satta King Chart 2026 & Daily Records
             </h2>
             <p className="text-slate-300 leading-relaxed mb-6">
-              <span className="font-semibold">SattaDisawer.com</span> is a leading online news and
-              media platform providing real-time{" "}
+              <span className="font-semibold">SattaDisawer.com</span> is a
+              leading online news and media platform providing real-time{" "}
               <strong>live Satta result</strong> updates,{" "}
               <strong>Satta King chart</strong> records, and daily market
               historical data. Designed with a clean, fast-loading, and
@@ -240,9 +249,9 @@ const SattaDashboard = ({
               check opening and closing numbers for all major markets in one
               convenient location. Whether you are searching for{" "}
               <strong>today Satta result</strong>, historical month-wise record
-              charts, or fast updates, <span className="font-semibold">SattaDisawer.com</span>{" "}
-              delivers accurate information as soon as draws are officially
-              published.
+              charts, or fast updates,{" "}
+              <span className="font-semibold">SattaDisawer.com</span> delivers
+              accurate information as soon as draws are officially published.
             </p>
 
             <h2 className="text-2xl md:text-3xl font-bold text-amber-400 mb-4 mt-8">
@@ -311,9 +320,9 @@ const SattaDashboard = ({
             </ol>
             <p className="text-slate-300 leading-relaxed mb-6">
               By keeping yearly records neatly categorized in structured grids,{" "}
-              <span className="font-semibold">SattaDisawer.com</span> eliminates the hassle of
-              searching through fragmented sources to find reliable{" "}
-              <strong>Satta Matka chart</strong> data.
+              <span className="font-semibold">SattaDisawer.com</span> eliminates
+              the hassle of searching through fragmented sources to find
+              reliable <strong>Satta Matka chart</strong> data.
             </p>
 
             <h2 className="text-2xl md:text-3xl font-bold text-amber-400 mb-4 mt-8">
@@ -322,11 +331,11 @@ const SattaDashboard = ({
             <p className="text-slate-300 leading-relaxed">
               When searching for reliable <strong>fast Satta result</strong>{" "}
               websites, speed and clarity matter most.{" "}
-              <span className="font-semibold">SattaDisawer.com</span> aggregates public internet
-              records into a single, organized informational database. Users
-              rely on our site because we offer non-stop daily updates,
-              organized history charts, and an easy-to-read table structure
-              tailored for quick browsing.
+              <span className="font-semibold">SattaDisawer.com</span> aggregates
+              public internet records into a single, organized informational
+              database. Users rely on our site because we offer non-stop daily
+              updates, organized history charts, and an easy-to-read table
+              structure tailored for quick browsing.
             </p>
           </div>
         </div>

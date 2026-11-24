@@ -1,19 +1,21 @@
 export const metadata = {
-  title: "Payment Proofs | Verified Winners - Satta Disawer",
-  description: "View authentic payment proofs from our winners. Real transaction screenshots showing successful payouts. Trust and transparency guaranteed.",
+  title: "Payment Proofs | Verified Winners - Satta King Result 1",
+  description:
+    "View authentic payment proofs from our winners. Real transaction screenshots showing successful payouts. Trust and transparency guaranteed.",
   keywords: [
     "satta payment proof",
     "satta winners",
     "payment verification",
     "satta payout proof",
-    "winning proof"
+    "winning proof",
   ],
   openGraph: {
-    title: "Payment Proofs | Verified Winners - Satta Disawer",
-    description: "View authentic payment proofs from our winners. Real transaction screenshots.",
+    title: "Payment Proofs | Verified Winners - Satta King Result 1",
+    description:
+      "View authentic payment proofs from our winners. Real transaction screenshots.",
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com'}/payment-proofs`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com"}/payment-proofs`,
   },
 };
 

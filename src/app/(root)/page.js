@@ -13,7 +13,10 @@ import { getExtraGames } from "@/services/extraGameService";
 import { getExternalGames } from "@/services/externalGameService";
 
 const normalizeGameName = (name) =>
-  String(name || "").trim().toUpperCase().replace(/\s+/g, " ");
+  String(name || "")
+    .trim()
+    .toUpperCase()
+    .replace(/\s+/g, " ");
 
 const mergeExternalGames = (extraGames, externalGames) => {
   const displayGames = externalGames.map((game) => ({
@@ -39,41 +42,50 @@ const mergeExternalGames = (extraGames, externalGames) => {
 export async function generateMetadata() {
   const currentDate = new Date();
   const day = currentDate.getDate();
-  const dayWithSuffix = day + (day === 1 || day === 21 || day === 31 ? 'st' : day === 2 || day === 22 ? 'nd' : day === 3 || day === 23 ? 'rd' : 'th');
-  const monthName = currentDate.toLocaleDateString('en-GB', { month: 'long' });
+  const dayWithSuffix =
+    day +
+    (day === 1 || day === 21 || day === 31
+      ? "st"
+      : day === 2 || day === 22
+        ? "nd"
+        : day === 3 || day === 23
+          ? "rd"
+          : "th");
+  const monthName = currentDate.toLocaleDateString("en-GB", { month: "long" });
   const year = currentDate.getFullYear();
-  const dayName = currentDate.toLocaleDateString('en-GB', { weekday: 'long' });
-  
+  const dayName = currentDate.toLocaleDateString("en-GB", { weekday: "long" });
+
   const formattedDate = `${dayWithSuffix} ${monthName} ${year}`;
-  
+
   const title = `Satta King Winning Result ${formattedDate}`;
   const description = `Check fast Satta King results for ${dayName}, ${day} ${monthName} ${year}. Get live updates for Gali, Faridabad, Ghaziabad & Delhi Bazar. View today's winning numbers live!`;
-  
+
   return {
     title,
     description,
     keywords: [
-      "satta disawer today",
+      "Satta King Result 1 today",
       "satta result today",
       "disawer result today",
       "gali result today",
       "satta king today",
       "live satta result",
       "satta matka live",
-      "today satta number"
+      "today satta number",
     ],
     openGraph: {
       title,
       description,
-      type: 'website',
+      type: "website",
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
     },
     alternates: {
-      canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sattadisawer.com',
+      canonical:
+        process.env.NEXT_PUBLIC_SITE_URL || "https://www.sattadisawer.com",
     },
   };
 }
@@ -91,20 +103,28 @@ export default async function Home() {
 
   // Get current month's results
   const currentDate = new Date();
-  const [monthlyResults, databaseExtraGames, externalGames] = await Promise.all([
-    getMonthlyResultsFromDB(
-      currentDate.getMonth() + 1,
-      currentDate.getFullYear(),
-    ),
-    getExtraGames().catch((error) => {
-      console.error("Failed to fetch extra games from MongoDB:", error.message);
-      return [];
-    }),
-    getExternalGames().catch((error) => {
-      console.error("Failed to fetch A7Satta games from MongoDB:", error.message);
-      return [];
-    }),
-  ]);
+  const [monthlyResults, databaseExtraGames, externalGames] = await Promise.all(
+    [
+      getMonthlyResultsFromDB(
+        currentDate.getMonth() + 1,
+        currentDate.getFullYear(),
+      ),
+      getExtraGames().catch((error) => {
+        console.error(
+          "Failed to fetch extra games from MongoDB:",
+          error.message,
+        );
+        return [];
+      }),
+      getExternalGames().catch((error) => {
+        console.error(
+          "Failed to fetch A7Satta games from MongoDB:",
+          error.message,
+        );
+        return [];
+      }),
+    ],
+  );
   const extraGames = mergeExternalGames(databaseExtraGames, externalGames);
 
   // Build site config with khaiwal sections
@@ -117,61 +137,63 @@ export default async function Home() {
       {
         "@type": "WebSite",
         "@id": "https://www.sattadisawer.com/#website",
-        "url": "https://www.sattadisawer.com/",
-        "name": "Satta Disawer",
-        "description": "Satta Disawer provides daily result updates, charts and historical records for popular markets.",
-        "inLanguage": "en-IN",
-        "publisher": {
-          "@id": "https://www.sattadisawer.com/#organization"
-        }
+        url: "https://www.sattadisawer.com/",
+        name: "Satta King Result 1",
+        description:
+          "Satta King Result 1 provides daily result updates, charts and historical records for popular markets.",
+        inLanguage: "en-IN",
+        publisher: {
+          "@id": "https://www.sattadisawer.com/#organization",
+        },
       },
       {
         "@type": "Organization",
         "@id": "https://www.sattadisawer.com/#organization",
-        "name": "Satta Disawer",
-        "url": "https://www.sattadisawer.com/"
+        name: "Satta King Result 1",
+        url: "https://www.sattadisawer.com/",
       },
       {
         "@type": "WebPage",
         "@id": "https://www.sattadisawer.com/#webpage",
-        "url": "https://www.sattadisawer.com/",
-        "name": "Today Satta Result for All Satta Games | SattaDisawer.Com",
-        "description": "Check daily Satta Disawer results, Satta King charts, market updates and historical result records.",
-        "isPartOf": {
-          "@id": "https://www.sattadisawer.com/#website"
+        url: "https://www.sattadisawer.com/",
+        name: "Today Satta Result for All Satta Games | SattaDisawer.Com",
+        description:
+          "Check daily Satta King Result 1 results, Satta King charts, market updates and historical result records.",
+        isPartOf: {
+          "@id": "https://www.sattadisawer.com/#website",
         },
-        "about": {
-          "@id": "https://www.sattadisawer.com/#organization"
+        about: {
+          "@id": "https://www.sattadisawer.com/#organization",
         },
-        "inLanguage": "en-IN"
+        inLanguage: "en-IN",
       },
       {
         "@type": "BreadcrumbList",
         "@id": "https://www.sattadisawer.com/#breadcrumb",
-        "itemListElement": [
+        itemListElement: [
           {
             "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.sattadisawer.com/"
-          }
-        ]
+            position: 1,
+            name: "Home",
+            item: "https://www.sattadisawer.com/",
+          },
+        ],
       },
-    ]
+    ],
   };
 
   return (
-      <>
+    <>
       <StructuredData data={structuredData} />
-    <SattaDashboard
-      todayResults={todayResults}
-      yesterdayResults={yesterdayResults}
-      lastResult={lastResult}
-      setting={siteConfig}
-      monthlyResults={monthlyResults}
-      disawarData={disawarData}
-      extraGames={extraGames}
-    />
+      <SattaDashboard
+        todayResults={todayResults}
+        yesterdayResults={yesterdayResults}
+        lastResult={lastResult}
+        setting={siteConfig}
+        monthlyResults={monthlyResults}
+        disawarData={disawarData}
+        extraGames={extraGames}
+      />
     </>
   );
 }

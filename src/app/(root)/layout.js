@@ -17,9 +17,7 @@ export default async function RootLayout({ children }) {
     <div className="min-h-screen bg-[#0f0c29]">
       <TopProgressBar />
       <Navbar />
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
 
       {/* WhatsApp Button with Glow */}
       <Link
@@ -44,7 +42,7 @@ export default async function RootLayout({ children }) {
 
         <div className="bg-gradient-to-r from-violet-700 to-violet-600 py-4">
           <p className="text-base sm:text-lg text-center font-bold text-white">
-            @{currentYear} Satta Disawer Satta :: All Rights Reserved
+            @{currentYear} Satta King Result 1 Satta :: All Rights Reserved
           </p>
         </div>
 
@@ -52,7 +50,9 @@ export default async function RootLayout({ children }) {
           <div className="max-w-4xl mx-auto px-4">
             {/* Contact Section */}
             <div className="mb-6 pb-6 border-b border-violet-600/50">
-              <p className="text-center text-amber-400 font-bold text-base mb-4">📞 Get In Touch</p>
+              <p className="text-center text-amber-400 font-bold text-base mb-4">
+                📞 Get In Touch
+              </p>
               <div className="flex flex-wrap gap-4 justify-center items-center">
                 {setting?.khaiwalSection1?.whatsappNumber && (
                   <Link
@@ -88,26 +88,51 @@ export default async function RootLayout({ children }) {
             </div>
 
             {/* English Disclaimer */}
-            <p className="text-center text-amber-500 font-bold text-base mb-3">ⓘ Disclaimer:</p>
+            <p className="text-center text-amber-500 font-bold text-base mb-3">
+              ⓘ Disclaimer:
+            </p>
             <p className="text-center text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
-              This Is A News Publishing Website. All The Numbers Shown In The Website Are Based On Arithmetic And Artificial Intelligence And Are Displayed On The Basis Of Zodiac Sign. This Website Has No Connection Of Any Kind With Any Gambling Establishment. The Website Has No Connection Whatsoever With Any Illegal Activity Such As Gambling, Money Laundering Or Any Other Activity. This Website Is Completely Depends On Google Ad Revenue, All The Information Which Is Being Displayed On This Website Is Taken From Internet Sources.
+              This Is A News Publishing Website. All The Numbers Shown In The
+              Website Are Based On Arithmetic And Artificial Intelligence And
+              Are Displayed On The Basis Of Zodiac Sign. This Website Has No
+              Connection Of Any Kind With Any Gambling Establishment. The
+              Website Has No Connection Whatsoever With Any Illegal Activity
+              Such As Gambling, Money Laundering Or Any Other Activity. This
+              Website Is Completely Depends On Google Ad Revenue, All The
+              Information Which Is Being Displayed On This Website Is Taken From
+              Internet Sources.
             </p>
 
             <div className="h-px w-full bg-violet-600 my-4"></div>
 
             {/* Hindi Disclaimer */}
-            <p className="text-center text-amber-500 font-bold text-base mb-3 hindi-text">ⓘ अस्वीकरण:</p>
+            <p className="text-center text-amber-500 font-bold text-base mb-3 hindi-text">
+              ⓘ अस्वीकरण:
+            </p>
             <p className="text-center text-slate-300 text-xs sm:text-sm leading-relaxed hindi-text">
-              यह एक समाचार प्रकाशन वेबसाइट है। वेबसाइट में दिखाए गए सभी नंबर अंकगणित और आर्टिफिशियल इंटेलिजेंस (एआई) पर आधारित हैं और राशि चक्र के आधार पर प्रदर्शित किए गए हैं। इस वेबसाइट का किसी भी जुआ प्रतिष्ठान से किसी भी प्रकार का कोई संबंध नहीं है। वेबसाइट का किसी भी अवैध गतिविधि जैसे जुआ, मनी लॉन्ड्रिंग या किसी अन्य गतिविधि से कोई संबंध नहीं है। यह वेबसाइट पूरी तरह से गूगल ऐड रेवेन्यू पर आश्रित है, इस वेबसाइट पर प्रदर्शित होने वाली सभी जानकारी इंटरनेट स्रोतों से ली गई है।
+              यह एक समाचार प्रकाशन वेबसाइट है। वेबसाइट में दिखाए गए सभी नंबर
+              अंकगणित और आर्टिफिशियल इंटेलिजेंस (एआई) पर आधारित हैं और राशि चक्र
+              के आधार पर प्रदर्शित किए गए हैं। इस वेबसाइट का किसी भी जुआ
+              प्रतिष्ठान से किसी भी प्रकार का कोई संबंध नहीं है। वेबसाइट का किसी
+              भी अवैध गतिविधि जैसे जुआ, मनी लॉन्ड्रिंग या किसी अन्य गतिविधि से
+              कोई संबंध नहीं है। यह वेबसाइट पूरी तरह से गूगल ऐड रेवेन्यू पर
+              आश्रित है, इस वेबसाइट पर प्रदर्शित होने वाली सभी जानकारी इंटरनेट
+              स्रोतों से ली गई है।
             </p>
 
             {/* Footer Links */}
             <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
-              <Link href="/terms" className="text-violet-400 hover:text-violet-300 transition-colors underline">
+              <Link
+                href="/terms"
+                className="text-violet-400 hover:text-violet-300 transition-colors underline"
+              >
                 Terms of Service
               </Link>
               <span className="text-slate-600">|</span>
-              <Link href="/contact" className="text-violet-400 hover:text-violet-300 transition-colors underline">
+              <Link
+                href="/contact"
+                className="text-violet-400 hover:text-violet-300 transition-colors underline"
+              >
                 शिकायत
               </Link>
             </div>

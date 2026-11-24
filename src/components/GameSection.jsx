@@ -20,18 +20,18 @@ const defaultSchedule = [
 
 // Khaiwal Card Component
 const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
-  const schedule = section?.gameSchedule?.length > 0
-    ? section.gameSchedule
-    : defaultSchedule;
+  const schedule =
+    section?.gameSchedule?.length > 0 ? section.gameSchedule : defaultSchedule;
 
   const contactName = `${section?.contactName} BHAI KHAIWAL` || "KHAIWAL";
   const whatsappNumber = section?.whatsappNumber || "";
   const telegramNumber = section?.telegramNumber || "123456789";
   const rate = section?.rate || "";
 
-  const gradientClass = colorScheme === "violet"
-    ? "from-violet-600 to-violet-500"
-    : "from-amber-600 to-amber-500";
+  const gradientClass =
+    colorScheme === "violet"
+      ? "from-violet-600 to-violet-500"
+      : "from-amber-600 to-amber-500";
 
   return (
     <div className="glass-dark rounded-2xl p-6 border-animate shadow-2xl h-full">
@@ -48,20 +48,22 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
             key={index}
             className="flex justify-between text-sm items-center py-2 border-b border-white/10 last:border-0 hover:bg-white/5 px-2 rounded transition-colors"
           >
-            <span className="text-violet-100 font-semibold">
-              {game.name}
-            </span>
-            <span className="text-amber-300 font-bold">
-              {game.time}
-            </span>
+            <span className="text-violet-100 font-semibold">{game.name}</span>
+            <span className="text-amber-300 font-bold">{game.time}</span>
           </div>
         ))}
       </div>
 
       <div className="text-center my-5 py-4 bg-white/10 rounded-xl">
-        <p className="text-amber-300 font-bold mb-2 text-lg hindi-text">जोड़ी रेट</p>
-        <p className="text-violet-100 text-sm md:text-lg font-bold hindi-text">जोड़ी रेट 10 ------- {rate}</p>
-        <p className="text-violet-100 text-sm md:text-lg font-bold hindi-text">हरूफ रेट 100 ----- {rate}</p>
+        <p className="text-amber-300 font-bold mb-2 text-lg hindi-text">
+          जोड़ी रेट
+        </p>
+        <p className="text-violet-100 text-sm md:text-lg font-bold hindi-text">
+          जोड़ी रेट 10 ------- {rate}
+        </p>
+        <p className="text-violet-100 text-sm md:text-lg font-bold hindi-text">
+          हरूफ रेट 100 ----- {rate}
+        </p>
       </div>
 
       <p className="text-center text-violet-100 text-lg lg:text-xl mb-5 hindi-text">
@@ -74,17 +76,21 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
           href={`https://wa.me/+91${whatsappNumber}`}
           className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 btn-glow"
         >
-          <span>  <Image
-            width={24}
-            height={24}
-            src="https://i.ibb.co/x8fsyXVj/Whats-App-svg.webp"
-            alt="whatsapp"
-          /></span>
+          <span>
+            {" "}
+            <Image
+              width={24}
+              height={24}
+              src="https://i.ibb.co/x8fsyXVj/Whats-App-svg.webp"
+              alt="whatsapp"
+            />
+          </span>
           <span className="hindi-text">WhatsApp पर संपर्क करें</span>
         </Link>
 
         <p className="text-center text-violet-100 text-base mb-1 mt-2 hindi-text">
-          Join our Telegram channel to get results quickly and receive superfast results
+          Join our Telegram channel to get results quickly and receive superfast
+          results
         </p>
         {telegramNumber && (
           <Link
@@ -92,7 +98,14 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
             href={`https://t.me/${telegramNumber}`}
             className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 btn-glow"
           >
-            <span><Image src='/telegram-icon.webp' height={24} width={24} alt="Telegram" /></span>
+            <span>
+              <Image
+                src="/telegram-icon.webp"
+                height={24}
+                width={24}
+                alt="Telegram"
+              />
+            </span>
             <span className="hindi-text">Telegram पर संपर्क करें</span>
           </Link>
         )}
@@ -103,34 +116,25 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
 
 const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
   const currentYear = new Date().getFullYear();
-  
+
   // Format date as "05 August 2026"
   const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
+  const formattedDate = currentDate.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
   });
 
   // Waiting game always follows the centralized table schedule in IST. Cron
   // results do not need to provide this field.
   const waitingGame = getWaitingGameByISTTime();
-  // Hide the featured latest/waiting banner only on the final calendar day in
-  // IST. The latest game being Disawer must not hide it on ordinary days.
-  const istNow = new Date(Date.now() + 5.5 * 60 * 60 * 1000);
-  const istDay = istNow.getUTCDate();
-  const istMonth = istNow.getUTCMonth();
-  const istYear = istNow.getUTCFullYear();
-  const isMonthEnd =
-    istDay === new Date(Date.UTC(istYear, istMonth + 1, 0)).getUTCDate();
-
   // Get khaiwal sections from settings
   const khaiwalSection1 = setting?.khaiwalSection1 || {
     enabled: true,
     contactName: setting?.contactName || "TEJU BHAI KHAIWAL",
     whatsappNumber: setting?.whatsappNumber || "",
     rate: setting?.rate || "",
-    gameSchedule: defaultSchedule
+    gameSchedule: defaultSchedule,
   };
 
   const khaiwalSection2 = setting?.khaiwalSection2 || {
@@ -138,51 +142,48 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
     contactName: "",
     whatsappNumber: "",
     rate: "",
-    gameSchedule: defaultSchedule
+    gameSchedule: defaultSchedule,
   };
 
   // Check if second section is enabled
-  const showSecondSection = khaiwalSection2?.enabled && khaiwalSection2?.contactName;
+  const showSecondSection =
+    khaiwalSection2?.enabled && khaiwalSection2?.contactName;
   return (
     <div className="bg-transparent">
       {/* === TOP DYNAMIC SECTION === */}
-      <div className="glass-card mx-2 md:mx-4 mt-4 rounded-2xl pt-5 pb-6 shadow-sm">
-        <div className="text-center">
-          <DateTime />
-        </div>
+      {data && (
+        <div className="glass-card mx-2 md:mx-4 mt-4 rounded-2xl pt-5 pb-6 shadow-sm">
+          <div className="text-center">
+            <DateTime />
+          </div>
 
-        {!isMonthEnd && (
-          <>
           <hr className="border-slate-700 w-11/12 mx-auto my-5" />
 
           <div className="flex uppercase mx-auto text-center w-full font-semibold flex-col gap-4 items-center justify-center">
-            {data && (
-              <>
-                <p className="text-amber-500 text-2xl sm:text-3xl font-bold">
-                  {data.game.replace("_", " ")}
-                </p>
-                <p className="text-white text-3xl md:text-4xl font-black">
-                  {data.resultNumber}
-                </p>
+            <>
+              <p className="text-amber-500 text-2xl sm:text-3xl font-bold">
+                {data.game.replace("_", " ")}
+              </p>
+              <p className="text-white text-3xl md:text-4xl font-black">
+                {data.resultNumber}
+              </p>
 
-                <div className="h-px w-32 bg-gradient-to-r from-transparent via-violet-400 to-transparent my-2"></div>
+              <div className="h-px w-32 bg-gradient-to-r from-transparent via-violet-400 to-transparent my-2"></div>
 
-                <p className="text-amber-500 text-2xl sm:text-[28px] font-bold">
-                  {waitingGame.replace("_", " ").toUpperCase()}
-                </p>
-                <Image
-                  className="mx-auto rounded-full"
-                  alt="wait icon"
-                  width={45}
-                  height={45}
-                  src="/loading.gif"
-                />
-              </>
-            )}
+              <p className="text-amber-500 text-2xl sm:text-[28px] font-bold">
+                {waitingGame.replace("_", " ").toUpperCase()}
+              </p>
+              <Image
+                className="mx-auto rounded-full"
+                alt="wait icon"
+                width={45}
+                height={45}
+                src="/loading.gif"
+              />
+            </>
           </div>
-          </>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* DISAWAR Section */}
       <div className="mx-2 md:mx-4 mt-4 rounded-2xl overflow-hidden shadow-xl">
@@ -192,11 +193,15 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
             href={`/disawer-yearly-chart-${currentYear}`}
             className="flex items-center justify-center gap-3 group"
           >
-            <span className="text-2xl group-hover:scale-110 transition-transform">🎯</span>
+            <span className="text-2xl group-hover:scale-110 transition-transform">
+              🎯
+            </span>
             <span className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-violet-400 via-pink-400 to-violet-400 bg-clip-text text-transparent group-hover:from-amber-400 group-hover:via-yellow-400 group-hover:to-amber-400 transition-all">
               DISAWAR
             </span>
-            <span className="text-2xl group-hover:scale-110 transition-transform">🎯</span>
+            <span className="text-2xl group-hover:scale-110 transition-transform">
+              🎯
+            </span>
           </Link>
         </div>
 
@@ -205,7 +210,9 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
           <div className="flex items-center justify-center gap-3 sm:gap-5">
             {/* Yesterday Result */}
             <div className="flex flex-col items-center">
-              <span className="text-sm text-white uppercase tracking-wider mb-1">Yesterday</span>
+              <span className="text-sm text-white uppercase tracking-wider mb-1">
+                Yesterday
+              </span>
               <span className="text-xl sm:text-2xl font-black text-white bg-violet-600/30 border border-violet-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-violet-500/20">
                 {disawarData?.yesterday || "--"}
               </span>
@@ -216,7 +223,9 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
 
             {/* Today Result */}
             <div className="flex flex-col items-center">
-              <span className="text-sm text-white uppercase tracking-wider mb-1">Today</span>
+              <span className="text-sm text-white uppercase tracking-wider mb-1">
+                Today
+              </span>
               <span className="text-xl sm:text-2xl font-black text-white bg-amber-600/30 border border-amber-500/50 px-5 py-2.5 rounded-xl shadow-lg shadow-amber-500/20">
                 {disawarData?.today || (
                   <Image
@@ -235,23 +244,32 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
 
       <div className="bg-slate-800 py-4 px-4 mt-5">
         <p className="text-sm md:text-base text-center text-slate-300 leading-relaxed">
-          <strong>Looking for the Satta Disawar Chart Today {formattedDate}?</strong>{" "}
+          <strong>
+            Looking for the Satta Disawar Chart Today {formattedDate}?
+          </strong>{" "}
           SattaDisawer.com provides the latest available{" "}
-          <span className="font-semibold">Satta Disawer Result, Satta King Result, Gali Result, Faridabad Result, Ghaziabad Result, Delhi Bazar Result, Shri Ganesh Result and Mathura Result</span>{" "}
+          <span className="font-semibold">
+            Satta King Result 1 Result, Satta King Result, Gali Result,
+            Faridabad Result, Ghaziabad Result, Delhi Bazar Result, Shri Ganesh
+            Result and Mathura Result
+          </span>{" "}
           in one place.
-          <br /><br />
+          <br />
+          <br />
           Check daily result updates, market timings,{" "}
-          <strong>Satta charts and previous result records</strong>{" "}
-          with easy-to-find information.{" "}
+          <strong>Satta charts and previous result records</strong> with
+          easy-to-find information.{" "}
           <strong>The latest Satta Disawar results are given below.</strong>
         </p>
         <p className="text-lg md:text-xl font-bold italic text-amber-400 text-center mt-3">
-          The current Satta Disawer Results.
+          The current Satta King Result 1 Results.
         </p>
       </div>
       {/* === BOTTOM KHAIWAL SECTIONS === */}
       <section className="py-8 px-2 md:px-4">
-        <div className={`max-w-6xl mx-auto ${showSecondSection ? 'grid grid-cols-1 lg:grid-cols-2 gap-6' : 'max-w-md'}`}>
+        <div
+          className={`max-w-6xl mx-auto ${showSecondSection ? "grid grid-cols-1 lg:grid-cols-2 gap-6" : "max-w-md"}`}
+        >
           {/* Khaiwal Section 1 - Always shown */}
           <KhaiwalCard section={khaiwalSection1} colorScheme="violet" />
 
@@ -264,8 +282,13 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
 
       {/* Payment Option Section */}
       <div className="mx-2 md:mx-4 mt-4 bg-slate-800 rounded-lg py-3 px-4 border-2 border-white drop">
-        <p className="text-center text-amber-400 font-bold text-xl">💸 Payment Option 💸</p>
-        <p className="text-center text-white sm:text-lg">PAYTM//BANK TRANSFER//PHONE PAY//GOOGLE PAY =&lt; ⏺️{setting?.paymentNumber || '7894561230'}⏺️</p>
+        <p className="text-center text-amber-400 font-bold text-xl">
+          💸 Payment Option 💸
+        </p>
+        <p className="text-center text-white sm:text-lg">
+          PAYTM//BANK TRANSFER//PHONE PAY//GOOGLE PAY =&lt; ⏺️
+          {setting?.paymentNumber || "7894561230"}⏺️
+        </p>
         <p className="text-center text-white">==========================</p>
         <p className="text-center text-white">==========================</p>
       </div>
@@ -273,7 +296,10 @@ const GamePage = ({ data, setting, disawarData, todayResults = [] }) => {
       {/* Marquee Banner */}
       <div className="mx-2 md:mx-4 mt-4 bg-slate-800 rounded-lg py-3 px-4 overflow-hidden">
         <p className="text-xs md:text-sm text-center text-violet-300 font-semibold leading-relaxed uppercase">
-          SHIRDI DHAM KALIYAR DELHI BAZAR SHRI GANESH FARIDABAD SHAKTI PEETH GHAZIABAD MATHURA GALI DISAWER SATTA FAST RESULT TIPS DISAWER CHART JODI CHART PANEL CHART FIX GAME SATTA RESULT FULL RATE ONLINE GAME PLAY BY APP
+          SHIRDI DHAM KALIYAR DELHI BAZAR SHRI GANESH FARIDABAD SHAKTI PEETH
+          GHAZIABAD MATHURA GALI DISAWER SATTA FAST RESULT TIPS DISAWER CHART
+          JODI CHART PANEL CHART FIX GAME SATTA RESULT FULL RATE ONLINE GAME
+          PLAY BY APP
         </p>
       </div>
     </div>
