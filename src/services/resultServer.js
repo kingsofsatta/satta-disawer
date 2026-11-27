@@ -21,7 +21,8 @@ function getISTDate(daysOffset = 0) {
 
 export async function getTodayResultFromDB() {
     try {
-        await connectDB();
+        await connectDB();  
+        
         const today = getISTDate();
 
         const results = await Result.find({ date: today })
