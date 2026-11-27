@@ -7,8 +7,6 @@ import {
   Home,
   Database,
   CreditCard,
-  SlidersHorizontal,
-  Sparkles,
   Settings,
   Menu,
   X,
@@ -19,12 +17,6 @@ const navLinks = [
   { href: "/admin/update-data", label: "Update Data", icon: Database },
   { href: "/admin/payment-proofs", label: "Payment Proofs", icon: CreditCard },
   { href: "/admin/site-config", label: "Site Config", icon: Settings },
-  { href: "/admin/goodluck-config", label: "Good Luck Config", icon: Sparkles },
-  {
-    href: "/admin/satta-king-firm",
-    label: "Satta King Firm",
-    icon: SlidersHorizontal,
-  },
 ];
 
 export default function AdminLayout({ children }) {

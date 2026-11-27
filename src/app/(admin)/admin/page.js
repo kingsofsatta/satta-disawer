@@ -109,8 +109,6 @@ const AdminDashboard = () => {
     { href: "/admin/update-data", label: "Update Data" },
     { href: "/admin/payment-proofs", label: "Payment Proofs" },
     { href: "/admin/site-config", label: "Site Config" },
-    { href: "/admin/goodluck-config", label: "Good Luck Config" },
-    { href: "/admin/satta-king-firm", label: "Satta King Firm" },
   ];
 
   const indexOfLastResult = currentPage * resultsPerPage;

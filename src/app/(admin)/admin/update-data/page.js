@@ -233,7 +233,7 @@ const UpdateDataPage = () => {
       clearAllFilters();
     } catch (error) {
       console.error("Error saving result:", error);
-      alert("Failed to save result. Please try again.");
+      alert(error.message || "Failed to save result. Please try again.");
     } finally {
       setLoading(false);
     }

@@ -75,10 +75,7 @@ export const metadata = {
       "Get fast and accurate Satta King Result 1 results, charts, and predictions.",
   },
   verification: {
-    // Add your verification codes here when you get them
-    // google: 'your-google-verification-code',
-    // yandex: 'your-yandex-verification-code',
-    // bing: 'your-bing-verification-code',
+    google: "R97_has64OiHTeZkGDgfAbHz5N3jdU03Rp2auNnY8OE",
   },
   alternates: {
     canonical:
@@ -114,10 +111,6 @@ export default async function RootLayout({ children }) {
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap"
-        />
-        <meta
-          name="google-site-verification"
-          content="cWjJpNxBiG9deZ8gPBtHKf_287SB0gI7lcuDAVb-zfE"
         />
         {/* DNS prefetch for external origins */}
         <link rel="dns-prefetch" href="//pagead2.googlesyndication.com" />

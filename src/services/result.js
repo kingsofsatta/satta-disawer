@@ -151,7 +151,9 @@ export async function getYearlyResults(gameKey, year) {
 // ==================== ADMIN FUNCTIONS ====================
 export async function getAllResultsWithMeta() {
   try {
-    const response = await fetch(`${API_BASE}/api/results`);
+    const response = await fetch(`${API_BASE}/api/results`, {
+      cache: 'no-store',
+    });
     if (!response.ok) return [];
     return await response.json();
   } catch (error) {
@@ -193,7 +195,8 @@ export async function updateResult(id, data) {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to update result');
+      const errorData = await response.json();
+      throw new Error(errorData.errors?.[0] || errorData.error || 'Failed to update result');
     }
 
     return await response.json();

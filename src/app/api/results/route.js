@@ -98,6 +98,7 @@ export async function POST(request) {
         const normalizedData = {
             ...data,
             game: normalizeGameKey(data.game),
+            resultNumber: String(data.resultNumber).trim(),
             waitingGame: getWaitingGameByISTTime(),
         };
 

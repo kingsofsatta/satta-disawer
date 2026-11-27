@@ -1,3 +1,4 @@
+import { applyLinkedSettings } from "@/utils/linkedSiteSettings.mjs";
 // Server-side settings service - uses direct database access
 import { connectDB } from "@/lib/db";
 import Settings from "@/models/Settings";
@@ -13,7 +14,7 @@ export async function getSettingsFromDB() {
     }
 
     // Convert MongoDB _id to string for serialization
-    return JSON.parse(JSON.stringify(settings));
+    return applyLinkedSettings(JSON.parse(JSON.stringify(settings)), "disawer");
   } catch (error) {
     console.error("Error fetching settings from DB:", error);
     return null;

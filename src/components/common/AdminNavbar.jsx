@@ -5,7 +5,7 @@ import { ArrowLeft, Settings as SettingsIcon, LogOut } from "lucide-react";
 
 const AdminNavbar = ({
   title = "Site Configuration",
-  subtitle = "Manage Good Luck and Satta King Firm site settings",
+  subtitle = "Manage site settings",
   backHref = "/admin",
 }) => {
   return (
@@ -41,20 +41,6 @@ const AdminNavbar = ({
             >
               <span className="mr-1 lg:mr-2">💳</span>
               <span>Payment Proofs</span>
-            </Link>
-            <Link
-              href="/admin/goodluck-config"
-              className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
-            >
-              <SettingsIcon size={16} className="mr-1 lg:mr-2" />
-              Good Luck Config
-            </Link>
-            <Link
-              href="/admin/satta-king-firm"
-              className="flex items-center text-black/80 hover:text-black px-3 py-2 rounded-lg hover:bg-black/10 transition-colors text-sm lg:text-base whitespace-nowrap"
-            >
-              <SettingsIcon size={16} className="mr-1 lg:mr-2" />
-              Satta King Firm
             </Link>
             <button
               onClick={() => {

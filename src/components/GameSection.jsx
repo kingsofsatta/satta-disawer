@@ -23,9 +23,12 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
   const schedule =
     section?.gameSchedule?.length > 0 ? section.gameSchedule : defaultSchedule;
 
-  const contactName = `${section?.contactName} BHAI KHAIWAL` || "KHAIWAL";
-  const whatsappNumber = section?.whatsappNumber || "";
-  const telegramNumber = section?.telegramNumber || "123456789";
+  const name = String(section?.contactName || "KHAIWAL").trim();
+  const contactName = /khaiwal/i.test(name) ? name : `${name} BHAI KHAIWAL`;
+  const digits = String(section?.whatsappNumber || "").replace(/\D/g, "");
+  const whatsappNumber = digits.length === 10 ? `91${digits}` : digits;
+  const telegramNumber = String(section?.telegramNumber || "").trim();
+  const telegramLink = /^https?:\/\//i.test(telegramNumber) ? telegramNumber : `https://t.me/${telegramNumber.replace(/^@/, "")}`;
   const rate = section?.rate || "";
 
   const gradientClass =
@@ -73,7 +76,7 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
       <div className="flex flex-col gap-3 text-center">
         <Link
           target="_blank"
-          href={`https://wa.me/+91${whatsappNumber}`}
+          href={`https://wa.me/${whatsappNumber}`}
           className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 btn-glow"
         >
           <span>
@@ -95,7 +98,7 @@ const KhaiwalCard = ({ section, colorScheme = "violet" }) => {
         {telegramNumber && (
           <Link
             target="_blank"
-            href={`https://t.me/${telegramNumber}`}
+            href={telegramLink}
             className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 btn-glow"
           >
             <span>
