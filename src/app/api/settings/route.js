@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { connectDB } from "@/lib/db";
 import Settings from "@/models/Settings";
 
@@ -43,6 +44,7 @@ export async function PUT(request) {
 
         // Fetch the updated document
         const settings = await collection.findOne({});
+        revalidatePath("/", "page");
 
         return NextResponse.json(settings);
     } catch (error) {

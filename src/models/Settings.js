@@ -45,6 +45,25 @@ const settingsSchema = new mongoose.Schema(
       type: String,
       default: "Satta King Result 1 Satta",
     },
+    homepageTitle: {
+      type: String,
+      trim: true,
+      maxlength: 180,
+      default: "Satta King Result 1 Today {date} | sattakingresult1.com",
+    },
+    metaTitle: {
+      type: String,
+      trim: true,
+      maxlength: 180,
+      default: "Satta King Winning Result {date}",
+    },
+    metaDescription: {
+      type: String,
+      trim: true,
+      maxlength: 320,
+      default:
+        "Check fast Satta King results for {day}, {date}. Get live updates for Gali, Faridabad, Ghaziabad & Delhi Bazar. View today's winning numbers live!",
+    },
 
     // Site 1 individual fields (backward compatibility)
     site1_contactName: String,

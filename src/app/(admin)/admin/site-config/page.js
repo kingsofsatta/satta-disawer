@@ -16,6 +16,9 @@ const SiteConfigPage = () => {
   });
 
   const [siteConfig, setSiteConfig] = useState({
+    homepageTitle: "",
+    metaTitle: "",
+    metaDescription: "",
     // Legacy fields for backward compatibility
     site1_contactName: "",
     site1_whatsappNumber: "",
@@ -61,6 +64,14 @@ const SiteConfigPage = () => {
       const config = await getSettings();
       if (config) {
         setSiteConfig({
+          homepageTitle:
+            config.homepageTitle ||
+            "Satta King Result 1 Today {date} | sattakingresult1.com",
+          metaTitle:
+            config.metaTitle || "Satta King Winning Result {date}",
+          metaDescription:
+            config.metaDescription ||
+            "Check fast Satta King results for {day}, {date}. Get live updates for Gali, Faridabad, Ghaziabad & Delhi Bazar. View today's winning numbers live!",
           site1_contactName:
             config.site1_contactName || config.contactName || "",
           site1_whatsappNumber:
@@ -158,6 +169,15 @@ const SiteConfigPage = () => {
   };
 
   const handleConfigSave = async () => {
+    if (
+      !siteConfig.homepageTitle?.trim() ||
+      !siteConfig.metaTitle?.trim() ||
+      !siteConfig.metaDescription?.trim()
+    ) {
+      alert("Homepage title, meta title, and meta description are required.");
+      return;
+    }
+
     setConfigLoading(true);
     try {
       // Sync legacy fields with khaiwal sections for backward compatibility
@@ -423,6 +443,72 @@ const SiteConfigPage = () => {
           <div className="mb-6 p-6 bg-white/10 rounded-lg border border-white/20">
             <h4 className="text-white text-xl mb-4">Global Settings</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="md:col-span-2">
+                <label className="block text-white/80 text-sm font-medium mb-2">
+                  Main Homepage Title
+                </label>
+                <input
+                  type="text"
+                  required
+                  maxLength={180}
+                  value={siteConfig.homepageTitle || ""}
+                  onChange={(e) =>
+                    setSiteConfig({
+                      ...siteConfig,
+                      homepageTitle: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                  placeholder="Satta King Result 1 Today {date} | sattakingresult1.com"
+                  disabled={configLoading}
+                />
+                <p className="mt-1.5 text-xs text-white/50">
+                  Shown as the large homepage heading. Use {"{date}"}, {"{day}"}, or {"{year}"} for automatic values.
+                </p>
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-white/80 text-sm font-medium mb-2">
+                  Meta Title
+                </label>
+                <input
+                  type="text"
+                  required
+                  maxLength={180}
+                  value={siteConfig.metaTitle || ""}
+                  onChange={(e) =>
+                    setSiteConfig({ ...siteConfig, metaTitle: e.target.value })
+                  }
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                  placeholder="Satta King Winning Result {date}"
+                  disabled={configLoading}
+                />
+                <p className="mt-1.5 text-xs text-white/50">
+                  {(siteConfig.metaTitle || "").length}/180 characters. Use {"{date}"}, {"{day}"}, or {"{year}"} for automatic values.
+                </p>
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-white/80 text-sm font-medium mb-2">
+                  Meta Description
+                </label>
+                <textarea
+                  required
+                  maxLength={320}
+                  rows={3}
+                  value={siteConfig.metaDescription || ""}
+                  onChange={(e) =>
+                    setSiteConfig({
+                      ...siteConfig,
+                      metaDescription: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 resize-y"
+                  placeholder="Describe the homepage for search engines"
+                  disabled={configLoading}
+                />
+                <p className="mt-1.5 text-xs text-white/50">
+                  {(siteConfig.metaDescription || "").length}/320 characters. This is used by search and social previews.
+                </p>
+              </div>
               <div>
                 <label className="block text-white/80 text-sm font-medium mb-2">
                   Payment Number

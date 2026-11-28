@@ -3,6 +3,10 @@ import { applyLinkedSettings } from "@/utils/linkedSiteSettings.mjs";
 import { connectDB } from "@/lib/db";
 import Settings from "@/models/Settings";
 import { defaultGameSchedule } from "@/utils/defaultGameSchedule";
+import {
+  applyHomepagePlaceholders,
+  mergeHomepageSettings,
+} from "@/utils/homepageSettings";
 
 export async function getSettingsFromDB() {
   try {
@@ -22,6 +26,7 @@ export async function getSettingsFromDB() {
 }
 
 export function buildSiteConfig(settings) {
+  const homepageSettings = mergeHomepageSettings(settings);
   // Build khaiwal sections from settings
   const khaiwalSection1 = settings?.khaiwalSection1 || {
     enabled: true,
@@ -48,6 +53,7 @@ export function buildSiteConfig(settings) {
   // Site configuration with khaiwal sections
   return {
     siteName: "Satta King Result 1 Satta",
+    homepageTitle: applyHomepagePlaceholders(homepageSettings.homepageTitle),
     contactName: settings?.site2_contactName || settings?.contactName || "",
     whatsappNumber:
       settings?.site2_whatsappNumber || settings?.whatsappNumber || "",

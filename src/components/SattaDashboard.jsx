@@ -138,10 +138,8 @@ const SattaDashboard = ({
           </div>
           <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 py-2 sm:py-5 shadow-lg shadow-amber-500/20">
             <h1 className="sm:text-3xl text-2xl px-3 lg:text-4xl text-slate-900 font-black tracking-tight">
-              Satta King Result 1  Today {formattedDate} |{" "}
-              <Link href="https://www.sattakingresult1.com">
-                sattakingresult1.com
-              </Link>
+              {setting?.homepageTitle ||
+                `Satta King Result 1 Today ${formattedDate} | sattakingresult1.com`}
             </h1>
           </div>
 

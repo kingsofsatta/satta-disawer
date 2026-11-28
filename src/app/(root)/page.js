@@ -11,6 +11,10 @@ import {
 import { getSettingsFromDB, buildSiteConfig } from "@/services/settingsServer";
 import { getExtraGames } from "@/services/extraGameService";
 import { getExternalGames } from "@/services/externalGameService";
+import {
+  applyHomepagePlaceholders,
+  mergeHomepageSettings,
+} from "@/utils/homepageSettings";
 
 const normalizeGameName = (name) =>
   String(name || "")
@@ -40,28 +44,15 @@ const mergeExternalGames = (extraGames, externalGames) => {
 
 // Generate dynamic metadata
 export async function generateMetadata() {
-  const currentDate = new Date();
-  const day = currentDate.getDate();
-  const dayWithSuffix =
-    day +
-    (day === 1 || day === 21 || day === 31
-      ? "st"
-      : day === 2 || day === 22
-        ? "nd"
-        : day === 3 || day === 23
-          ? "rd"
-          : "th");
-  const monthName = currentDate.toLocaleDateString("en-GB", { month: "long" });
-  const year = currentDate.getFullYear();
-  const dayName = currentDate.toLocaleDateString("en-GB", { weekday: "long" });
-
-  const formattedDate = `${dayWithSuffix} ${monthName} ${year}`;
-
-  const title = `Satta King Winning Result ${formattedDate}`;
-  const description = `Check fast Satta King results for ${dayName}, ${day} ${monthName} ${year}. Get live updates for Gali, Faridabad, Ghaziabad & Delhi Bazar. View today's winning numbers live!`;
+  const settings = await getSettingsFromDB();
+  const homepageSettings = mergeHomepageSettings(settings);
+  const title = applyHomepagePlaceholders(homepageSettings.metaTitle);
+  const description = applyHomepagePlaceholders(
+    homepageSettings.metaDescription,
+  );
 
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords: [
       "Satta King Result 1 today",
